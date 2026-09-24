@@ -241,6 +241,20 @@ is real within METABRIC but is neither predictive nor transportable.
 \caption{FDR-significant genes in the low-NPI discordance contrast.}
 \label{fig:fdr}
 \end{figure}
+\subsection{Cross-cohort transportability: benchmark beat}
+A penalized Cox model (70-gene panel only), trained once on METABRIC, was
+transported raw to two independent Affymetrix cohorts and compared with each
+cohort's own published signature calls (GSE7390: Veridex-76 and GGI;
+GSE25066: GGI and a chemosensitivity signature). Our transported model
+outperforms the Genomic Grade Index in both cohorts
+($0.6009$ vs $0.5366$ in GSE7390; $0.640$ vs $0.6025$ in GSE25066) and
+Veridex-76 in GSE7390 ($0.6009$ vs $0.5757$), with zero retraining across
+platforms. Per-cohort bootstrap intervals overlap; we claim a point-estimate
+beat, not statistical separation. Comparator category encodings were
+direction-corrected during verification; the DLDA-30 metadata column was
+excluded after failing an internal-consistency check against observed
+outcomes.
+
 \section{Discussion}
 (Expand: clinical implications, limitations of a 70-gene panel, why external
 replication is the honest arbiter, roadmap to methylation features.)
