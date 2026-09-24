@@ -1,0 +1,18 @@
+{
+  "cohort": "GSE2034",
+  "n": 286,
+  "events": 69,
+  "endpoint": "bone_relapse",
+  "genes_mapped": [
+    "CEP55",
+    "CDC20",
+    "BIRC5",
+    "KIF2C",
+    "MELK",
+    "PTTG1",
+    "AKT1",
+    "NDC80"
+  ],
+  "sig_auc": 0.5567,
+  "ttest_p": 0.5145610544938126
+}
