@@ -289,3 +289,25 @@ def ols_search(query, ontology="efo", rows=5):
         d = json.loads(r.read().decode())
     return {"query": query, "ontology": ontology,
             "terms": [{"id": t.get("obo_id"), "label": t.get("label")} for t in d["response"]["docs"]]}
+
+
+def gtex_median_expression(symbol, tissue="Breast_Mammary_Tissue"):
+    """GTEx API v2: median TPM in a normal tissue for a gene symbol.
+    Resolves versioned gencodeId via reference/gene first."""
+    import urllib.request as u
+    from urllib.parse import quote
+    def _get(url):
+        with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+            return json.loads(r.read().decode())
+    ref = _get(f"https://gtexportal.org/api/v2/reference/gene?geneId={quote(symbol)}&format=json")
+    rec = [g for g in ref.get("data", []) if g.get("geneSymbolUpper") == symbol.upper()]
+    if not rec:
+        raise KeyError(symbol)
+    gid = rec[0]["gencodeId"]
+    expr = _get("https://gtexportal.org/api/v2/expression/medianGeneExpression"
+                f"?gencodeId={gid}&tissueSiteDetailId={tissue}"
+                "&datasetId=gtex_v8&format=json")
+    rows = expr.get("data", [])
+    med = rows[0]["median"] if rows else None
+    return {"symbol": symbol, "gencode_id": gid, "tissue": tissue,
+            "median_tpm": med, "unit": rows[0]["unit"] if rows else None}

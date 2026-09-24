@@ -242,3 +242,28 @@ def test_ols_search(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.ols_search("breast carcinoma")
     assert out["terms"][0]["id"] == "MONDO:0004989"
+
+
+def test_gtex_median_expression_parses(monkeypatch):
+    from recurscan.external import gtex_median_expression
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payloads = iter([
+        J.dumps({"data": [{"gencodeId": "ENSG00000117399.13",
+                           "geneSymbolUpper": "CDC20"}]}).encode(),
+        J.dumps({"data": [{"median": 1.635, "unit": "TPM",
+                           "tissueSiteDetailId": "Breast_Mammary_Tissue"}]}).encode(),
+    ])
+    monkeypatch.setattr("urllib.request.urlopen",
+                        lambda req, timeout=30: R(next(payloads)))
+    out = gtex_median_expression("CDC20")
+    assert out["gencode_id"] == "ENSG00000117399.13"
+    assert out["median_tpm"] == 1.635
+    assert out["unit"] == "TPM"
