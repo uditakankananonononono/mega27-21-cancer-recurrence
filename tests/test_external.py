@@ -406,3 +406,23 @@ def test_omnipath_interactions_parses(monkeypatch):
     out = omnipath_interactions("CDC20")
     assert out["n_interactions"] == 2
     assert "CCNB1" in out["partners_sample"]
+
+
+def test_biostudies_search_parses(monkeypatch):
+    from recurscan.external import biostudies_search
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"totalHits": 304, "hits": [
+        {"accession": "S-EPMC10090471", "title": "RAI2 biomarker in breast cancer.",
+         "type": "study", "release_date": "2023-01-01"}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = biostudies_search("GSE7390")
+    assert out["total_hits"] == 304
+    assert out["hits"][0]["accession"] == "S-EPMC10090471"

@@ -83,8 +83,11 @@ Staged (client live + tested, cached):
 30. OmniPath REST - CDC20 interaction network: 25 signed edges with APC/C
     subunits, BUB1/BUB1B, cyclins, CDK1 - canonical spindle-checkpoint
     biology recovered (results/external_pull2.json omnipath_cdc20)
+31. EBI BioStudies API - study-index queries for our validation cohorts
+    (GSE7390/GSE25066/METABRIC) (results/external_pull2.json
+    biostudies_queries)
 
-Honest tool count: 38 (31 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
+Honest tool count: 39 (32 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

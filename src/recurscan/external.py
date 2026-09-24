@@ -419,3 +419,18 @@ def omnipath_interactions(symbol, fields="sources"):
                         else x.get("target_genesymbol")) for x in rows})
     return {"symbol": symbol, "n_interactions": len(rows),
             "partners_sample": partners[:8]}
+
+
+def biostudies_search(query, page_size=5):
+    """EBI BioStudies API: study search (accessions + titles)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://www.ebi.ac.uk/biostudies/api/v1/search"
+           f"?query={quote(query)}&pageSize={page_size}")
+    with u.urlopen(u.Request(url, headers={"Accept": "application/json",
+                                           "User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return {"query": query, "total_hits": d.get("totalHits"),
+            "hits": [{"accession": h.get("accession"), "title": (h.get("title") or "")[:100],
+                      "type": h.get("type"), "release_date": h.get("release_date")}
+                     for h in d.get("hits", [])]}
