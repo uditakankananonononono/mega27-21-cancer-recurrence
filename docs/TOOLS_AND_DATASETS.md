@@ -17,7 +17,9 @@ Staged (client live + tested, cached):
 6. Europe PMC REST - recurrence literature corroboration
 7. GEOparse 2.x (installed) - GEO cohort validation route (GSE2034, GSE2990,
    GSE7390, GSE11121, GSE96058 queued for external validation #2+)
-8. Ensembl REST - BLOCKED live (timeouts 9:13 PM; client + tests ready, retry queued)
+8. Ensembl REST - unblocked 11:37 PM: CDC20->ENSG00000117399, BIRC5->ENSG00000089685
+   (protein_coding, verified); CEP55/ANLN lookups 500'd - service flaky,
+   errors recorded (results/external_pull2.json ensembl_r3)
 9. KEGG REST - pathways for R3 signature genes (CEP55=hsa:55165 etc.)
 10. HGNC REST - approved symbols/names
 11. ClinicalTrials.gov API v2 - CDC20-inhibitor trial search
@@ -46,7 +48,7 @@ Staged (client live + tested, cached):
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 26 (18 resources, 9 packages counting lifelines once)
+Honest tool count: 27 (19 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
