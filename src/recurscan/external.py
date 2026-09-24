@@ -145,3 +145,20 @@ def opentargets_target(symbol, size=5):
     return {"ensembl_id": ensembl_id, "symbol": d["approvedSymbol"],
             "top_diseases": [{"name": r2["disease"]["name"], "score": r2["score"]}
                              for r2 in d["associatedDiseases"]["rows"]]}
+
+
+def intact_interactions(query, max_lines=1000):
+    """IntAct via PSICQUIC REST: binary interaction partners (tab25)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = ("https://www.ebi.ac.uk/Tools/webservices/psicquic/intact/webservices"
+           f"/current/search/query/{quote(query)}?format=tab25")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        lines = r.read().decode().strip().split("\n")[:max_lines]
+    pairs = set()
+    for ln in lines:
+        f = ln.split("\t")
+        if len(f) >= 2:
+            pairs.add((f[0].replace("uniprotkb:", ""), f[1].replace("uniprotkb:", "")))
+    return {"query": query, "n_rows": len(lines), "unique_pairs": len(pairs),
+            "partners": sorted({b for a, b in pairs} | {a for a, b in pairs})}

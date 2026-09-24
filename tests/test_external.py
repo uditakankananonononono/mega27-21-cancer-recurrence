@@ -109,3 +109,15 @@ def test_opentargets_target(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(responses)))
     out = ex.opentargets_target("CDC20")
     assert out["ensembl_id"] == "ENSG1" and out["top_diseases"][0]["name"] == "breast carcinoma"
+
+
+def test_intact_interactions(monkeypatch):
+    import recurscan.external as ex
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return b"uniprotkb:Q12834\tuniprotkb:Q9NS23-2\tintact:EBI-1\nuniprotkb:Q12834\tuniprotkb:O76009\tintact:EBI-2"
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.intact_interactions("CDC20 AND taxidA:9606")
+    assert out["n_rows"] == 2 and "Q12834" in out["partners"] and "O76009" in out["partners"]

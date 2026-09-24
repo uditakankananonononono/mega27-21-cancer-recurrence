@@ -24,13 +24,16 @@ Staged (client live + tested, cached):
 12. UCSC Xena hubs - TCGA BRCA clinical matrix access verified
 13. Open Targets GraphQL - CDC20/BIRC5 disease associations
     (results/external_pull2.json opentargets_r3)
+14. IntAct via PSICQUIC REST - human CDC20 (Q12834) binary interactions:
+    185 rows, 80 unique partners incl. CDK1 (P06493) + CCNA2 (P20248)
+    (results/external_pull2.json intact_cdc20)
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 21 (13 resources, 9 packages counting lifelines once)
+Honest tool count: 22 (14 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
