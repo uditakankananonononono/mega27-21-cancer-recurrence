@@ -405,3 +405,17 @@ def civic_genes(symbols):
     nodes = d.get("data", {}).get("genes", {}).get("nodes", [])
     return {"query": list(symbols),
             "genes": [{"symbol": g.get("name"), "entrez_id": g.get("entrezId")} for g in nodes]}
+
+
+def omnipath_interactions(symbol, fields="sources"):
+    """OmniPath REST: signed directed interactions for a gene symbol."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://omnipathdb.org/interactions?genesymbols=1"
+           f"&partners={quote(symbol)}&fields={fields}&format=json")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        rows = json.loads(r.read().decode())
+    partners = sorted({(x.get("source_genesymbol") if x.get("target_genesymbol") == symbol
+                        else x.get("target_genesymbol")) for x in rows})
+    return {"symbol": symbol, "n_interactions": len(rows),
+            "partners_sample": partners[:8]}

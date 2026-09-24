@@ -386,3 +386,23 @@ def test_civic_genes_parses(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
     out = civic_genes(["BIRC5"])
     assert out["genes"] == [{"symbol": "BIRC5", "entrez_id": 332}]
+
+
+def test_omnipath_interactions_parses(monkeypatch):
+    from recurscan.external import omnipath_interactions
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps([
+        {"source_genesymbol": "CCNB1", "target_genesymbol": "CDC20"},
+        {"source_genesymbol": "CDC20", "target_genesymbol": "CDH1"}]).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = omnipath_interactions("CDC20")
+    assert out["n_interactions"] == 2
+    assert "CCNB1" in out["partners_sample"]

@@ -80,8 +80,11 @@ Staged (client live + tested, cached):
     (BIRC5 332, CEP55 55165, PTTG1 9232 - entrez IDs cross-checked vs
     MyGene, all match); 7 absent = not clinical-variant genes, honest empty
     (results/external_pull2.json civic_r3)
+30. OmniPath REST - CDC20 interaction network: 25 signed edges with APC/C
+    subunits, BUB1/BUB1B, cyclins, CDK1 - canonical spindle-checkpoint
+    biology recovered (results/external_pull2.json omnipath_cdc20)
 
-Honest tool count: 37 (30 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
+Honest tool count: 38 (31 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
