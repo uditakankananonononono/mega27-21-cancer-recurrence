@@ -1,0 +1,29 @@
+{
+  "cohort": "GSE7390",
+  "n": 196,
+  "cut_days": 1826.0,
+  "note": "node-negative cohort; node dropped (zero variance)",
+  "early_events": 56,
+  "late_events": 33,
+  "late_n": 133,
+  "early": {
+    "er": [
+      -0.301,
+      0.2388
+    ],
+    "npi": [
+      0.176,
+      0.2821
+    ]
+  },
+  "late": {
+    "er": [
+      -0.01,
+      0.9787
+    ],
+    "npi": [
+      -0.19,
+      0.355
+    ]
+  }
+}
