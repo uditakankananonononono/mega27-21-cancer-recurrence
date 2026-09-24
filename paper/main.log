@@ -208,7 +208,23 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count280
 \l__pdf_internal_box=\box52
 )
-(./main.aux)
+(./main.aux
+
+! Package natbib Error: Bibliography not compatible with author-year citations.
+
+(natbib)                Press <return> to continue in numerical citation style.
+
+
+See the natbib package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.43 ...mand\NAT@force@numbers{}\NAT@force@numbers
+                                                  
+Check the bibliography entries for non-compliant syntax,
+or select author-year BibTeX style, e.g. plainnat
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
@@ -275,28 +291,141 @@ LaTeX Font Info:    ... okay on input line 18.
 \everyMPtoPDFconversion=\toks30
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
+ 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
+ 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
+ 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
+ 19.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 19.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 19.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 19.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 25.
+ (./main.toc
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 3.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\tf@toc=\write3
+\openout3 = `main.toc'.
+
+ [2] [3]
+
+LaTeX Warning: Reference `sec:results' on page 4 undefined on input line 131.
+
+[4]
+<figures/fig1_benchmark_cindex.png, id=28, 505.89pt x 303.534pt>
+File: figures/fig1_benchmark_cindex.png Graphic file (type png)
+<use figures/fig1_benchmark_cindex.png>
+Package pdftex.def Info: figures/fig1_benchmark_cindex.png  used on input line 
+206.
+(pdftex.def)             Requested size: 385.02547pt x 231.01706pt.
+<figures/fig2_km_risk_terciles.png, id=30, 469.755pt x 303.534pt>
+File: figures/fig2_km_risk_terciles.png Graphic file (type png)
+<use figures/fig2_km_risk_terciles.png>
+Package pdftex.def Info: figures/fig2_km_risk_terciles.png  used on input line 
+212.
+(pdftex.def)             Requested size: 362.37569pt x 234.148pt.
 
 
-! LaTeX Error: File `infwarerr.sty' not found.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
 
-Enter file name: 
-! Emergency stop.
-<read *> 
-         
-l.178   \RequirePackage{infwarerr}[2007/09/09]
-                                              ^^M
-*** (cannot \read from terminal in nonstop modes)
+LaTeX Warning: `h' float specifier changed to `ht'.
 
- 
+[5]
+<figures/fig3_npi_discordant_fdr.png, id=34, 469.755pt x 303.534pt>
+File: figures/fig3_npi_discordant_fdr.png Graphic file (type png)
+<use figures/fig3_npi_discordant_fdr.png>
+Package pdftex.def Info: figures/fig3_npi_discordant_fdr.png  used on input lin
+e 248.
+(pdftex.def)             Requested size: 362.37569pt x 234.148pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/fig5_transport.png, id=35, 505.89pt x 260.172pt>
+File: figures/fig5_transport.png Graphic file (type png)
+<use figures/fig5_transport.png>
+Package pdftex.def Info: figures/fig5_transport.png  used on input line 274.
+(pdftex.def)             Requested size: 430.31812pt x 221.30998pt.
+
+Overfull \hbox (0.666pt too wide) in paragraph at lines 253--279
+\OT1/ptm/m/n/12 ($\OT1/ztmcm/m/n/12 0\OML/ztmcm/m/it/12 :\OT1/ztmcm/m/n/12 6009
+$ \OT1/ptm/m/n/12 vs $\OT1/ztmcm/m/n/12 0\OML/ztmcm/m/it/12 :\OT1/ztmcm/m/n/12 
+5757$\OT1/ptm/m/n/12 ), and tu-mor grade in the node-negative GSE11121 co-hort 
+($\OT1/ztmcm/m/n/12 0\OML/ztmcm/m/it/12 :\OT1/ztmcm/m/n/12 6979$ \OT1/ptm/m/n/1
+2 vs $\OT1/ztmcm/m/n/12 0\OML/ztmcm/m/it/12 :\OT1/ztmcm/m/n/12 6294$\OT1/ptm/m/
+n/12 ),
+ []
+
+[6 <./figures/fig1_benchmark_cindex.png>] [7 <./figures/fig2_km_risk_terciles.p
+ng>] [8 <./figures/fig3_npi_discordant_fdr.png>] [9 <./figures/fig5_transport.p
+ng>] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 3487 strings out of 480247
- 50568 string characters out of 5896151
- 337803 words of memory out of 5000000
- 21435 multiletter control sequences out of 15000+600000
- 470064 words of font info for 30 fonts, out of 8000000 for 9000
+ 3788 strings out of 480247
+ 55586 string characters out of 5896151
+ 352672 words of memory out of 5000000
+ 21654 multiletter control sequences out of 15000+600000
+ 521382 words of font info for 140 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,1n,62p,221b,92s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
+ 55i,12n,62p,280b,242s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/r
+sfs10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on main.pdf (9 pages, 376059 bytes).
+PDF statistics:
+ 109 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+
