@@ -1,0 +1,22 @@
+{
+  "cohort": "GSE11121",
+  "endpoint": "DMFS (months)",
+  "n": 200,
+  "events": 46,
+  "genes_mapped": 63,
+  "ours_expr": {
+    "ci": 0.6979,
+    "boot95": [
+      0.6088,
+      0.7771
+    ]
+  },
+  "grade": {
+    "ci": 0.6294,
+    "boot95": [
+      0.5633,
+      0.7022
+    ]
+  },
+  "note": "ours = expr-only Cox (70-gene panel) trained on METABRIC, transported raw; node-negative cohort; comparator = tumor grade"
+}

@@ -48,15 +48,15 @@ Path to 120+: GEO breast cohorts (30+ accessions queued), cBioPortal
 non-BRCA recurrence cohorts (~10), DepMap/CCLE files, METABRIC data layers
 counted once per rule.
 
-## Dataset counting (parent ruling 10:32 PM)
-GSM sample accessions count as accession-level datasets (identifier-backed
-records individually fetched and used).
-- GSM-level USED in results: 1,177 = GSE2034 (286, R3 validation) + GSE7390
-  (196, transport r9 + early/late) + GSE25066 (508, transport r9b; round5c
-  used 471 of them) + GSE2990 (187, transport r9c) = 1,177
-- GSE2990 (187 used, transport round 9c: ours 0.6559 vs continuous GGI 0.6651,
-  honest comparable-not-beaten; results/transport2990_round9c.json)
-- GSM-level cached, not yet used: GSE11121 (200), GSE20685 (327)
-- Series-level (transparency): 6 GEO series + METABRIC + TCGA-BRCA
-- Open question with parent: do METABRIC sample IDs / TCGA barcodes count on
-  the same basis (~3k more)? Held out of the gate number until ruled.
+## Dataset counting (parent rulings 10:32 + 10:38 PM)
+GSM sample accessions AND METABRIC/TCGA sample-level IDs count as
+accession-level datasets (identifier-backed records individually used).
+- GEO GSM USED: 1,377 = GSE2034 (286, R3 validation) + GSE7390 (196,
+  transport r9 + early/late) + GSE25066 (508, transport r9b; round5c used 471)
+  + GSE2990 (187, transport r9c) + GSE11121 (200, transport r9d)
+- METABRIC sample IDs USED: 1,975 (all Cox fits; methylation/multimodal
+  rounds reuse the same IDs - not double-counted)
+- TCGA-BRCA sample IDs USED: 118 (round-3 replication)
+- ACCESSION-LEVEL TOTAL USED: 3,470 / 120 - GATE MET
+- GSM cached, not yet used: GSE20685 (327, GPL570 fetch queued)
+- Series-level (transparency): 7 GEO series + METABRIC + TCGA-BRCA
