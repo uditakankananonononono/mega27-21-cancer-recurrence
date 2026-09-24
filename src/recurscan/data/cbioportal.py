@@ -12,6 +12,7 @@ import urllib.request
 API = "https://www.cbioportal.org/api"
 STUDY = "brca_metabric"
 EXPR_PROFILE = "brca_metabric_mrna_median_all_sample_Zscores"
+METH_PROFILE = "brca_metabric_methylation_promoters_rrbs"
 CNA_PROFILE = "brca_metabric_cna"
 MUT_PROFILE = "brca_metabric_mutations"
 
@@ -172,3 +173,16 @@ def fetch_mutations(entrez_ids, sample_ids):
         return [{"entrezGeneId": r["entrezGeneId"], "sampleId": r["sampleId"],
                  "mutationType": r.get("mutationType", "")} for r in rows]
     return _cached("mutations.json", _fetch)
+
+
+def fetch_methylation(entrez_ids, sample_ids):
+    """Promoter methylation (RRBS) values for the panel genes."""
+    def _fetch():
+        rows = []
+        for i in range(0, len(sample_ids), 500):
+            chunk = sample_ids[i:i + 500]
+            rows.extend(_request(
+                f"/molecular-profiles/{METH_PROFILE}/molecular-data/fetch",
+                payload={"entrezGeneIds": entrez_ids, "sampleIds": chunk}))
+        return rows
+    return _cached("methylation.json", _fetch)
