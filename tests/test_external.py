@@ -426,3 +426,24 @@ def test_biostudies_search_parses(monkeypatch):
     out = biostudies_search("GSE7390")
     assert out["total_hits"] == 304
     assert out["hits"][0]["accession"] == "S-EPMC10090471"
+
+
+def test_ebi_proteins_variants_counts_clinical(monkeypatch):
+    from recurscan.external import ebi_proteins_variants
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"features": [
+        {"begin": "1", "clinicalSignificances": [{"type": "Pathogenic"}]},
+        {"begin": "2", "clinicalSignificances": [{"type": "Benign"}]},
+        {"begin": "3"}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=40: R(payload))
+    out = ebi_proteins_variants("O15392")
+    assert out["n_features"] == 3
+    assert out["clinical_significance_counts"] == {"Pathogenic": 1, "Benign": 1}

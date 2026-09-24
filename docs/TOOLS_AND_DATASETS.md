@@ -86,8 +86,13 @@ Staged (client live + tested, cached):
 31. EBI BioStudies API - study-index queries for our validation cohorts
     (GSE7390/GSE25066/METABRIC) (results/external_pull2.json
     biostudies_queries)
+32. EBI Proteins variation API - variant features for all 10 R3 proteins
+    (UniProt accessions verified via entryName gene match): e.g. CDC20 557
+    features (9 Pathogenic), ANLN 1,215 (3 Pathogenic), BIRC5 1 (Benign) -
+    germline landscape vs somatic-driver story
+    (results/external_pull2.json ebi_variation_r3)
 
-Honest tool count: 39 (32 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
+Honest tool count: 40 (33 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling) - GATE MET
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

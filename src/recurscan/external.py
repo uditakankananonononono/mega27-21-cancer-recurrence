@@ -434,3 +434,20 @@ def biostudies_search(query, page_size=5):
             "hits": [{"accession": h.get("accession"), "title": (h.get("title") or "")[:100],
                       "type": h.get("type"), "release_date": h.get("release_date")}
                      for h in d.get("hits", [])]}
+
+
+def ebi_proteins_variants(accession, size=400):
+    """EBI Proteins variation API: variant features for a UniProt accession."""
+    import urllib.request as u
+    url = f"https://www.ebi.ac.uk/proteins/api/variation/{accession}?size={size}"
+    with u.urlopen(u.Request(url, headers={"Accept": "application/json",
+                                           "User-Agent": "recurscan/0.1"}), timeout=40) as r:
+        d = json.loads(r.read().decode())
+    feats = d.get("features", [])
+    clin = {}
+    for f in feats:
+        for c in (f.get("clinicalSignificances") or []):
+            t = c.get("type", "unknown")
+            clin[t] = clin.get(t, 0) + 1
+    return {"accession": accession, "n_features": len(feats),
+            "clinical_significance_counts": clin}
