@@ -1,0 +1,78 @@
+{
+  "chemo": {
+    "n": 410,
+    "events": 220,
+    "heldout_cindex": 0.4965,
+    "top_predictors": [
+      [
+        "LYMPH_NODES_EXAMINED_POSITIVE",
+        0.05,
+        0.0014
+      ],
+      [
+        "RADIO_THERAPY=YES",
+        -0.466,
+        0.0156
+      ],
+      [
+        "MDM2",
+        0.236,
+        0.0178
+      ]
+    ]
+  },
+  "hormone": {
+    "n": 1024,
+    "events": 386,
+    "heldout_cindex": 0.7249,
+    "top_predictors": [
+      [
+        "LYMPH_NODES_EXAMINED_POSITIVE",
+        0.082,
+        0.0
+      ],
+      [
+        "TUMOR_SIZE",
+        0.013,
+        0.001
+      ],
+      [
+        "NPI",
+        0.176,
+        0.0053
+      ],
+      [
+        "ESR1",
+        -0.288,
+        0.0117
+      ],
+      [
+        "MIA",
+        0.242,
+        0.0252
+      ],
+      [
+        "VEGFA",
+        0.138,
+        0.0419
+      ]
+    ]
+  },
+  "neither": {
+    "n": 541,
+    "events": 194,
+    "heldout_cindex": 0.6398,
+    "top_predictors": [
+      [
+        "BAG1",
+        -0.173,
+        0.0255
+      ],
+      [
+        "NUF2",
+        0.183,
+        0.0347
+      ]
+    ]
+  }
+}
