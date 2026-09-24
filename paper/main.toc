@@ -1,0 +1,20 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {section}{\numberline {2}Data}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Cohort}{3}{}%
+\contentsline {subsection}{\numberline {2.2}External replication cohort}{3}{}%
+\contentsline {section}{\numberline {3}Methods}{3}{}%
+\contentsline {subsection}{\numberline {3.1}The Cox model and its partial likelihood}{3}{}%
+\contentsline {paragraph}{Vectorized evaluation.}{4}{}%
+\contentsline {subsection}{\numberline {3.2}Concordance index}{4}{}%
+\contentsline {subsection}{\numberline {3.3}Deep Cox models}{4}{}%
+\contentsline {subsection}{\numberline {3.4}Graph Cox model}{4}{}%
+\contentsline {subsection}{\numberline {3.5}Evaluation protocol}{4}{}%
+\contentsline {subsection}{\numberline {3.6}Discovery protocol and locked gates}{5}{}%
+\contentsline {section}{\numberline {4}Experiments and Results}{5}{}%
+\contentsline {subsection}{\numberline {4.1}Benchmark}{5}{}%
+\contentsline {subsection}{\numberline {4.2}Analysis: why deep models trail}{5}{}%
+\contentsline {subsection}{\numberline {4.3}Discovery round 1: biology modules and graph propagation}{6}{}%
+\contentsline {subsection}{\numberline {4.4}Discovery round 2: multi-omic features}{6}{}%
+\contentsline {subsection}{\numberline {4.5}Discovery round 3: clinical-risk discordance}{6}{}%
+\contentsline {section}{\numberline {5}Discussion}{6}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{6}{}%

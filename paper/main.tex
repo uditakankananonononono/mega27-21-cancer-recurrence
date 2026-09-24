@@ -1,0 +1,243 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{mathptmx}           % Times text + math
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+
+\usepackage{natbib}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\title{\textbf{RecurScan: Benchmarked Deep and Graph Learning for Breast Cancer
+Recurrence Prediction on METABRIC, with an Externally Tested Discovery
+Protocol for Clinical-Risk Discordance}}
+\author{Udita Phookan \\ \small Built and verified with the Instinct research fleet}
+\date{September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+\noindent We present a fully reproducible benchmark of five survival models for
+breast-cancer recurrence prediction on the METABRIC cohort (1{,}975 primary
+tumors, 800 recurrence events; 70-gene expression panel and 17 clinical
+covariates retrieved live from cBioPortal): penalized Cox proportional hazards
+on clinical covariates, Cox on clinical$+$expression, a DeepSurv network, a
+one-dimensional convolutional Cox network over the gene axis, and a graph
+convolutional Cox network over a patient-similarity graph. All models are
+implemented from first principles (including a vectorized Breslow partial
+likelihood verified against \texttt{lifelines} to $<10^{-3}$) and evaluated on
+locked stratified splits over five seeds with paired bootstrap confidence
+intervals. Penalized Cox on clinical$+$expression achieves the strongest
+held-out concordance, $0.6801 \pm 0.0052$; deep models trail
+($0.641$--$0.660$), an honest negative we analyze. The fitted baseline
+stratifies held-out patients into risk terciles separated at
+log-rank $p = 7.9\times10^{-16}$. We then apply a pre-registered discovery
+protocol to clinical-risk discordance: among low-NPI patients, early recurrers
+($\le 60$ months) show significant up-regulation of eleven mitotic genes
+(Benjamini--Hochberg $q$ down to $8.8\times10^{-5}$), but the signature fails
+both multivariable prediction (nested-CV AUC $= 0.50$) and external
+replication on TCGA-BRCA ($p = 0.36$), and is reported as a bounded negative.
+All code, tests, data snapshots, and figures are released with the paper.
+\end{abstract}
+\tableofcontents
+\newpage
+\section{Introduction}
+Recurrence risk stratification in primary breast cancer guides adjuvant
+therapy intensity. Clinical scores such as the Nottingham Prognostic Index
+(NPI) and transcriptomic signatures such as PAM50 are standard, yet a
+residual group of clinically low-risk patients recurs early. This paper does
+three things: (i) it establishes a rigorously verified benchmark of five
+survival models on the METABRIC cohort, from penalized Cox to graph neural
+networks; (ii) it applies a pre-registered discovery protocol to
+clinical-risk discordance, with locked gates, paired bootstrap statistics and
+external replication; and (iii) it reports outcomes exactly as they landed,
+including three discovery angles that failed their gates.
+
+\section{Data}
+\subsection{Cohort}
+All data were retrieved live from the cBioPortal public API (study
+\texttt{brca\_metabric}; Pereira et al.\ 2016, Curtis et al.\ 2012). Of 2{,}509
+samples, 1{,}975 have a valid relapse-free survival (RFS) endpoint, a
+70-gene mRNA z-score panel (PAM50 plus core drivers), and 17 clinical
+covariates (age, tumor size, grade, positive lymph nodes, NPI, ER/PR/HER2
+status, PAM50/claudin subtype, treatments). The endpoint is RFS: 800 events
+(40.5\%), median follow-up 140.9 months among censored patients.
+\subsection{External replication cohort}
+For replication we use TCGA-BRCA (study
+\texttt{brca\_tcga\_pan\_can\_atlas\_2018}), with disease-free survival (DFS)
+endpoints and TNM staging, restricting to the molecular-profiled subset
+($n = 1{,}084$).
+
+\section{Methods}
+\subsection{The Cox model and its partial likelihood}
+Let $T_i$ be the observed time and $\delta_i \in \{0,1\}$ the event indicator
+for patient $i$, with covariates $x_i \in \mathbb{R}^p$. The Cox proportional
+hazards model posits
+\begin{equation}
+  \lambda(t \mid x_i) = \lambda_0(t)\, \exp(\eta_i), \qquad \eta_i = x_i^\top \beta .
+\end{equation}
+\begin{definition}[Risk set]
+$\mathcal{R}(t) = \{ j : T_j \ge t \}$, the patients still under observation
+just before time $t$.
+\end{definition}
+Conditioning on the event times and margins, the Breslow partial
+log-likelihood is
+\begin{equation}
+  \ell(\beta) = \sum_{i:\, \delta_i = 1} \left[ \eta_i
+    - \log \sum_{j \in \mathcal{R}(T_i)} \exp(\eta_j) \right]. \label{eq:pll}
+\end{equation}
+\begin{proposition}[Score of the partial likelihood]
+\begin{equation}
+  \frac{\partial \ell}{\partial \eta_k}
+  = \delta_k - \sum_{i:\,\delta_i=1,\, T_i \le T_k}
+    \frac{\exp(\eta_k)}{\sum_{j \in \mathcal{R}(T_i)} \exp(\eta_j)} .
+\end{equation}
+\end{proposition}
+\begin{proof}[Proof sketch]
+Differentiate \eqref{eq:pll}: $\eta_k$ appears linearly in the event terms,
+and inside every risk-set sum with $T_i \le T_k$; the derivative of
+$-\log\sum_j e^{\eta_j}$ contributes the softmax weight.
+\end{proof}
+\paragraph{Vectorized evaluation.}
+Sorting patients by decreasing time, $T_{(1)} \ge \cdots \ge T_{(n)}$, the
+risk-set sums are cumulative:
+\begin{equation}
+  \log \sum_{j \in \mathcal{R}(T_{(i)})} e^{\eta_{(j)}}
+  = m + \log \sum_{k \le i} e^{\eta_{(k)} - m}, \quad m = \max_j \eta_j ,
+\end{equation}
+so \eqref{eq:pll} is $O(n \log n)$. A numerically unstable variant using a
+\emph{running} maximum was caught by our test-suite, which cross-checks the
+implementation against \texttt{lifelines} to $<10^{-3}$ absolute error.
+\subsection{Concordance index}
+Harrell's C-index is the probability of risk-order agreement among comparable
+pairs:
+\begin{equation}
+  C = \frac{\sum_{i \ne j} \mathbb{1}[T_i < T_j]\, \delta_i
+    \left( \mathbb{1}[\eta_i > \eta_j] + \tfrac{1}{2}\mathbb{1}[\eta_i = \eta_j] \right)}
+  {\sum_{i \ne j} \mathbb{1}[T_i < T_j]\, \delta_i } . \label{eq:cindex}
+\end{equation}
+We verify our $O(n \log n)$ implementation against \texttt{lifelines} on
+synthetic cohorts.
+\subsection{Deep Cox models}
+DeepSurv replaces $x_i^\top\beta$ by a neural risk map
+$\eta_i = f_\theta(x_i)$ trained with $-\ell(\theta)$. Our CNN variant treats
+the gene vector as a length-70 sequence, applying convolutions
+\begin{equation}
+  h^{(l+1)} = \phi\big( \mathrm{BN}( W^{(l)} * h^{(l)} ) \big), \qquad
+  \eta = w^\top \bar{h}^{(L)} ,
+\end{equation}
+with global average pooling $\bar{h}$.
+\subsection{Graph Cox model}
+Patients form a $k$-nearest-neighbour graph with Gaussian weights
+\begin{equation}
+  A_{ij} = \exp\!\left( - \frac{\lVert x_i - x_j \rVert^2}{2\sigma^2} \right)
+  \ \text{for } j \in \mathrm{kNN}(i), \qquad
+  \sigma^2 = \operatorname{median} \lVert x_i - x_{(k)} \rVert^2 ,
+\end{equation}
+symmetrized $A \leftarrow \max(A, A^\top)$. The GCN propagates with the
+Kipf--Welling normalization
+\begin{equation}
+  \hat{A} = D^{-1/2} (A + I) D^{-1/2}, \qquad
+  H^{(l+1)} = \phi\big( \hat{A} H^{(l)} W^{(l)} \big) .
+\end{equation}
+\begin{lemma}[Spectrum]
+The eigenvalues of $\hat{A}$ lie in $(-1, 1]$, so repeated propagation is a
+contraction toward the dominant eigenvector.
+\end{lemma}
+\subsection{Evaluation protocol}
+Splits are stratified on the event indicator (25\% held out), five seeds
+$\{0,\dots,4\}$. Confidence intervals are paired percentile bootstrap
+($B = 500$), and deltas between models use the same resamples.
+\subsection{Discovery protocol and locked gates}
+Each discovery candidate declares a gate before inspection: a win requires
+$\Delta C \ge +0.01$ over the baseline with the paired 95\% CI excluding 0,
+or a pre-registered replication $p$-value. Failed gates are reported as
+negatives with the same statistics.
+\section{Experiments and Results}
+\subsection{Benchmark}
+Table~\ref{tab:benchmark} reports held-out C-indices (5 seeds).
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\hline\hline
+Model & C-index (mean $\pm$ sd) & 95\% bootstrap CI (seed 0) \\
+\hline
+Cox, clinical only & $0.6677 \pm 0.0019$ & (0.634, 0.698) \\
+Cox, clinical$+$expression & $\mathbf{0.6801 \pm 0.0052}$ & (0.653, 0.710) \\
+DeepSurv (MLP) & $0.6482 \pm 0.0050$ & --- \\
+CoxCNN (1D-CNN) & $0.6598 \pm 0.0032$ & --- \\
+CoxGCN (patient graph) & $0.6413 \pm 0.0150$ & --- \\
+\hline\hline
+\end{tabular}
+\caption{Held-out C-index on METABRIC RFS (25\% test, stratified).}
+\label{tab:benchmark}
+\end{table}
+Figure~\ref{fig:benchmark} visualizes the comparison; the ordering is stable
+across seeds. The clinical$+$expression Cox model also stratifies held-out
+patients into risk terciles separated at log-rank $p = 7.9\times10^{-16}$
+(Figure~\ref{fig:km}).
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/fig1_benchmark_cindex.png}
+\caption{Held-out C-index by model (mean $\pm$ sd, 5 seeds).}
+\label{fig:benchmark}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/fig2_km_risk_terciles.png}
+\caption{Kaplan--Meier curves of held-out patients by predicted risk tercile.}
+\label{fig:km}
+\end{figure}
+\subsection{Analysis: why deep models trail}
+On $n \approx 1{,}500$ training patients with 87 features and 40\% events,
+the effective sample size is event-limited; penalized linear Cox already
+captures most extractable signal. The GCN's higher variance
+($\pm 0.015$) reflects transductive sensitivity to graph construction. We
+report this as an honest negative for deep survival models at this scale.
+\subsection{Discovery round 1: biology modules and graph propagation}
+Adding module scores (proliferation, ER signaling, hypoxia) or
+graph-smoothed risk to the baseline changed held-out C by at most
+$+0.0014$ (CIs include 0). Negative.
+\subsection{Discovery round 2: multi-omic features}
+Adding copy-number calls (70 genes) and mutation indicators (11 genes with
+$\ge 20$ mutated samples) did not improve the baseline
+($\Delta C \le +0.0027$, CIs straddle or fall below 0). Negative.
+\subsection{Discovery round 3: clinical-risk discordance}
+Among low-NPI ($\le 3.4$) patients, early recurrers ($n = 102$ of 523 low-NPI patients) differed
+from disease-free controls in 11 mitotic genes at BH-FDR $q < 0.005$
+(Figure~\ref{fig:fdr}); the multivariable model collapsed (nested-CV AUC
+$= 0.50$) and the pre-registered TCGA-BRCA replication of the composite
+mitotic score failed (recur $+0.132$ vs free $+0.011$, one-sided
+$p = 0.36$, $n = 22$ vs $96$). Bounded negative: the univariate enrichment
+is real within METABRIC but is neither predictive nor transportable.
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/fig3_npi_discordant_fdr.png}
+\caption{FDR-significant genes in the low-NPI discordance contrast.}
+\label{fig:fdr}
+\end{figure}
+\section{Discussion}
+(Expand: clinical implications, limitations of a 70-gene panel, why external
+replication is the honest arbiter, roadmap to methylation features.)
+\section{Reproducibility}
+All code (11 hermetic tests), cached API snapshots, result JSON files, and
+figures are in the project repository; every number in this paper is
+regenerable from \texttt{results/*.json}.
+\bibliographystyle{plainnat}
+\begin{thebibliography}{9}
+\bibitem{pereira2016} Pereira, B.\ et al. The somatic mutation profiles of
+2,433 breast cancers refine their genomic and transcriptomic landscapes.
+\emph{Nature Communications} 7, 11479 (2016).
+\bibitem{curtis2012} Curtis, C.\ et al. The genomic and transcriptomic
+architecture of 2,000 breast tumours reveals novel subgroups.
+\emph{Nature} 486, 346--352 (2012).
+\bibitem{katzman2018} Katzman, J.\ et al. DeepSurv: personalized treatment
+recommender system using a Cox proportional hazards deep neural network.
+\emph{BMC Med.\ Res.\ Methodol.} 18, 24 (2018).
+\bibitem{kipf2017} Kipf, T., Welling, M. Semi-supervised classification with
+graph convolutional networks. \emph{ICLR} (2017).
+\bibitem{cox1972} Cox, D.\ R. Regression models and life-tables.
+\emph{JRSS B} 34, 187--220 (1972).
+\end{thebibliography}
+\end{document}
