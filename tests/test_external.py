@@ -37,3 +37,17 @@ def test_cache(tmp_path, monkeypatch):
         return [1]
     external._cached("a", f); external._cached("a", f)
     assert n["i"] == 1
+
+
+def test_cli_risk_scoring(tmp_path, capsys):
+    import json
+    from recurscan.cli import main
+    model = {"features": ["NPI", "GRADE"], "coef": {"x0": 0.5, "x1": 0.1},
+             "means": [3.0, 2.0], "stds": [1.0, 1.0], "tercile_cut_log": [-0.3, 0.3],
+             "heldout_cindex": 0.68, "trained_on": "synthetic"}
+    p = tmp_path / "m.json"
+    p.write_text(json.dumps(model))
+    main(["risk", "--model", str(p), "--features", '{"NPI": 5.0}'])
+    out = json.loads(capsys.readouterr().out)
+    # (5-3)/1*0.5 + (2-2)/1*0.1 = 1.0 -> high band
+    assert out["log_hazard"] == 1.0 and out["band"] == "high"
