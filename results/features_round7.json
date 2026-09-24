@@ -1,0 +1,12 @@
+{
+  "base_mean": 0.676,
+  "eng_mean": 0.6753,
+  "delta": -0.0006,
+  "paired_t_p": 0.41781386535708565,
+  "features_added": [
+    "prolif_index",
+    "NPI^2",
+    "NPIxER",
+    "GRADExprolif"
+  ]
+}
