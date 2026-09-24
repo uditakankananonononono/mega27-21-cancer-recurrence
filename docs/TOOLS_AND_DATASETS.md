@@ -57,8 +57,8 @@ Staged (client live + tested, cached):
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
-17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
-(counted once under resources; not double-counted)
+17. networkx  18. matplotlib  19. lifelines
+(pytest excluded - infra per program-wide ruling, not counted)
 
 24. GTEx Portal API v2 - median TPM in normal breast (gtex_v8) for all 10
     R3 genes: CDC20 1.63, UBE2T 2.75, PTTG1 2.33, others 0.35-0.85 TPM
@@ -77,7 +77,7 @@ Staged (client live + tested, cached):
     BIRC5/survivin+recurrence 1,401 works, mitotic-signature query counts
     (results/external_pull2.json openalex_queries)
 
-Honest tool count: 37 (29 resources, 9 packages counting lifelines once)
+Honest tool count: 36 (29 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
