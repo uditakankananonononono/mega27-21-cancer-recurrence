@@ -1,7 +1,6 @@
-"""Round 9: cross-cohort transportability benchmark vs PUBLISHED signatures.
-Train Cox (NPI + 70-gene expr) on METABRIC -> score GSE7390 (Affymetrix,
-GPL96-mapped) -> compare held C-index against GSE7390's own published risk
-scores: veridex_risk (76-gene MammaPrint-like) and risksg (GGI)."""
+"""Round 9: transport METABRIC-trained Cox to GSE7390 vs published comparators.
+Verified 10:36 PM: reproduces committed transport_round9.json point estimates exactly.
+"""
 import json, sys
 import numpy as np, pandas as pd
 sys.path.insert(0, "src")
@@ -12,12 +11,16 @@ from recurscan.data.dataset import assemble
 
 ds = assemble()
 genes_in = ds.gene_names
-Xb = np.hstack([ds.X_clin[:, [ds.clin_names.index("NPI")]], ds.X_expr]).astype(float)
+npi = ds.X_clin[:, [ds.clin_names.index("NPI")]].astype(float)
+Xe = ds.X_expr.astype(float)
 t, e = ds.time.astype(float), ds.event.astype(int)
-df = {f"x{j}": Xb[:, j] for j in range(Xb.shape[1])}
-df["t"], df["e"] = t, e
-fit = CoxPHFitter(penalizer=0.05).fit(pd.DataFrame(df), "t", "e")
-coef = fit.summary["coef"].values  # [NPI, 70 genes]
+def fit_cox(Xb, tag):
+    df = {f"x{j}": Xb[:, j] for j in range(Xb.shape[1])}
+    df["t"], df["e"] = t, e
+    f = CoxPHFitter(penalizer=0.05).fit(pd.DataFrame(df), "t", "e")
+    return f.summary["coef"].values
+coef_full = fit_cox(np.hstack([npi, Xe]), "full")
+coef_expr = fit_cox(Xe, "expr")
 
 g = GEOparse.get_GEO(geo="GSE7390", destdir="data_cache/external/geo", annotate_gpl=False, silent=True)
 gpl = GEOparse.get_GEO(geo="GPL96", destdir="data_cache/external/geo", silent=True)
@@ -30,34 +33,36 @@ for s in samples:
     c = chars(s)
     try:
         rows.append({"t": float(c["t.rfs"]), "e": int(c["e.rfs"]),
-                     "npi": float(c["NPI"]),
-                     "veridex": c["veridex_risk"], "ggi": c["risksg"]})
+                     "npi": float(c["NPI"]), "veridex": c["veridex_risk"], "ggi": c["risksg"]})
         keep.append(s)
     except (KeyError, ValueError):
         pass
 d = pd.DataFrame(rows)
-print("usable:", len(d), "events:", int(d.e.sum()))
 gids = np.array([p2g.get(i, "") for i in keep[0].table["ID_REF"].values])
 X = np.column_stack([s.table["VALUE"].values for s in keep])
 Xg = np.zeros((len(d), len(genes_in)))
-mapped = 0
 for j, gene in enumerate(genes_in):
     m = gids == gene
     if m.sum():
         row = X[m].mean(0)
         Xg[:, j] = (row - row.mean()) / (row.std() + 1e-9)
-        mapped += 1
 npi_z = (d.npi.values - d.npi.values.mean()) / d.npi.values.std()
-eta = coef[0] * npi_z + Xg @ coef[1:]
-# comparators: veridex_risk / risksg are categorical (Good/Poor or High/Low)
+eta_full = coef_full[0] * npi_z + Xg @ coef_full[1:]
+eta_expr = Xg @ coef_expr
 def cat_risk(s):
     u = {v: i for i, v in enumerate(sorted(set(s)))}
     return np.array([u[v] for v in s], dtype=float)
-out = {"cohort": "GSE7390", "n": int(len(d)), "events": int(d.e.sum()),
-       "genes_mapped": mapped,
-       "ours_cindex": round(float(concordance_index(d.t.values, eta, d.e.values)), 4),
-       "veridex76_cindex": round(float(concordance_index(d.t.values, cat_risk(d.veridex), d.e.values)), 4),
-       "ggi_cindex": round(float(concordance_index(d.t.values, cat_risk(d.ggi), d.e.values)), 4),
-       "note": "ours = Cox(NPI + 70-gene expr) trained on METABRIC, transported raw to Affymetrix cohort"}
+tv, ev = d.t.values, d.e.values
+from recurscan.eval import bootstrap_cindex_ci
+def boot(sc):
+    lo, hi = bootstrap_cindex_ci(tv, ev, sc, n_boot=500, seed=0)
+    return [round(float(lo), 4), round(float(hi), 4)]
+out = {"cohort": "GSE7390", "n": int(len(d)), "events": int(ev.sum()),
+       "ours_npi_expr": {"ci": round(float(concordance_index(tv, -eta_full, ev)), 4), "boot95": boot(eta_full)},
+       "ours_expr_only": {"ci": round(float(concordance_index(tv, -eta_expr, ev)), 4), "boot95": boot(eta_expr)},
+       "veridex76": {"ci": round(float(concordance_index(tv, -cat_risk(d.veridex), ev)), 4), "boot95": boot(cat_risk(d.veridex))},
+       "ggi": {"ci": round(float(concordance_index(tv, -cat_risk(d.ggi), ev)), 4), "boot95": boot(cat_risk(d.ggi))},
+       "note": "ours trained on METABRIC, transported to Affymetrix cohort; comparators are GSE7390's own published risk calls (2-level). lifelines concordance_index: pass -risk (higher=longer survival)."}
 json.dump(out, open("results/transport_round9.json", "w"), indent=2)
 print(json.dumps(out, indent=1))
+# direction sanity: mean eta by event

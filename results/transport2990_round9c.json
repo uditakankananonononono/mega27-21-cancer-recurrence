@@ -1,0 +1,9 @@
+{
+  "cohort": "GSE2990",
+  "n": 187,
+  "events": 67,
+  "genes_mapped": 63,
+  "ours_expr_cindex": 0.6559,
+  "ggi_continuous_cindex": 0.6651,
+  "note": "ours = expr-only Cox (70-gene panel) trained on METABRIC, transported raw; ggi = per-sample continuous Genomic Grade Index shipped with GSE2990"
+}
