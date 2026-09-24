@@ -1,0 +1,12 @@
+{
+  "cohort": "GSE25066",
+  "arm": "all neoadjuvant chemotherapy",
+  "n": 471,
+  "events": 100,
+  "genes_mapped": 63,
+  "clin_ci_mean": 0.736,
+  "clin_ci_std": 0.0394,
+  "clin_expr_ci_mean": 0.7346,
+  "clin_expr_ci_std": 0.0529,
+  "metabric_chemo_arm_ci": 0.5434
+}
