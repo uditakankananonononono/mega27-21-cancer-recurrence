@@ -1,0 +1,13 @@
+{
+  "xgb_aft_runs": [
+    0.6792,
+    0.623,
+    0.6471,
+    0.6594,
+    0.6526
+  ],
+  "xgb_aft_mean": 0.6523,
+  "base_mean_same_splits": 0.676,
+  "delta_vs_base": -0.0237,
+  "paired_t_p_vs_base": 0.007114496906548554
+}
