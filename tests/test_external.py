@@ -93,3 +93,19 @@ def test_reactome_analyze(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.reactome_analyze(["CDC20"])
     assert out[0]["stId"] == "R-HSA-1" and out[0]["fdr"] == 1e-9
+
+
+def test_opentargets_target(monkeypatch):
+    import recurscan.external as ex, json as j
+    responses = iter([
+        {"data": {"search": {"hits": [{"id": "ENSG1", "name": "CDC20"}]}}},
+        {"data": {"target": {"approvedSymbol": "CDC20", "associatedDiseases": {"rows": [{"disease": {"name": "breast carcinoma"}, "score": 0.4}]}}}},
+    ])
+    class R:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return j.dumps(self.payload).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(responses)))
+    out = ex.opentargets_target("CDC20")
+    assert out["ensembl_id"] == "ENSG1" and out["top_diseases"][0]["name"] == "breast carcinoma"

@@ -124,3 +124,24 @@ def reactome_analyze(genes, page_size=10):
         d = json.loads(r.read().decode())
     return [{"stId": p["stId"], "name": p["name"],
              "fdr": p["entities"]["fdr"]} for p in d.get("pathways", [])]
+
+
+def opentargets_target(symbol, size=5):
+    """Open Targets GraphQL: top disease associations for a gene symbol."""
+    import urllib.request as u
+    q = {"query": '{ search(queryString: "%s", entityNames: ["target"]) { hits { id name } } }' % symbol}
+    req = u.Request("https://api.platform.opentargets.org/api/v4/graphql",
+                    data=json.dumps(q).encode(),
+                    headers={"Content-Type": "application/json", "User-Agent": "recurscan/0.1"})
+    with u.urlopen(req, timeout=30) as r:
+        hits = json.loads(r.read().decode())["data"]["search"]["hits"]
+    ensembl_id = hits[0]["id"]
+    q2 = {"query": '{ target(ensemblId: "%s") { approvedSymbol associatedDiseases(page: {index: 0, size: %d}) { rows { disease { name } score } } } }' % (ensembl_id, size)}
+    req2 = u.Request("https://api.platform.opentargets.org/api/v4/graphql",
+                     data=json.dumps(q2).encode(),
+                     headers={"Content-Type": "application/json", "User-Agent": "recurscan/0.1"})
+    with u.urlopen(req2, timeout=30) as r:
+        d = json.loads(r.read().decode())["data"]["target"]
+    return {"ensembl_id": ensembl_id, "symbol": d["approvedSymbol"],
+            "top_diseases": [{"name": r2["disease"]["name"], "score": r2["score"]}
+                             for r2 in d["associatedDiseases"]["rows"]]}
