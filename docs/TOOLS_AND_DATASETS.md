@@ -73,8 +73,11 @@ Staged (client live + tested, cached):
 27. MyGene.info v3 - symbol->Entrez/Ensembl annotation for 10 R3 genes;
     Ensembl IDs cross-checked against GTEx reference (all 10 match)
     (results/external_pull2.json mygene_r3)
+28. OpenAlex API - literature-graph context: CDC20+recurrence 2,008 works,
+    BIRC5/survivin+recurrence 1,401 works, mitotic-signature query counts
+    (results/external_pull2.json openalex_queries)
 
-Honest tool count: 36 (28 resources, 9 packages counting lifelines once)
+Honest tool count: 37 (29 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

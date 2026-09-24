@@ -373,3 +373,17 @@ def mygene_query(symbol, species="human"):
              "n_alias": len(h.get("alias", []))}
             for h in d.get("hits", []) if h.get("symbol") == symbol]
     return {"query": symbol, "total": d.get("total"), "hits": hits}
+
+
+def openalex_works(search, per_page=5):
+    """OpenAlex API: literature search (works count + top hits)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://api.openalex.org/works?search={quote(search)}"
+           f"&per-page={per_page}&select=id,display_name,publication_year,cited_by_count")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return {"search": search, "count": d.get("meta", {}).get("count"),
+            "top": [{"id": w.get("id"), "title": w.get("display_name"),
+                     "year": w.get("publication_year"),
+                     "cited_by": w.get("cited_by_count")} for w in d.get("results", [])]}

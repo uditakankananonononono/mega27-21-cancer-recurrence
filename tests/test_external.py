@@ -348,3 +348,23 @@ def test_mygene_query_parses(monkeypatch):
     out = mygene_query("CDC20")
     assert out["hits"][0]["ensembl"] == "ENSG00000117399"
     assert out["hits"][0]["n_alias"] == 1
+
+
+def test_openalex_works_parses(monkeypatch):
+    from recurscan.external import openalex_works
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"meta": {"count": 2008}, "results": [
+        {"id": "https://openalex.org/W1", "display_name": "CDC20 in breast cancer",
+         "publication_year": 2020, "cited_by_count": 42}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = openalex_works("CDC20 breast cancer")
+    assert out["count"] == 2008
+    assert out["top"][0]["cited_by"] == 42
