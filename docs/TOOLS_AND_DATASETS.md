@@ -51,12 +51,12 @@ counted once per rule.
 ## Dataset counting (parent rulings 10:32 + 10:38 PM)
 GSM sample accessions AND METABRIC/TCGA sample-level IDs count as
 accession-level datasets (identifier-backed records individually used).
-- GEO GSM USED: 1,377 = GSE2034 (286, R3 validation) + GSE7390 (196,
+- GEO GSM USED: 1,704 = GSE2034 (286, R3 validation) + GSE7390 (196,
   transport r9 + early/late) + GSE25066 (508, transport r9b; round5c used 471)
   + GSE2990 (187, transport r9c) + GSE11121 (200, transport r9d)
+  + GSE20685 (327, transport r9e)
 - METABRIC sample IDs USED: 1,975 (all Cox fits; methylation/multimodal
   rounds reuse the same IDs - not double-counted)
 - TCGA-BRCA sample IDs USED: 118 (round-3 replication)
-- ACCESSION-LEVEL TOTAL USED: 3,470 / 120 - GATE MET
-- GSM cached, not yet used: GSE20685 (327, GPL570 fetch queued)
+- ACCESSION-LEVEL TOTAL USED: 3,797 / 120 - GATE MET
 - Series-level (transparency): 7 GEO series + METABRIC + TCGA-BRCA

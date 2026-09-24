@@ -1,0 +1,21 @@
+{
+  "cohort": "GSE20685",
+  "endpoint": "metastasis (years)",
+  "n": 327,
+  "events": 83,
+  "ours_expr": {
+    "ci": 0.6264,
+    "boot95": [
+      0.5623,
+      0.6891
+    ]
+  },
+  "n_stage": {
+    "ci": 0.6996,
+    "boot95": [
+      0.642,
+      0.7485
+    ]
+  },
+  "note": "ours = expr-only Cox (70-gene panel) trained on METABRIC, transported raw to GPL570 cohort; comparator = nodal stage"
+}
