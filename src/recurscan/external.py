@@ -162,3 +162,16 @@ def intact_interactions(query, max_lines=1000):
             pairs.add((f[0].replace("uniprotkb:", ""), f[1].replace("uniprotkb:", "")))
     return {"query": query, "n_rows": len(lines), "unique_pairs": len(pairs),
             "partners": sorted({b for a, b in pairs} | {a for a, b in pairs})}
+
+
+def hpa_gene_prognostics(ensembl_id):
+    """Human Protein Atlas per-gene TSV: TCGA cancer prognostics columns."""
+    import urllib.request as u, csv, io
+    url = f"https://www.proteinatlas.org/{ensembl_id}.tsv"
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        text = r.read().decode()
+    rows = list(csv.reader(io.StringIO(text), delimiter="\t"))
+    hdr, rec = rows[0], rows[1]
+    return {"gene": rec[hdr.index("Gene")],
+            "prognostics": {h: rec[i] for i, h in enumerate(hdr)
+                            if "prognostics" in h.lower()}}

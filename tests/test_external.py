@@ -121,3 +121,16 @@ def test_intact_interactions(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.intact_interactions("CDC20 AND taxidA:9606")
     assert out["n_rows"] == 2 and "Q12834" in out["partners"] and "O76009" in out["partners"]
+
+
+def test_hpa_gene_prognostics(monkeypatch):
+    import recurscan.external as ex
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return b'Gene\tCancer prognostics - Breast Invasive Carcinoma (TCGA)\nCDC20\tunprognostic (9.83e-3)'
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.hpa_gene_prognostics("ENSG00000117399")
+    assert out["gene"] == "CDC20"
+    assert any("Breast" in k for k in out["prognostics"])
