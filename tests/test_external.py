@@ -134,3 +134,16 @@ def test_hpa_gene_prognostics(monkeypatch):
     out = ex.hpa_gene_prognostics("ENSG00000117399")
     assert out["gene"] == "CDC20"
     assert any("Breast" in k for k in out["prognostics"])
+
+
+def test_alphafold_prediction(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps([{"modelEntityId": "AF-Q12834-F1", "gene": "CDC20",
+                             "globalMetricValue": 84.12, "fractionPlddtVeryHigh": 0.615}]).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.alphafold_prediction("Q12834")
+    assert out["gene"] == "CDC20" and out["mean_plddt"] == 84.12

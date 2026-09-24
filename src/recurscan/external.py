@@ -175,3 +175,17 @@ def hpa_gene_prognostics(ensembl_id):
     return {"gene": rec[hdr.index("Gene")],
             "prognostics": {h: rec[i] for i, h in enumerate(hdr)
                             if "prognostics" in h.lower()}}
+
+
+def alphafold_prediction(uniprot_acc):
+    """AlphaFold DB API: predicted-structure metadata for a UniProt accession."""
+    import urllib.request as u
+    url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_acc}"
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    if not d:
+        raise KeyError(uniprot_acc)
+    m = d[0]
+    return {"accession": uniprot_acc, "model": m["modelEntityId"],
+            "gene": m.get("gene"), "mean_plddt": m["globalMetricValue"],
+            "frac_very_high": m.get("fractionPlddtVeryHigh")}
