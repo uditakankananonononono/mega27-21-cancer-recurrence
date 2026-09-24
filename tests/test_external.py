@@ -368,3 +368,21 @@ def test_openalex_works_parses(monkeypatch):
     out = openalex_works("CDC20 breast cancer")
     assert out["count"] == 2008
     assert out["top"][0]["cited_by"] == 42
+
+
+def test_civic_genes_parses(monkeypatch):
+    from recurscan.external import civic_genes
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"data": {"genes": {"nodes": [
+        {"name": "BIRC5", "entrezId": 332}]}}}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = civic_genes(["BIRC5"])
+    assert out["genes"] == [{"symbol": "BIRC5", "entrez_id": 332}]

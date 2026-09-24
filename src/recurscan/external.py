@@ -387,3 +387,21 @@ def openalex_works(search, per_page=5):
             "top": [{"id": w.get("id"), "title": w.get("display_name"),
                      "year": w.get("publication_year"),
                      "cited_by": w.get("cited_by_count")} for w in d.get("results", [])]}
+
+
+def civic_genes(symbols):
+    """CIViC GraphQL: clinical-interpretation gene records by entrez symbol."""
+    import urllib.request as u
+    syms = ", ".join(f'"{s}"' for s in symbols)
+    body = json.dumps({"query":
+        "{ genes(entrezSymbols: [" + syms + "]) { nodes { name entrezId } } }"}).encode()
+    req = u.Request("https://civicdb.org/api/graphql", data=body,
+                    headers={"Content-Type": "application/json",
+                             "User-Agent": "recurscan/0.1"})
+    with u.urlopen(req, timeout=30) as r:
+        d = json.loads(r.read().decode())
+    if d.get("errors"):
+        raise RuntimeError(d["errors"][0]["message"][:120])
+    nodes = d.get("data", {}).get("genes", {}).get("nodes", [])
+    return {"query": list(symbols),
+            "genes": [{"symbol": g.get("name"), "entrez_id": g.get("entrezId")} for g in nodes]}

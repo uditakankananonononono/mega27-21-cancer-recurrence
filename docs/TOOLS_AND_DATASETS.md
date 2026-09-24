@@ -76,8 +76,12 @@ Staged (client live + tested, cached):
 28. OpenAlex API - literature-graph context: CDC20+recurrence 2,008 works,
     BIRC5/survivin+recurrence 1,401 works, mitotic-signature query counts
     (results/external_pull2.json openalex_queries)
+29. CIViC GraphQL - clinical-interpretation records: 3/10 R3 genes present
+    (BIRC5 332, CEP55 55165, PTTG1 9232 - entrez IDs cross-checked vs
+    MyGene, all match); 7 absent = not clinical-variant genes, honest empty
+    (results/external_pull2.json civic_r3)
 
-Honest tool count: 36 (29 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
+Honest tool count: 37 (30 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
