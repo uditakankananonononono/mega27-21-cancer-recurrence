@@ -1,0 +1,51 @@
+{
+  "cut_months": 60.0,
+  "early_events": 492,
+  "late_events": 308,
+  "late_n": 1340,
+  "coef_corr_early_vs_late": 0.1923,
+  "top_early": [
+    [
+      "LYMPH_NODES_EXAMINED_POSITIVE",
+      0.046,
+      2.3307700300935443e-08
+    ],
+    [
+      "TUMOR_SIZE",
+      0.007,
+      0.0003681672160680991
+    ],
+    [
+      "NPI",
+      0.147,
+      0.0005996915385732656
+    ],
+    [
+      "MAPT",
+      -0.132,
+      0.009679838153204933
+    ],
+    [
+      "CDH1",
+      -0.086,
+      0.0387645870787082
+    ],
+    [
+      "RADIO_THERAPY=YES",
+      -0.166,
+      0.0441766107899195
+    ]
+  ],
+  "top_late": [
+    [
+      "LYMPH_NODES_EXAMINED_POSITIVE",
+      0.055,
+      1.0646283433120301e-05
+    ],
+    [
+      "ER_STATUS=Positive",
+      0.379,
+      0.03233353751318375
+    ]
+  ]
+}
