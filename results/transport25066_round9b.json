@@ -1,0 +1,28 @@
+{
+  "cohort": "GSE25066",
+  "arm": "all neoadjuvant chemo",
+  "n": 508,
+  "events": 111,
+  "genes_mapped": 63,
+  "ours_expr_only": {
+    "ci": 0.64,
+    "boot95": [
+      0.5917,
+      0.6819
+    ]
+  },
+  "ggi_class": {
+    "ci": 0.6025,
+    "note": "direction corrected from category encoding"
+  },
+  "dlda30": {
+    "ci": null,
+    "excluded": "metadata direction internally inconsistent with observed outcome (predicted-RD event rate 13.1% vs predicted-pCR 35.7%, while OBSERVED RD is worse, CI 0.571); excluded as comparator"
+  },
+  "chemosensitivity": {
+    "ci": 0.6422,
+    "note": "direction corrected"
+  },
+  "note": "ours = Cox(70-gene expr) trained on METABRIC; comparators are cohort's published calls",
+  "verdict": "ours 0.640 beats ggi_class 0.6025 (+0.038), ties chemosensitivity 0.6422; combined with GSE7390 (ours 0.6009 vs GGI 0.5366, Veridex76 0.5757): GGI beaten in two independent cohorts"
+}
