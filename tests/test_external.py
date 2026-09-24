@@ -198,3 +198,19 @@ def test_interpro_domains(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.interpro_domains("Q12834")
     assert out["domains"][0]["name"] == "WD40 repeat"
+
+
+def test_monarch_gene_diseases(monkeypatch):
+    import recurscan.external as ex, json as j
+    calls = iter([
+        {"items": [{"id": "HGNC:1723", "name": "CDC20", "category": "biolink:Gene", "xref": ["OMIM:603618"]}]},
+        {"items": [{"object_label": "oocyte maturation defect 14"}]},
+    ])
+    class R:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return j.dumps(self.payload).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(calls)))
+    out = ex.monarch_gene_diseases("CDC20")
+    assert out["monarch_id"] == "HGNC:1723" and out["causal_diseases"] == ["oocyte maturation defect 14"]

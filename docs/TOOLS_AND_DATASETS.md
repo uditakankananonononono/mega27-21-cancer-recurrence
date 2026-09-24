@@ -47,13 +47,16 @@ Staged (client live + tested, cached):
     (results/external_pull2.json rcsb_apcc)
 20. InterPro API - domain architectures for CDC20 (WD40, Cdc20/Fizzy repeat),
     BIRC5 (BIR), KIF2C (kinesin motor) (results/external_pull2.json interpro_r3)
+21. Monarch Initiative v3 API - CDC20: HGNC:1723, xrefs ENSEMBL/OMIM,
+    causal disease = oocyte maturation defect 14 (consistent with Open Targets)
+    (results/external_pull2.json monarch_cdc20)
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 29 (21 resources, 9 packages counting lifelines once)
+Honest tool count: 30 (22 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
