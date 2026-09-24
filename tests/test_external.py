@@ -147,3 +147,15 @@ def test_alphafold_prediction(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.alphafold_prediction("Q12834")
     assert out["gene"] == "CDC20" and out["mean_plddt"] == 84.12
+
+
+def test_quickgo_annotations(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps({"numberOfHits": 2, "results": [{"goId": "GO:0000278"}, {"goId": "GO:0000278"}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.quickgo_annotations("Q12834")
+    assert out["go_ids"] == ["GO:0000278"] and out["n_hits"] == 2
