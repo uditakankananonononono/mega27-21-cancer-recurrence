@@ -328,3 +328,23 @@ def test_gtex_gene_coords_parses(monkeypatch):
     out = gtex_gene_coords("CDC20")
     assert out["gencode_id"] == "ENSG00000117399.13"
     assert out["chrom"] == "chr1"
+
+
+def test_mygene_query_parses(monkeypatch):
+    from recurscan.external import mygene_query
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"total": 1, "hits": [
+        {"symbol": "CDC20", "entrezgene": "991",
+         "ensembl": {"gene": "ENSG00000117399"}, "alias": ["p55CDC"]}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = mygene_query("CDC20")
+    assert out["hits"][0]["ensembl"] == "ENSG00000117399"
+    assert out["hits"][0]["n_alias"] == 1

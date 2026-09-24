@@ -70,8 +70,11 @@ Staged (client live + tested, cached):
 26. UCSC Genome Browser API - knownCanonical transcripts at each R3 locus
     (coords resolved via GTEx reference/gene, cross-checked gencodeIds)
     (results/external_pull2.json ucsc_canonical_r3)
+27. MyGene.info v3 - symbol->Entrez/Ensembl annotation for 10 R3 genes;
+    Ensembl IDs cross-checked against GTEx reference (all 10 match)
+    (results/external_pull2.json mygene_r3)
 
-Honest tool count: 35 (27 resources, 9 packages counting lifelines once)
+Honest tool count: 36 (28 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

@@ -358,3 +358,18 @@ def gtex_gene_coords(symbol):
     g = rec[0]
     return {"symbol": symbol, "chrom": g["chromosome"], "start": g["start"],
             "end": g["end"], "gencode_id": g["gencodeId"]}
+
+
+def mygene_query(symbol, species="human"):
+    """MyGene.info v3: gene annotation query by symbol (human)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://mygene.info/v3/query?q=symbol:{quote(symbol)}"
+           f"&species={species}&fields=symbol,entrezgene,ensembl.gene,alias")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    hits = [{"symbol": h.get("symbol"), "entrezgene": h.get("entrezgene"),
+             "ensembl": (h.get("ensembl") or {}).get("gene"),
+             "n_alias": len(h.get("alias", []))}
+            for h in d.get("hits", []) if h.get("symbol") == symbol]
+    return {"query": symbol, "total": d.get("total"), "hits": hits}
