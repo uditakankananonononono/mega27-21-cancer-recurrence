@@ -216,3 +216,18 @@ def mobidb_entry(uniprot_acc):
     return {"accession": uniprot_acc, "gene": m.get("gene"), "length": m.get("length"),
             "disorder_fraction": dis.get("content_fraction"),
             "pfam_domains": pfam.get("regions_names", [])}
+
+
+def rcsb_search(text, rows=10):
+    """RCSB search API v2: full-text structure search."""
+    import urllib.request as u
+    from urllib.parse import quote
+    q = json.dumps({"query": {"type": "terminal", "service": "full_text",
+                              "parameters": {"value": text}},
+                    "return_type": "entry",
+                    "request_options": {"paginate": {"start": 0, "rows": rows}}})
+    url = f"https://search.rcsb.org/rcsbsearch/v2/query?json={quote(q)}"
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return {"query": text, "total": d["total_count"],
+            "top_ids": [x["identifier"] for x in d.get("result_set", [])]}

@@ -173,3 +173,15 @@ def test_mobidb_entry(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.mobidb_entry("Q12834")
     assert out["disorder_fraction"] == 0.21 and out["pfam_domains"] == ["WD40"]
+
+
+def test_rcsb_search(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps({"total_count": 2, "result_set": [{"identifier": "4GGA"}, {"identifier": "4GGC"}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.rcsb_search("CDC20 anaphase-promoting complex")
+    assert out["total"] == 2 and out["top_ids"] == ["4GGA", "4GGC"]
