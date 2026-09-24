@@ -109,6 +109,30 @@ risk-set sums are cumulative:
 so \eqref{eq:pll} is $O(n \log n)$. A numerically unstable variant using a
 \emph{running} maximum was caught by our test-suite, which cross-checks the
 implementation against \texttt{lifelines} to $<10^{-3}$ absolute error.
+\subsection{Baseline hazard and the logrank test}
+After fitting $\hat\beta$, the Breslow estimator recovers the baseline
+cumulative hazard as a step function over event times:
+\begin{equation}
+  \hat{H}_0(t) = \sum_{i:\, T_i \le t,\, \delta_i = 1}
+  \frac{1}{\sum_{j \in \mathcal{R}(T_i)} \exp(\hat\eta_j)} ,
+  \qquad \hat{S}(t \mid x) = \exp\!\big(-\hat{H}_0(t)\, e^{\hat\eta}\big) .
+  \label{eq:breslow}
+\end{equation}
+For the held-out risk-tercile stratification we use the logrank statistic.
+With $d_{g k}$ events and $n_{g k}$ at risk in group $g$ at the $k$-th
+distinct event time, and $d_k = \sum_g d_{g k}$, $n_k = \sum_g n_{g k}$:
+\begin{equation}
+  Z = \frac{\sum_k \big( d_{1k} - n_{1k} \tfrac{d_k}{n_k} \big)}
+  {\sqrt{\sum_k \frac{n_{1k} n_{2k} d_k (n_k - d_k)}{n_k^2 (n_k - 1)}}}
+  \;\sim\; \mathcal{N}(0,1) \label{eq:logrank}
+\end{equation}
+under the null of equal hazards; \eqref{eq:logrank} yields the
+$p = 7.9\times 10^{-16}$ stratification result in
+Section~\ref{sec:results}. Newton updates for $\hat\beta$ use the observed
+information $-\partial^2 \ell / \partial \beta \partial \beta^\top$:
+\begin{equation}
+  \beta^{(t+1)} = \beta^{(t)} + \left( -\frac{\partial^2 \ell}{\partial \beta\, \partial \beta^\top} \right)^{-1} \frac{\partial \ell}{\partial \beta} . \label{eq:newton}
+\end{equation}
 \subsection{Concordance index}
 Harrell's C-index is the probability of risk-order agreement among comparable
 pairs:

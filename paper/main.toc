@@ -5,11 +5,12 @@
 \contentsline {section}{\numberline {3}Methods}{3}{}%
 \contentsline {subsection}{\numberline {3.1}The Cox model and its partial likelihood}{3}{}%
 \contentsline {paragraph}{Vectorized evaluation.}{4}{}%
-\contentsline {subsection}{\numberline {3.2}Concordance index}{4}{}%
-\contentsline {subsection}{\numberline {3.3}Deep Cox models}{4}{}%
-\contentsline {subsection}{\numberline {3.4}Graph Cox model}{4}{}%
-\contentsline {subsection}{\numberline {3.5}Evaluation protocol}{4}{}%
-\contentsline {subsection}{\numberline {3.6}Discovery protocol and locked gates}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Baseline hazard and the logrank test}{4}{}%
+\contentsline {subsection}{\numberline {3.3}Concordance index}{4}{}%
+\contentsline {subsection}{\numberline {3.4}Deep Cox models}{4}{}%
+\contentsline {subsection}{\numberline {3.5}Graph Cox model}{5}{}%
+\contentsline {subsection}{\numberline {3.6}Evaluation protocol}{5}{}%
+\contentsline {subsection}{\numberline {3.7}Discovery protocol and locked gates}{5}{}%
 \contentsline {section}{\numberline {4}Experiments and Results}{5}{}%
 \contentsline {subsection}{\numberline {4.1}Benchmark}{5}{}%
 \contentsline {subsection}{\numberline {4.2}Analysis: why deep models trail}{5}{}%
