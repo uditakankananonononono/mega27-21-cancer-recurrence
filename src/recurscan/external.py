@@ -200,3 +200,19 @@ def quickgo_annotations(uniprot_acc, aspect="biological_process", limit=50):
         d = json.loads(r.read().decode())
     return {"accession": uniprot_acc, "n_hits": d["numberOfHits"],
             "go_ids": sorted({x["goId"] for x in d["results"]})}
+
+
+def mobidb_entry(uniprot_acc):
+    """MobiDB API: disorder/evidence summary for a UniProt accession."""
+    import urllib.request as u
+    url = f"https://mobidb.org/api/download?acc={uniprot_acc}"
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    if not d:
+        raise KeyError(uniprot_acc)
+    m = d[0]
+    dis = m.get("prediction-disorder-priority", {})
+    pfam = m.get("homology-domain-pfam", {})
+    return {"accession": uniprot_acc, "gene": m.get("gene"), "length": m.get("length"),
+            "disorder_fraction": dis.get("content_fraction"),
+            "pfam_domains": pfam.get("regions_names", [])}

@@ -37,13 +37,16 @@ Staged (client live + tested, cached):
 17. QuickGO (EBI GOA) - 150 biological-process annotations for CDC20,
     23 unique terms incl. GO:0007094 mitotic spindle assembly checkpoint
     (results/external_pull2.json quickgo_cdc20)
+18. MobiDB API - disorder + Pfam domains for 3 R3 genes, gene-name verified:
+    CDC20->WD40 repeats, BIRC5->BIR repeat, PTTG1->Securin (textbook-correct)
+    (results/external_pull2.json mobidb_r3)
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 25 (17 resources, 9 packages counting lifelines once)
+Honest tool count: 26 (18 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

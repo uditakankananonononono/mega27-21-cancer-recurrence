@@ -159,3 +159,17 @@ def test_quickgo_annotations(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.quickgo_annotations("Q12834")
     assert out["go_ids"] == ["GO:0000278"] and out["n_hits"] == 2
+
+
+def test_mobidb_entry(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps([{"acc": "Q12834", "gene": "CDC20", "length": 499,
+                             "prediction-disorder-priority": {"content_fraction": 0.21},
+                             "homology-domain-pfam": {"regions_names": ["WD40"]}}]).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.mobidb_entry("Q12834")
+    assert out["disorder_fraction"] == 0.21 and out["pfam_domains"] == ["WD40"]
