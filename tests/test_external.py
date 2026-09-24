@@ -81,3 +81,15 @@ def test_hgnc_and_trials(monkeypatch):
     assert ex.hgnc_symbol("CEP55")["symbol"] == "CEP55"
     monkeypatch.setattr(ex, "_get", lambda url, timeout=25: {"studies": [{"nctId": "NCT1"}]})
     assert len(ex.clinicaltrials_search("CEP55")) == 1
+
+
+def test_reactome_analyze(monkeypatch):
+    import recurscan.external as ex
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return b'{"pathways": [{"stId": "R-HSA-1", "name": "Mitosis", "entities": {"fdr": 1e-9}}]}'
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.reactome_analyze(["CDC20"])
+    assert out[0]["stId"] == "R-HSA-1" and out[0]["fdr"] == 1e-9

@@ -111,3 +111,16 @@ def ucsc_xena_datasets(host="tcga.xenahubs.net", hub_dataset="TCGA.BRCA.sampleMa
     req = u.Request(url + hub_dataset, headers={"User-Agent": "recurscan/0.1"})
     with u.urlopen(req, timeout=25) as r:
         return r.read().decode()[:2000]
+
+
+def reactome_analyze(genes, page_size=10):
+    """Reactome Analysis Service: over-representation for a gene list."""
+    import urllib.request as u
+    url = (f"https://reactome.org/AnalysisService/identifiers/"
+           f"?pageSize={page_size}&page=1&sortBy=ENTITIES_FDR&order=ASC")
+    req = u.Request(url, data="\n".join(genes).encode(),
+                    headers={"Content-Type": "text/plain", "User-Agent": "recurscan/0.1"})
+    with u.urlopen(req, timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return [{"stId": p["stId"], "name": p["name"],
+             "fdr": p["entities"]["fdr"]} for p in d.get("pathways", [])]
