@@ -267,3 +267,25 @@ def test_gtex_median_expression_parses(monkeypatch):
     assert out["gencode_id"] == "ENSG00000117399.13"
     assert out["median_tpm"] == 1.635
     assert out["unit"] == "TPM"
+
+
+def test_gwas_catalog_snps_parses(monkeypatch):
+    from recurscan.external import gwas_catalog_snps
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"_embedded": {"singleNucleotidePolymorphisms": [
+        {"rsId": "rs1", "functionalClass": "missense_variant"},
+        {"rsId": "rs2", "functionalClass": "intron_variant"},
+        {"rsId": "rs3", "functionalClass": "missense_variant"}]}}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = gwas_catalog_snps("CDC20")
+    assert out["n_snps"] == 3
+    assert out["functional_classes"] == {"missense_variant": 2, "intron_variant": 1}
+    assert out["sample_rsids"] == ["rs1", "rs2", "rs3"]

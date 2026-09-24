@@ -311,3 +311,20 @@ def gtex_median_expression(symbol, tissue="Breast_Mammary_Tissue"):
     med = rows[0]["median"] if rows else None
     return {"symbol": symbol, "gencode_id": gid, "tissue": tissue,
             "median_tpm": med, "unit": rows[0]["unit"] if rows else None}
+
+
+def gwas_catalog_snps(symbol, size=200):
+    """GWAS Catalog REST: SNPs mapped to a gene symbol (functional classes)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://www.ebi.ac.uk/gwas/rest/api/singleNucleotidePolymorphisms"
+           f"/search/findByGene?geneName={quote(symbol)}&size={size}")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    snps = d.get("_embedded", {}).get("singleNucleotidePolymorphisms", [])
+    classes = {}
+    for s in snps:
+        fc = s.get("functionalClass") or "unknown"
+        classes[fc] = classes.get(fc, 0) + 1
+    return {"symbol": symbol, "n_snps": len(snps), "functional_classes": classes,
+            "sample_rsids": [s.get("rsId") for s in snps[:5]]}

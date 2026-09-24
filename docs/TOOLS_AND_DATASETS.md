@@ -64,8 +64,11 @@ Staged (client live + tested, cached):
     R3 genes: CDC20 1.63, UBE2T 2.75, PTTG1 2.33, others 0.35-0.85 TPM
     (proliferation genes near-silent in resting tissue - corroborates the
     R3 honest-negative read) (results/external_pull2.json gtex_r3_breast)
+25. GWAS Catalog REST - SNPs mapped to each R3 gene: CDC20 158, BIRC5 184,
+    CEP55 118, others 36-61; functional classes recorded
+    (results/external_pull2.json gwas_catalog_r3)
 
-Honest tool count: 33 (25 resources, 9 packages counting lifelines once)
+Honest tool count: 34 (26 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
