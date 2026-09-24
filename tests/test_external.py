@@ -214,3 +214,19 @@ def test_monarch_gene_diseases(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(calls)))
     out = ex.monarch_gene_diseases("CDC20")
     assert out["monarch_id"] == "HGNC:1723" and out["causal_diseases"] == ["oocyte maturation defect 14"]
+
+
+def test_ncbi_gene(monkeypatch):
+    import recurscan.external as ex, json as j
+    calls = iter([
+        {"esearchresult": {"idlist": ["991"]}},
+        {"result": {"991": {"name": "CDC20", "description": "cell division cycle 20", "chromosome": "1"}}},
+    ])
+    class R:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return j.dumps(self.payload).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(calls)))
+    out = ex.ncbi_gene("CDC20")
+    assert out["gene_id"] == "991" and out["chromosome"] == "1"
