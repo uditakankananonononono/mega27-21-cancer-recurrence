@@ -1,0 +1,10 @@
+{
+  "n_recur": 22,
+  "n_free": 96,
+  "recur_mean": 0.13185661157024794,
+  "free_mean": 0.011148295454545473,
+  "p_one_sided": 0.36356391790755016,
+  "gate": "FAIL",
+  "study": "brca_tcga_pan_can_atlas_2018",
+  "contrast": "N0 (any T; primary N0+T1 gate was underpowered at n=6), DFS event <=60m vs disease-free >=60m, composite of 11 mitotic genes"
+}

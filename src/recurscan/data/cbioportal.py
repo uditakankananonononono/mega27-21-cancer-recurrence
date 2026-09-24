@@ -12,6 +12,8 @@ import urllib.request
 API = "https://www.cbioportal.org/api"
 STUDY = "brca_metabric"
 EXPR_PROFILE = "brca_metabric_mrna_median_all_sample_Zscores"
+CNA_PROFILE = "brca_metabric_cna"
+MUT_PROFILE = "brca_metabric_mutations"
 
 CACHE_DIR = os.environ.get(
     "RECURSCAN_CACHE",
@@ -143,3 +145,30 @@ def fetch_expression(entrez_ids, sample_ids):
                 payload={"entrezGeneIds": entrez_ids, "sampleIds": chunk}))
         return rows
     return _cached("expression.json", _fetch)
+
+
+def fetch_cna(entrez_ids, sample_ids):
+    """Discrete CNA calls (-2..2) for the panel genes."""
+    def _fetch():
+        rows = []
+        for i in range(0, len(sample_ids), 500):
+            chunk = sample_ids[i:i + 500]
+            rows.extend(_request(
+                f"/molecular-profiles/{CNA_PROFILE}/molecular-data/fetch",
+                payload={"entrezGeneIds": entrez_ids, "sampleIds": chunk}))
+        return rows
+    return _cached("cna.json", _fetch)
+
+
+def fetch_mutations(entrez_ids, sample_ids):
+    """Non-synonymous mutation presence per gene/sample."""
+    def _fetch():
+        rows = []
+        for i in range(0, len(sample_ids), 500):
+            chunk = sample_ids[i:i + 500]
+            rows.extend(_request(
+                f"/molecular-profiles/{MUT_PROFILE}/mutations/fetch",
+                payload={"entrezGeneIds": entrez_ids, "sampleIds": chunk}))
+        return [{"entrezGeneId": r["entrezGeneId"], "sampleId": r["sampleId"],
+                 "mutationType": r.get("mutationType", "")} for r in rows]
+    return _cached("mutations.json", _fetch)
