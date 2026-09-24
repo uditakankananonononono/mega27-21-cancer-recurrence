@@ -7,27 +7,29 @@ matrix = one dataset. Tiers: USED IN RESULTS vs STAGED.
 Used in verified results:
 1. cBioPortal API - METABRIC + TCGA-BRCA PanCanAtlas pulls (benchmark, R3 replication attempt)
 2. lifelines 0.30.0 - Cox PLL cross-verification (<1e-3), logrank
+3. Reactome Analysis Service - R3 mitotic signature over-represents kinetochore
+   / spindle checkpoint pathways (FDR 7.7e-4); results/external_pull2.json reactome_r3
 
 Staged (client live + tested, cached):
-3. g:Profiler gost API - R3 signature enrichment: 100 terms, top = mitotic
+4. g:Profiler gost API - R3 signature enrichment: 100 terms, top = mitotic
    cell cycle process (biological coherence confirmed)
-4. STRING API enrichment - 173 functional terms for R3 signature
-5. Europe PMC REST - recurrence literature corroboration
-6. GEOparse 2.x (installed) - GEO cohort validation route (GSE2034, GSE2990,
+5. STRING API enrichment - 173 functional terms for R3 signature
+6. Europe PMC REST - recurrence literature corroboration
+7. GEOparse 2.x (installed) - GEO cohort validation route (GSE2034, GSE2990,
    GSE7390, GSE11121, GSE96058 queued for external validation #2+)
-7. Ensembl REST - BLOCKED live (timeouts 9:13 PM; client + tests ready, retry queued)
-8. KEGG REST - pathways for R3 signature genes (CEP55=hsa:55165 etc.)
-9. HGNC REST - approved symbols/names
-10. ClinicalTrials.gov API v2 - CDC20-inhibitor trial search
-11. UCSC Xena hubs - TCGA BRCA clinical matrix access verified
+8. Ensembl REST - BLOCKED live (timeouts 9:13 PM; client + tests ready, retry queued)
+9. KEGG REST - pathways for R3 signature genes (CEP55=hsa:55165 etc.)
+10. HGNC REST - approved symbols/names
+11. ClinicalTrials.gov API v2 - CDC20-inhibitor trial search
+12. UCSC Xena hubs - TCGA BRCA clinical matrix access verified
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 19 (11 resources, 9 packages counting lifelines once)
-Path to 40: MSigDB, COSMIC, DepMap, GDSC, Reactome, KEGG, WikiPathways,
+Honest tool count: 20 (12 resources, 9 packages counting lifelines once)
+Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
 gnomAD, dbSNP, Ensembl VEP, Protein Atlas (HPA), KM-plotter, cBioPortal
