@@ -289,3 +289,42 @@ def test_gwas_catalog_snps_parses(monkeypatch):
     assert out["n_snps"] == 3
     assert out["functional_classes"] == {"missense_variant": 2, "intron_variant": 1}
     assert out["sample_rsids"] == ["rs1", "rs2", "rs3"]
+
+
+def test_ucsc_canonical_parses(monkeypatch):
+    from recurscan.external import ucsc_canonical_transcript
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"knownCanonical": [
+        {"transcript": "ENST00000310955.11", "protein": "ENSG00000117399",
+         "chromStart": 43358980, "chromEnd": 43363203}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = ucsc_canonical_transcript("chr1", 43358954, 43363203)
+    assert out["transcripts"][0]["transcript"] == "ENST00000310955.11"
+
+
+def test_gtex_gene_coords_parses(monkeypatch):
+    from recurscan.external import gtex_gene_coords
+    import io, json as J
+
+    class R(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    payload = J.dumps({"data": [{"chromosome": "chr1", "start": 43358955,
+                                 "end": 43363203, "gencodeId": "ENSG00000117399.13",
+                                 "geneSymbolUpper": "CDC20"}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(payload))
+    out = gtex_gene_coords("CDC20")
+    assert out["gencode_id"] == "ENSG00000117399.13"
+    assert out["chrom"] == "chr1"

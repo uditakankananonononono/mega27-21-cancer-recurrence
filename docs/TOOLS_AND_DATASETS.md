@@ -67,8 +67,11 @@ Staged (client live + tested, cached):
 25. GWAS Catalog REST - SNPs mapped to each R3 gene: CDC20 158, BIRC5 184,
     CEP55 118, others 36-61; functional classes recorded
     (results/external_pull2.json gwas_catalog_r3)
+26. UCSC Genome Browser API - knownCanonical transcripts at each R3 locus
+    (coords resolved via GTEx reference/gene, cross-checked gencodeIds)
+    (results/external_pull2.json ucsc_canonical_r3)
 
-Honest tool count: 34 (26 resources, 9 packages counting lifelines once)
+Honest tool count: 35 (27 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

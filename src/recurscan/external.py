@@ -328,3 +328,33 @@ def gwas_catalog_snps(symbol, size=200):
         classes[fc] = classes.get(fc, 0) + 1
     return {"symbol": symbol, "n_snps": len(snps), "functional_classes": classes,
             "sample_rsids": [s.get("rsId") for s in snps[:5]]}
+
+
+def ucsc_canonical_transcript(chrom, start, end, genome="hg38"):
+    """UCSC Genome Browser API: knownCanonical transcripts at a locus."""
+    import urllib.request as u
+    url = (f"https://api.genome.ucsc.edu/getData/track?genome={genome}"
+           f";track=knownCanonical;chrom={chrom};start={start};end={end}")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    rows = d.get("knownCanonical", [])
+    return {"chrom": chrom, "start": start, "end": end, "genome": genome,
+            "transcripts": [{"transcript": t.get("transcript"),
+                             "protein": t.get("protein"),
+                             "chromStart": t.get("chromStart"),
+                             "chromEnd": t.get("chromEnd")} for t in rows]}
+
+
+def gtex_gene_coords(symbol):
+    """GTEx API v2 reference/gene: coordinates + versioned gencodeId."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = f"https://gtexportal.org/api/v2/reference/gene?geneId={quote(symbol)}&format=json"
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    rec = [g for g in d.get("data", []) if g.get("geneSymbolUpper") == symbol.upper()]
+    if not rec:
+        raise KeyError(symbol)
+    g = rec[0]
+    return {"symbol": symbol, "chrom": g["chromosome"], "start": g["start"],
+            "end": g["end"], "gencode_id": g["gencodeId"]}
