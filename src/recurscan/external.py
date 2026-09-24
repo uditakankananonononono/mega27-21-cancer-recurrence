@@ -277,3 +277,15 @@ def ncbi_gene(symbol, organism="human"):
     doc = summ["result"][ids[0]]
     return {"symbol": symbol, "gene_id": ids[0], "name": doc.get("name"),
             "description": doc.get("description"), "chromosome": doc.get("chromosome")}
+
+
+def ols_search(query, ontology="efo", rows=5):
+    """EBI OLS4: ontology term search (EFO/MONDO/GO etc.)."""
+    import urllib.request as u
+    from urllib.parse import quote
+    url = (f"https://www.ebi.ac.uk/ols4/api/search?q={quote(query)}"
+           f"&ontology={ontology}&rows={rows}")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return {"query": query, "ontology": ontology,
+            "terms": [{"id": t.get("obo_id"), "label": t.get("label")} for t in d["response"]["docs"]]}

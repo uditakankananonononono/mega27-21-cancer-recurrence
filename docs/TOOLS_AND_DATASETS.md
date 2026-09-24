@@ -52,13 +52,15 @@ Staged (client live + tested, cached):
     (results/external_pull2.json monarch_cdc20)
 22. NCBI E-utilities - CDC20 -> GeneID 991 (chr1, cell division cycle 20)
     (results/external_pull2.json ncbi_cdc20)
+23. EBI OLS4 - study-endpoint term resolution: breast carcinoma MONDO:0004989,
+    disease recurrence EFO:0004952 (results/external_pull2.json ols_efo_terms)
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 31 (23 resources, 9 packages counting lifelines once)
+Honest tool count: 32 (24 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,

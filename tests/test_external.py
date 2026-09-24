@@ -230,3 +230,15 @@ def test_ncbi_gene(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R(next(calls)))
     out = ex.ncbi_gene("CDC20")
     assert out["gene_id"] == "991" and out["chromosome"] == "1"
+
+
+def test_ols_search(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps({"response": {"docs": [{"obo_id": "MONDO:0004989", "label": "breast carcinoma"}]}}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.ols_search("breast carcinoma")
+    assert out["terms"][0]["id"] == "MONDO:0004989"
