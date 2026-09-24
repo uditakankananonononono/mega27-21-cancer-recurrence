@@ -51,3 +51,33 @@ def test_cli_risk_scoring(tmp_path, capsys):
     out = json.loads(capsys.readouterr().out)
     # (5-3)/1*0.5 + (2-2)/1*0.1 = 1.0 -> high band
     assert out["log_hazard"] == 1.0 and out["band"] == "high"
+
+
+def test_kegg_exact_match(monkeypatch):
+    import recurscan.external as ex
+    class R:
+        def __init__(self, b): self.b = b
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return self.b
+    def fake(req, timeout=20):
+        url = req.full_url
+        if "find/genes" in url:
+            return R(b"hsa:136647\tMPLKIP, C7orf11; PLK1-interacting\nhsa:5347\tPLK1, PLK; kinase PLK1\n")
+        return R(b"hsa:5347\tpath:hsa04110\n")
+    monkeypatch.setattr("urllib.request.urlopen", fake)
+    out = ex.kegg_pathways("PLK1")
+    assert out["kegg_id"] == "hsa:5347"
+
+
+def test_hgnc_and_trials(monkeypatch):
+    import recurscan.external as ex
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return b'{"response": {"docs": [{"symbol": "CEP55", "name": "centrosomal protein 55"}]}}'
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=20: R())
+    assert ex.hgnc_symbol("CEP55")["symbol"] == "CEP55"
+    monkeypatch.setattr(ex, "_get", lambda url, timeout=25: {"studies": [{"nctId": "NCT1"}]})
+    assert len(ex.clinicaltrials_search("CEP55")) == 1

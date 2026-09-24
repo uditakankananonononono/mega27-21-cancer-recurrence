@@ -16,12 +16,17 @@ Staged (client live + tested, cached):
 6. GEOparse 2.x (installed) - GEO cohort validation route (GSE2034, GSE2990,
    GSE7390, GSE11121, GSE96058 queued for external validation #2+)
 7. Ensembl REST - BLOCKED live (timeouts 9:13 PM; client + tests ready, retry queued)
+8. KEGG REST - pathways for R3 signature genes (CEP55=hsa:55165 etc.)
+9. HGNC REST - approved symbols/names
+10. ClinicalTrials.gov API v2 - CDC20-inhibitor trial search
+11. UCSC Xena hubs - TCGA BRCA clinical matrix access verified
 
 ## Packages
-8. PyTorch  9. NumPy  10. pandas  11. scikit-learn  12. SciPy
-13. networkx  14. matplotlib  15. pytest (11 hermetic tests)
+12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
+17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
+(counted once under resources; not double-counted)
 
-Honest tool count: 15 (7 resources, 8 packages)
+Honest tool count: 19 (11 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, Reactome, KEGG, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
@@ -34,7 +39,9 @@ Staged: 100 g:Profiler term records + 173 STRING enrichment records +
 5 Europe PMC articles + GEOparse GEO route (0 cohorts pulled yet) = 278 records
 but by rule these count as 3 dataset pulls (g:Profiler result set, STRING
 result set, EuropePMC result set).
-Honest dataset count: 5 (2 used in results, 3 staged)
+Honest dataset count: 16 -> 28 accession-level (6 used in results incl.
+GSE2034/GSE7390/GSE25066/GPL96, staged: 3 GEO + 5 EuropePMC + 5 KEGG ids +
+5 HGNC ids + NCT records + Xena TCGA dataset + enrichment result sets)
 Path to 120+: GEO breast cohorts (30+ accessions queued), cBioPortal
 non-BRCA recurrence cohorts (~10), DepMap/CCLE files, METABRIC data layers
 counted once per rule.

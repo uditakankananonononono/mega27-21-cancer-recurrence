@@ -65,3 +65,49 @@ def geo_series_matrix(gse, destdir=None):
     g = GEOparse.get_GEO(geo=gse, destdir=destdir or os.path.join(CACHE, "geo"),
                          annotate_gpl=False, silent=True)
     return g
+
+
+def kegg_pathways(symbol):
+    """KEGG REST: pathways for a human gene symbol (exact match)."""
+    import urllib.request as u
+    def _txt(url):
+        with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=20) as r:
+            return r.read().decode()
+    hits = [l for l in _txt(f"https://rest.kegg.jp/find/genes/{symbol}").strip().split("\n")
+            if l.split("\t")[0].startswith("hsa:")]
+    exact = [l for l in hits if l.split("\t")[1].split(";")[0].split(",")[0].strip() == symbol]
+    pick = (exact or hits or [None])[0]
+    if pick is None:
+        return {"kegg_id": None, "pathways": []}
+    kegg_id = pick.split("\t")[0]
+    txt = _txt(f"https://rest.kegg.jp/link/pathway/{kegg_id}")
+    return {"kegg_id": kegg_id,
+            "pathways": [l.split("\t")[1] for l in txt.strip().split("\n") if "\t" in l]}
+
+
+def hgnc_symbol(symbol):
+    """HGNC REST: approved symbol/name."""
+    import urllib.request as u
+    url = f"https://rest.genenames.org/fetch/symbol/{symbol}"
+    req = u.Request(url, headers={"Accept": "application/json", "User-Agent": "recurscan/0.1"})
+    with u.urlopen(req, timeout=20) as r:
+        docs = json.loads(r.read().decode()).get("response", {}).get("docs", [])
+    return docs[0] if docs else {}
+
+
+def clinicaltrials_search(query, page_size=5):
+    """ClinicalTrials.gov API v2."""
+    import urllib.parse
+    q = urllib.parse.quote(query)
+    url = (f"https://clinicaltrials.gov/api/v2/studies?query.term={q}"
+           f"&pageSize={page_size}&fields=NCTId,BriefTitle,OverallStatus")
+    return _get(url).get("studies", [])
+
+
+def ucsc_xena_datasets(host="tcga.xenahubs.net", hub_dataset="TCGA.BRCA.sampleMap/BRCA_clinicalMatrix"):
+    """UCSC Xena: field list for a hosted dataset (proves hub access)."""
+    url = f"https://{host}/data/"
+    import urllib.request as u
+    req = u.Request(url + hub_dataset, headers={"User-Agent": "recurscan/0.1"})
+    with u.urlopen(req, timeout=25) as r:
+        return r.read().decode()[:2000]
