@@ -185,3 +185,16 @@ def test_rcsb_search(monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
     out = ex.rcsb_search("CDC20 anaphase-promoting complex")
     assert out["total"] == 2 and out["top_ids"] == ["4GGA", "4GGC"]
+
+
+def test_interpro_domains(monkeypatch):
+    import recurscan.external as ex, json as j
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self):
+            return j.dumps({"count": 1, "results": [{"metadata": {
+                "accession": "IPR001680", "name": "WD40 repeat", "type": "repeat"}}]}).encode()
+    monkeypatch.setattr("urllib.request.urlopen", lambda req, timeout=30: R())
+    out = ex.interpro_domains("Q12834")
+    assert out["domains"][0]["name"] == "WD40 repeat"

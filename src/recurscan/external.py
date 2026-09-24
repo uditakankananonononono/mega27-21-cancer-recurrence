@@ -231,3 +231,16 @@ def rcsb_search(text, rows=10):
         d = json.loads(r.read().decode())
     return {"query": text, "total": d["total_count"],
             "top_ids": [x["identifier"] for x in d.get("result_set", [])]}
+
+
+def interpro_domains(uniprot_acc, page_size=25):
+    """InterPro API: integrated domain/family entries for a UniProt protein."""
+    import urllib.request as u
+    url = (f"https://www.ebi.ac.uk/interpro/api/entry/interpro/protein/uniprot/"
+           f"{uniprot_acc}/?page_size={page_size}")
+    with u.urlopen(u.Request(url, headers={"User-Agent": "recurscan/0.1"}), timeout=30) as r:
+        d = json.loads(r.read().decode())
+    return {"accession": uniprot_acc, "count": d["count"],
+            "domains": [{"accession": x["metadata"]["accession"],
+                         "name": x["metadata"]["name"],
+                         "type": x["metadata"]["type"]} for x in d["results"]]}

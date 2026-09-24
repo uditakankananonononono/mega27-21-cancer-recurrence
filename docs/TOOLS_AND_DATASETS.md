@@ -45,13 +45,15 @@ Staged (client live + tested, cached):
 19. RCSB search API v2 - 29 APC/C-CDC20 structures (4GGA/4GGC/4GGD top hits;
     cross-consistent with MobiDB missing-residue records for the same PDBs)
     (results/external_pull2.json rcsb_apcc)
+20. InterPro API - domain architectures for CDC20 (WD40, Cdc20/Fizzy repeat),
+    BIRC5 (BIR), KIF2C (kinesin motor) (results/external_pull2.json interpro_r3)
 
 ## Packages
 12. PyTorch  13. NumPy  14. pandas  15. scikit-learn  16. SciPy
 17. networkx  18. matplotlib  19. pytest (19 hermetic tests)  20. lifelines
 (counted once under resources; not double-counted)
 
-Honest tool count: 28 (20 resources, 9 packages counting lifelines once)
+Honest tool count: 29 (21 resources, 9 packages counting lifelines once)
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
