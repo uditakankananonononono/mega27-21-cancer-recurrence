@@ -16,7 +16,6 @@ t, e = ds.time.astype(float), ds.event.astype(int)
 chemo = ds.X_clin[:, ds.clin_names.index("CHEMOTHERAPY=YES")].astype(bool)
 horm = ds.X_clin[:, ds.clin_names.index("HORMONE_THERAPY=YES")].astype(bool)
 arms = {"chemo": chemo, "hormone": horm & ~chemo, "neither": ~chemo & ~horm}
-rng = np.random.default_rng(7)
 out = {}
 for arm, mask in arms.items():
     idx = np.where(mask)[0]
@@ -26,18 +25,25 @@ for arm, mask in arms.items():
     keep = X[idx].std(0) > 1e-8
     Xk = X[:, keep]
     names_k = [n for n, k in zip(names, keep) if k]
-    perm = rng.permutation(len(idx))
-    te = idx[perm[: len(idx) // 5]]; tr = idx[perm[len(idx) // 5:]]
-    df = {f"x{j}": Xk[tr, j] for j in range(Xk.shape[1])}
-    df["t"], df["e"] = t[tr], e[tr]
-    fit = CoxPHFitter(penalizer=0.1).fit(pd.DataFrame(df), "t", "e")
-    risk = fit.predict_partial_hazard(pd.DataFrame(
-        {f"x{j}": Xk[te, j] for j in range(Xk.shape[1])})).values.ravel()
-    ci = concordance_index(t[te], -risk, e[te])
-    s = fit.summary
-    top = [(names_k[i], round(float(s.iloc[i]["coef"]), 3), round(float(s.iloc[i]["p"]), 4))
-           for i in np.argsort(s["p"].values)[:6] if s.iloc[i]["p"] < 0.05]
+    cis, tops = [], []
+    for seed in range(5):
+        rng = np.random.default_rng(7 + seed)
+        perm = rng.permutation(len(idx))
+        te = idx[perm[: len(idx) // 5]]; tr = idx[perm[len(idx) // 5:]]
+        df = {f"x{j}": Xk[tr, j] for j in range(Xk.shape[1])}
+        df["t"], df["e"] = t[tr], e[tr]
+        fit = CoxPHFitter(penalizer=0.1).fit(pd.DataFrame(df), "t", "e")
+        risk = fit.predict_partial_hazard(pd.DataFrame(
+            {f"x{j}": Xk[te, j] for j in range(Xk.shape[1])})).values.ravel()
+        cis.append(concordance_index(t[te], -risk, e[te]))
+        if seed == 0:
+            s_ = fit.summary
+            tops = [(names_k[i], round(float(s_.iloc[i]["coef"]), 3), round(float(s_.iloc[i]["p"]), 4))
+                    for i in np.argsort(s_["p"].values)[:6] if s_.iloc[i]["p"] < 0.05]
     out[arm] = {"n": int(mask.sum()), "events": int(e[idx].sum()),
-                "heldout_cindex": round(float(ci), 4), "top_predictors": top}
+                "heldout_cindex_mean": round(float(np.mean(cis)), 4),
+                "heldout_cindex_std": round(float(np.std(cis)), 4),
+                "heldout_cindex_runs": [round(float(c), 4) for c in cis],
+                "top_predictors_seed0": tops}
 json.dump(out, open("results/treatment_arms_round5c.json", "w"), indent=2)
 print(json.dumps(out, indent=1))

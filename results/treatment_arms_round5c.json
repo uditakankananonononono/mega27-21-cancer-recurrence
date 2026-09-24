@@ -2,8 +2,16 @@
   "chemo": {
     "n": 410,
     "events": 220,
-    "heldout_cindex": 0.4965,
-    "top_predictors": [
+    "heldout_cindex_mean": 0.5434,
+    "heldout_cindex_std": 0.044,
+    "heldout_cindex_runs": [
+      0.4965,
+      0.5328,
+      0.5755,
+      0.5013,
+      0.6109
+    ],
+    "top_predictors_seed0": [
       [
         "LYMPH_NODES_EXAMINED_POSITIVE",
         0.05,
@@ -24,54 +32,70 @@
   "hormone": {
     "n": 1024,
     "events": 386,
-    "heldout_cindex": 0.7249,
-    "top_predictors": [
+    "heldout_cindex_mean": 0.6857,
+    "heldout_cindex_std": 0.0139,
+    "heldout_cindex_runs": [
+      0.6755,
+      0.6774,
+      0.6803,
+      0.7131,
+      0.6824
+    ],
+    "top_predictors_seed0": [
       [
         "LYMPH_NODES_EXAMINED_POSITIVE",
-        0.082,
+        0.059,
         0.0
       ],
       [
         "TUMOR_SIZE",
-        0.013,
-        0.001
+        0.014,
+        0.0006
       ],
       [
         "NPI",
-        0.176,
-        0.0053
+        0.184,
+        0.003
       ],
       [
         "ESR1",
-        -0.288,
-        0.0117
+        -0.285,
+        0.0127
       ],
       [
         "MIA",
-        0.242,
-        0.0252
+        0.26,
+        0.0136
       ],
       [
-        "VEGFA",
-        0.138,
-        0.0419
+        "MMP11",
+        0.139,
+        0.0257
       ]
     ]
   },
   "neither": {
     "n": 541,
     "events": 194,
-    "heldout_cindex": 0.6398,
-    "top_predictors": [
+    "heldout_cindex_mean": 0.5909,
+    "heldout_cindex_std": 0.0189,
+    "heldout_cindex_runs": [
+      0.5872,
+      0.5684,
+      0.626,
+      0.5851,
+      0.5879
+    ],
+    "top_predictors_seed0": [
       [
-        "BAG1",
-        -0.173,
-        0.0255
+        "NPI",
+        0.199,
+        0.036
       ],
       [
-        "NUF2",
-        0.183,
-        0.0347
+        "MMP11",
+        0.173,
+        0.0495
       ]
     ]
   }

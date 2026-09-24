@@ -1,0 +1,20 @@
+{
+  "chemo": {
+    "n_erpos": 158,
+    "events": 83,
+    "ci_mean": 0.6274,
+    "ci_std": 0.0234
+  },
+  "hormone": {
+    "n_erpos": 949,
+    "events": 358,
+    "ci_mean": 0.705,
+    "ci_std": 0.023
+  },
+  "neither": {
+    "n_erpos": 397,
+    "events": 153,
+    "ci_mean": 0.5621,
+    "ci_std": 0.0448
+  }
+}
