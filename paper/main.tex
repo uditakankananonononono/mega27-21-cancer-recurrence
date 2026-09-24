@@ -243,23 +243,42 @@ is real within METABRIC but is neither predictive nor transportable.
 \end{figure}
 \subsection{Cross-cohort transportability: benchmark beat}
 A penalized Cox model (70-gene panel only), trained once on METABRIC, was
-transported raw to two independent Affymetrix cohorts and compared with each
-cohort's own published signature calls (GSE7390: Veridex-76 and GGI;
-GSE25066: GGI and a chemosensitivity signature). Our transported model
-outperforms the Genomic Grade Index in both cohorts
-($0.6009$ vs $0.5366$ in GSE7390; $0.640$ vs $0.6025$ in GSE25066) and
-Veridex-76 in GSE7390 ($0.6009$ vs $0.5757$), with zero retraining across
-platforms. Per-cohort bootstrap intervals overlap; we claim a point-estimate
-beat, not statistical separation. Comparator category encodings were
-direction-corrected during verification; the DLDA-30 metadata column was
-excluded after failing an internal-consistency check against observed
-outcomes.
+transported raw to five independent Affymetrix cohorts and compared with each
+cohort's own published signature calls or clinical comparators. It
+outperforms the Genomic Grade Index in two cohorts
+($0.6009$ vs $0.5366$ in GSE7390; $0.640$ vs $0.6025$ in GSE25066),
+Veridex-76 in GSE7390 ($0.6009$ vs $0.5757$), and tumor grade in the
+node-negative GSE11121 cohort ($0.6979$ vs $0.6294$), with zero retraining
+across platforms. Two further cohorts are honest non-beats: in GSE2990 the
+per-sample continuous GGI is marginally ahead ($0.6651$ vs $0.6559$), and in
+GSE20685 nodal stage leads ($0.6996$ vs $0.6264$), though our score still
+exceeds $0.6$ with its bootstrap interval excluding $0.5$. Per-cohort
+bootstrap intervals overlap; we claim point-estimate beats, not statistical
+separation. Comparator category encodings were direction-corrected during
+verification; the DLDA-30 metadata column was excluded after failing an
+internal-consistency check against observed outcomes. A full sign-convention
+audit (lifelines reports concordance against higher-equals-longer-survival)
+re-derived every reported concordance from the committed result files; one
+stale script with the opposite convention was found and corrected, and no
+committed number changed.
 
 \section{Discussion}
-(Expand: clinical implications, limitations of a 70-gene panel, why external
-replication is the honest arbiter, roadmap to methylation features.)
+A penalized linear Cox model on a 70-gene panel is the ceiling in this data
+regime: across eight controlled comparisons (deep Cox, GBT survival,
+multimodal methylation/mutation/CNA integration, engineered features), no
+alternative exceeded it, and several were significantly worse. The transport
+experiments sharpen that verdict: the same frozen coefficients beat
+published commercial-grade signatures in two cohorts and tumor grade in a
+third, while losing honestly to a continuous GGI and to nodal stage in two
+others. External replication, not internal cross-validation, is the honest
+arbiter of a prognostic claim; five of our nine discovery rounds survive
+only as negatives, and they are reported here alongside the positive
+transport results by design. Limitations: the panel is expression-only,
+cohorts differ in treatment era and endpoint definition, and the
+GSE20685 result suggests clinical covariates still carry signal the panel
+misses.
 \section{Reproducibility}
-All code (11 hermetic tests), cached API snapshots, result JSON files, and
+All code (20 hermetic tests), cached API snapshots, result JSON files, and
 figures are in the project repository; every number in this paper is
 regenerable from \texttt{results/*.json}.
 \bibliographystyle{plainnat}
@@ -277,5 +296,14 @@ recommender system using a Cox proportional hazards deep neural network.
 graph convolutional networks. \emph{ICLR} (2017).
 \bibitem{cox1972} Cox, D.\ R. Regression models and life-tables.
 \emph{JRSS B} 34, 187--220 (1972).
+\bibitem{sotiriou2006} Sotiriou, C.\ et al. Gene expression profiling in
+breast cancer: understanding the molecular basis of histologic grade to
+improve prognosis. \emph{JNCI} 98, 262--272 (2006).
+\bibitem{schmidt2008} Schmidt, M.\ et al. The humoral immune system has a
+key prognostic impact in node-negative breast cancer. \emph{Cancer Res.}
+68, 5405--5413 (2008).
+\bibitem{kao2011} Kao, K.-J.\ et al. Correlation of microarray-based breast
+cancer molecular subtypes and clinical outcomes. \emph{BMC Cancer} 11, 143
+(2011).
 \end{thebibliography}
 \end{document}
