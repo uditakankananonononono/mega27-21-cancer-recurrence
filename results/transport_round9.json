@@ -1,0 +1,34 @@
+{
+  "cohort": "GSE7390",
+  "n": 196,
+  "events": 89,
+  "ours_npi_expr": {
+    "ci": 0.5959,
+    "boot95": [
+      0.5387,
+      0.6438
+    ]
+  },
+  "ours_expr_only": {
+    "ci": 0.6009,
+    "boot95": [
+      0.5445,
+      0.661
+    ]
+  },
+  "veridex76": {
+    "ci": 0.5757,
+    "boot95": [
+      0.5302,
+      0.6158
+    ]
+  },
+  "ggi": {
+    "ci": 0.5366,
+    "boot95": [
+      0.5113,
+      0.5623
+    ]
+  },
+  "note": "ours trained on METABRIC, transported to Affymetrix cohort; comparators are GSE7390's own published risk calls (2-level)"
+}
