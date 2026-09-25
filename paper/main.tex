@@ -3,8 +3,11 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
+\usepackage{etex}
 
-\usepackage{natbib}
+\usepackage[numbers]{natbib}
+\usepackage{ifpdf}
+\makeatletter\@namedef{ver@epstopdf-base.sty}{9999/12/31}\makeatother
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
@@ -296,6 +299,11 @@ misses.
 All code (41 hermetic tests), cached API snapshots, result JSON files, and
 figures are in the project repository; every number in this paper is
 regenerable from \texttt{results/*.json}.
+The audit-corrected resource roster has at most 36 distinct science/data
+tools before direct-use scrutiny and does not meet the 40-tool gate. Its
+3,797 patient/sample identifiers are nested records, not independent
+study datasets. The 120-dataset gate is conditional on direct record-level
+use and uniqueness; the source-study count is nine and does not meet it.
 \bibliographystyle{plainnat}
 \begin{thebibliography}{9}
 \bibitem{pereira2016} Pereira, B.\ et al. The somatic mutation profiles of
