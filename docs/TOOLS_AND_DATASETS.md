@@ -92,7 +92,7 @@ Staged (client live + tested, cached):
     germline landscape vs somatic-driver story
     (results/external_pull2.json ebi_variation_r3)
 
-Honest tool count: 40 (33 resources + 7 analysis packages; pytest/git/GitHub/Drive excluded as infra per ruling) - GATE MET
+Audit-corrected tool count: at most 36 research/data sources and science libraries in the 40-row roster. Europe PMC and OpenAlex are literature-only, EBI BioStudies is a study index, and GEOparse was listed as queued/installed, not a completed science analysis. Exclude these unless a committed scientific result establishes actual use; the 40-tool gate is NOT MET. Count any further aliases or staged services only after direct-use audit.
 Path to 40: MSigDB, COSMIC, DepMap, GDSC, WikiPathways,
 Enrichr, UCSC Xena, GDC API, GEO (per-cohort), Oncomine successors, HGNC,
 BioGRID, IntAct, OncoKB, CIViC, DGIdb, PharmGKB, ClinicalTrials.gov,
@@ -105,7 +105,7 @@ Staged: 100 g:Profiler term records + 173 STRING enrichment records +
 5 Europe PMC articles + GEOparse GEO route (0 cohorts pulled yet) = 278 records
 but by rule these count as 3 dataset pulls (g:Profiler result set, STRING
 result set, EuropePMC result set).
-Honest dataset count: 16 -> 28 accession-level (6 used in results incl.
+Historical staged/used inventory: 16 -> 28 accession-level (6 used in results incl.
 GSE2034/GSE7390/GSE25066/GPL96, staged: 3 GEO + 5 EuropePMC + 5 KEGG ids +
 5 HGNC ids + NCT records + Xena TCGA dataset + enrichment result sets)
 Path to 120+: GEO breast cohorts (30+ accessions queued), cBioPortal
@@ -122,5 +122,5 @@ accession-level datasets (identifier-backed records individually used).
 - METABRIC sample IDs USED: 1,975 (all Cox fits; methylation/multimodal
   rounds reuse the same IDs - not double-counted)
 - TCGA-BRCA sample IDs USED: 118 (round-3 replication)
-- ACCESSION-LEVEL TOTAL USED: 3,797 / 120 - GATE MET
+- ACCESSION-LEVEL USED RECORDS: 3,797 sample identifiers/records according to the recorded analyses, but NOT 3,797 independent study datasets. Seven GEO series plus METABRIC plus TCGA-BRCA (nine source studies) under source-study count. A record-level 120 gate is conditional on confirming direct use and distinct identifier-backed records; the study-level 120 gate is NOT MET.
 - Series-level (transparency): 7 GEO series + METABRIC + TCGA-BRCA
