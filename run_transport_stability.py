@@ -8,7 +8,7 @@ consistent with four training-cohort univariate Cox signs, each with
 makes gene unclassified. Stable-only panel is the METABRIC-trained full Cox
 coefficients masked to stable genes (no external-cohort refit). Primary metric:
 mean of five held-out C-index differences, stable minus full; one-sided
-paired bootstrap lower bound >0 and alpha .01; 1000 random-gene-set
+one-sided paired bootstrap p<.01; 1000 random-gene-set
 permutations matching each fold's stable-panel size, p<.01. If there are
 no stable genes, the gate fails rather than redefining the threshold.
 Provisional follow-up: no 5-year absolute calibration claim without
