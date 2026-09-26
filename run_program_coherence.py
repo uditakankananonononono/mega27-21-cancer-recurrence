@@ -11,7 +11,6 @@ from collections import Counter
 from pathlib import Path
 import numpy as np
 from scipy.stats import hypergeom
-from statsmodels.stats.multitest import multipletests
 
 ROOT=Path(__file__).resolve().parent
 URL='https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/h.all.v2025.1.Hs.symbols.gmt'
@@ -30,7 +29,10 @@ def fold_q(panel, programs):
     names=list(programs)
     p=[float(hypergeom.sf(len(panel & programs[n])-1, 70, len(programs[n]), len(panel)))
        if len(panel & programs[n])>=MIN_OVERLAP else 1. for n in names]
-    q=multipletests(p,method='fdr_bh')[1]
+    # Benjamini-Hochberg FDR, no heavyweight optional statsmodels dependency.
+    m=len(p); q=np.ones(m); ranked=np.argsort(p); running=1.
+    for pos in range(m-1,-1,-1):
+        ix=ranked[pos];running=min(running,float(p[ix])*m/(pos+1));q[ix]=running
     return dict(zip(names,map(float,q)))
 
 def score(folds, programs, genes):
