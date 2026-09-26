@@ -9,6 +9,22 @@ deep models trail (honest negative). Cross-cohort transport beat: frozen
 signature enriched (BH q to 8.8e-5) but failed nested-CV (AUC 0.50) and
 TCGA-BRCA replication (p=0.36): bounded negative, pivot required (rule 4).
 
+## Provenance of this document (honest attribution)
+- USER STANDING RULES (verbatim, WhatsApp channel history): 4:11:18 (complete
+  all projects except deleted ones; ask CHATGPT for ideas/redirection; minimum
+  10 judging rounds on weaknesses/additions; never count a negative as a
+  result), 4:11:49 (each project beats benchmarks - improve until it does -
+  and produces an actual new discovery), 4:12:25 (ask ChatGPT how to redirect
+  when a negative is not moving forward), 4:14:37 (take inspiration from
+  previous ISEF winners, e.g. Natasha Kulviwat).
+- RESEARCHER-LOCKED METHODOLOGICAL CHOICES (this agent, 2026-09-26, locked
+  before inspecting new outcomes): every numeric threshold, alpha level,
+  seed count, pivot ladder, gate name and scope framing below. These are the
+  lane's own preregistration decisions, NOT user-specified values; they exist
+  so results cannot be fished past moving goalposts. Pre-existing gates
+  declared by earlier builders in repo history (e.g. the RMSD < 2.0 A redock
+  gate already in this repo's README) are inherited, not invented here.
+
 ## Locked gates (declared before outcomes)
 - G1 discovery pivot: the next discovery candidate must replicate on an
   untouched external cohort at pre-declared alpha before any claim. Ranked
