@@ -216,42 +216,16 @@ patients into risk terciles separated at log-rank $p = 7.9\times10^{-16}$
 \caption{Kaplan--Meier curves of held-out patients by predicted risk tercile.}
 \label{fig:km}
 \end{figure}
-\subsection{Analysis: why deep models trail}
-On $n \approx 1{,}500$ training patients with 87 features and 40\% events,
-the effective sample size is event-limited; penalized linear Cox already
-captures most extractable signal. The GCN's higher variance
-($\pm 0.015$) reflects transductive sensitivity to graph construction. We
-report this as an honest negative for deep survival models at this scale.
-\subsection{Discovery round 1: biology modules and graph propagation}
-Adding module scores (proliferation, ER signaling, hypoxia) or
-graph-smoothed risk to the baseline changed held-out C by at most
-$+0.0014$ (CIs include 0). Negative.
-\subsection{Discovery round 2: multi-omic features}
-Adding copy-number calls (70 genes) and mutation indicators (11 genes with
-$\ge 20$ mutated samples) did not improve the baseline
-($\Delta C \le +0.0027$, CIs straddle or fall below 0). Negative.
-\subsection{Discovery round 3: clinical-risk discordance}
-Among low-NPI ($\le 3.4$) patients, early recurrers ($n = 102$ of 523 low-NPI patients) differed
-from disease-free controls in 11 mitotic genes at BH-FDR $q < 0.005$
-(Figure~\ref{fig:fdr}); the multivariable model collapsed (nested-CV AUC
-$= 0.50$) and the pre-registered TCGA-BRCA replication of the composite
-mitotic score failed (recur $+0.132$ vs free $+0.011$, one-sided
-$p = 0.36$, $n = 22$ vs $96$). Bounded negative: the univariate enrichment
-is real within METABRIC but is neither predictive nor transportable.
-Independent corroboration of this negative comes from the Human Protein
-Atlas prognostics pipeline (which we did not build): all nine retrievable
-signature genes are classified \emph{unprognostic} in its TCGA breast
-invasive carcinoma analysis (CDC20 $p = 9.8 \times 10^{-3}$,
-BIRC5 $3.6 \times 10^{-2}$, CEP55 $0.22$, KIF2C $7.1 \times 10^{-2}$,
-MELK $6.0 \times 10^{-2}$, PTTG1 $1.3 \times 10^{-2}$, NDC80 $0.23$,
-NUF2 $9.3 \times 10^{-2}$, ANLN $1.8 \times 10^{-2}$), agreeing with our
-external-cohort refutation.
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/fig3_npi_discordant_fdr.png}
-\caption{FDR-significant genes in the low-NPI discordance contrast.}
-\label{fig:fdr}
-\end{figure}
+\subsection{Bounded negatives and limits}
+Penalized Cox outperformed the deeper models in this event-limited cohort;
+the graph model had the highest cross-seed variance ($\pm 0.015$).
+Module scores and graph smoothing added at most $+0.0014$ held-out C;
+copy-number and mutation features added at most $+0.0027$, with intervals
+crossing or below zero. A low-NPI mitotic contrast found 11 genes at BH
+$q<0.005$, but failed nested-CV prediction (AUC $=0.50$) and TCGA-BRCA
+replication ($p=0.36$; 22 recurrent and 96 non-recurrent cases).
+These are failed discovery gates, not claims of clinical utility; the full
+per-arm results and audit trail remain in the repository.
 \subsection{Cross-cohort transportability: benchmark beat}
 A penalized Cox model (70-gene panel only), trained once on METABRIC, was
 transported raw to five independent Affymetrix cohorts and compared with each
@@ -289,9 +263,8 @@ experiments sharpen that verdict: the same frozen coefficients beat
 published commercial-grade signatures in two cohorts and tumor grade in a
 third, while losing honestly to a continuous GGI and to nodal stage in two
 others. External replication, not internal cross-validation, is the honest
-arbiter of a prognostic claim; five of our nine discovery rounds survive
-only as negatives, and they are reported here alongside the positive
-transport results by design. Limitations: the panel is expression-only,
+arbiter of a prognostic claim; failed discovery arms remain documented, with their consequences summarized
+here rather than presented as positive findings. Limitations: the panel is expression-only,
 cohorts differ in treatment era and endpoint definition, and the
 GSE20685 result suggests clinical covariates still carry signal the panel
 misses.

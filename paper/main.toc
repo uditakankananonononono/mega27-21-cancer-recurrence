@@ -13,10 +13,7 @@
 \contentsline {subsection}{\numberline {3.7}Discovery protocol and locked gates}{5}{}%
 \contentsline {section}{\numberline {4}Experiments and Results}{5}{}%
 \contentsline {subsection}{\numberline {4.1}Benchmark}{5}{}%
-\contentsline {subsection}{\numberline {4.2}Analysis: why deep models trail}{5}{}%
-\contentsline {subsection}{\numberline {4.3}Discovery round 1: biology modules and graph propagation}{6}{}%
-\contentsline {subsection}{\numberline {4.4}Discovery round 2: multi-omic features}{6}{}%
-\contentsline {subsection}{\numberline {4.5}Discovery round 3: clinical-risk discordance}{6}{}%
-\contentsline {subsection}{\numberline {4.6}Cross-cohort transportability: benchmark beat}{6}{}%
-\contentsline {section}{\numberline {5}Discussion}{7}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{8}{}%
+\contentsline {subsection}{\numberline {4.2}Bounded negatives and limits}{5}{}%
+\contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{6}{}%
+\contentsline {section}{\numberline {5}Discussion}{6}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{7}{}%
