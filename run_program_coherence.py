@@ -14,6 +14,7 @@ from scipy.stats import hypergeom
 
 ROOT=Path(__file__).resolve().parent
 URL='https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/h.all.v2025.1.Hs.symbols.gmt'
+SHA256='f22066af72e215ccb7b89d88e492c07e1eef17534c2ca7b0f9902cfecbbdd8e9'
 SEED=3; B=1000; ALPHA=.05; MIN_OVERLAP=3; MIN_PROGRAM_PANEL=3
 
 def read_programs(raw, universe):
@@ -74,6 +75,7 @@ def analyze(j, raw):
 def main():
     j=json.loads((ROOT/'results/transport_stability.json').read_text())
     with urllib.request.urlopen(URL,timeout=30) as r:raw=r.read()
+    assert hashlib.sha256(raw).hexdigest()==SHA256, 'Hallmark source changed; halt, do not silently use new gene sets'
     z=analyze(j,raw)
     z.update({'source_url':URL,'source_sha256':hashlib.sha256(raw).hexdigest(),
               'locked_design':'MSigDB Hallmark v2025.1.Hs; 70-panel universe, >=3 panel genes per set and overlap >=3; hypergeometric upper tail, BH q<.05 per fold; max Hallmark repeat across folds >=4/5 and empirical p<.01, 1000 shared within-beta-quartile identity permutations, seed=3. Secondary only.'})

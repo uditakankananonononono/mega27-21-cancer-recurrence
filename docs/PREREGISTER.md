@@ -70,3 +70,7 @@ enriched for breast-cancer programs, so a negative remains a negative and a
 positive is only program association, not causal mechanism. Check the probe
 multiplicity audit separately; biology vs technical confounding remains open.
 Source: https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/
+
+Official MSigDB v2025.1.Hs Hallmark GMT source snapshot independently fetched and
+SHA256-pinned pre-outcome: `f22066af72e215ccb7b89d88e492c07e1eef17534c2ca7b0f9902cfecbbdd8e9`;
+subsequent source drift stops the analysis rather than moving this background.
