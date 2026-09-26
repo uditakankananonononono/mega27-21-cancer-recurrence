@@ -514,3 +514,294 @@ the reduced panel is then scored on the untouched fifth. The five held-out
 C-indices are averaged. The original all-cohort map may be shown as
 exploratory visualization only. Missing cohort data postpone the locked
 five-cohort verdict rather than silently narrowing the test set.
+
+
+## Round 2/10 - 2026-09-26 17:41 IST
+
+Surface: https://chatgpt.com/c/6ab7a557-fd78-83ee-90d8-c071589ff631. ChatGPT is external, untrusted critique, not empirical evidence or authority.
+
+### Verbatim prompt and response
+```
+Today 5:41 PM
+Adversarial ISEF judge round 2 for the METABRIC breast-cancer recurrence project. Please focus on a concrete NEW scientific discovery, not polish. Updates since round 1: a preregistered 70-gene-vs-grade/ER/HER2/nodal/seven-proliferation-gene test on a fixed 395-patient METABRIC holdout failed to add discrimination (C-index 0.6464 full vs 0.6544 reduced), despite a significant training-only nested likelihood ratio. A 5-year transport calibration audit on GSE7390 and GSE2990 found apparent mean-risk agreement but GSE7390 calibration slope 0.464; three other GEO cohorts have endpoint mismatches and cannot validate RFS absolute risk. We corrected a days/months error before making a claim. The primary discovery test is running: leave one external cohort untouched, classify gene coefficient stability on METABRIC plus the other four, mask unstable coefficients, evaluate mean held-out C-index across five cohorts against full panel, paired bootstrap and 1000 random-size-matched panel permutations. How can we convert a possible negative into a falsifiable, independent biological discovery without selecting on the test cohorts? Give one focused next test with explicit control, endpoint/population caveat, and what result would refute it. Do not suggest changing locked test thresholds after outcomes. Consider whether coefficient instability is biology versus measurement/platform or treatment confounding. This is research, not patient care.
+Show more
+Adversarial ISEF Judge Round 2 — What is the actual discovery?
+
+The project has improved scientifically since round 1 because you have killed two attractive but weak narratives:
+
+“The 70-gene panel adds independent information beyond clinicopathologic variables.”
+→ Failed on locked METABRIC holdout.
+
+“The model transports absolute recurrence risk across cohorts.”
+→ Not supported because calibration slope fails and endpoints differ.
+
+Those failures are not damage. They narrow the question.
+
+The strongest remaining discovery hypothesis is:
+
+Breast-cancer recurrence signatures may fail not because the genes are biologically wrong, but because the stability of gene-level prognostic effects across populations is itself a measurable biological property.
+
+However, you need to avoid a common trap:
+
+A coefficient instability map alone is not a discovery. It could simply measure:
+
+microarray platform differences
+
+batch effects
+
+treatment-era changes
+
+subtype composition
+
+sampling noise
+
+The next experiment must distinguish these.
+
+Proposed single next discovery experiment
+Hypothesis
+
+“Genes with unstable recurrence coefficients across cohorts represent context-dependent prognostic biology, whereas stable genes represent treatment-era/platform-robust recurrence biology.”
+
+This is falsifiable.
+
+Experiment: Stability → mechanism test
+Step 1 — Lock the stability discovery cohort
+
+Before seeing held-out results:
+
+For each leave-one-cohort-out split:
+
+Training:
+
+METABRIC
+
+four GEO cohorts
+
+Holdout:
+
+one untouched GEO cohort
+
+For every gene:
+
+Calculate:
+
+coefficient sign consistency
+
+coefficient variance
+
+bootstrap confidence interval overlap
+
+Define:
+
+Stable genes: pre-specified low variance + high sign agreement
+
+Unstable genes: high variance or sign flips
+
+Do not optimize cutoffs on held-out cohorts.
+
+Step 2 — Compare three locked models
+Model A: Full 70-gene panel
+
+Current baseline.
+
+Model B: Stability-filtered panel
+
+Only stable genes.
+
+Model C: Random-size control panel
+
+Same number of genes randomly sampled from the 70 genes.
+
+Repeat:
+
+1000 permutations.
+
+Primary endpoint
+
+Mean held-out C-index across the five external cohorts.
+
+Not:
+
+best cohort
+
+best cutoff
+
+post-hoc chosen endpoint
+
+Mean performance is the discovery metric.
+
+Step 3 — The critical biological test
+
+If stable genes are truly biological, they should show enrichment for a coherent process.
+
+Do not start with pathways and then choose a story.
+
+Pre-register:
+
+Compare stable vs unstable genes for:
+
+proliferation
+
+immune response
+
+extracellular matrix
+
+hormone signaling
+
+DNA repair
+
+cell cycle
+
+using:
+
+GO enrichment
+
+MSigDB Hallmark pathways
+
+with multiple testing correction.
+
+The possible outcomes
+Outcome 1 — Strong discovery
+
+You find:
+
+stability-filtered model beats full panel
+
+beats random panels
+
+improvement replicates in untouched cohort
+
+stable genes enriched in a coherent biology
+
+Then the claim becomes:
+
+“Cross-cohort coefficient stability identifies a subset of recurrence-associated genes with greater biological transportability than the original fixed panel.”
+
+That is genuinely new.
+
+It is not:
+
+“new breast cancer signature.”
+
+It is:
+
+“new method for identifying trustworthy prognostic biology.”
+
+Much stronger.
+
+Outcome 2 — Performance improves but no biology
+
+Example:
+
+Stable panel wins C-index but genes are not enriched.
+
+Interpretation:
+
+Likely measurement/statistical artifact.
+
+Discovery claim weakens.
+
+Outcome 3 — No improvement
+
+This is also scientifically valuable.
+
+It would support:
+
+“Coefficient instability is not predictive of transport failure; recurrence signatures degrade because cohort-level factors dominate gene-level stability.”
+
+That is a legitimate negative result.
+
+The key adversarial question: biology or measurement?
+
+You must explicitly separate three hypotheses.
+
+Cause of instability	Prediction
+Measurement/platform artifact	Instability correlates with platform, probe characteristics, expression variance
+Treatment confounding	Instability correlates with treatment era/subtype composition
+True context-dependent biology	Instability remains after adjusting for platform and clinical composition
+Add one essential control
+Platform-only null model
+
+Before claiming biology:
+
+Take stable/unstable labels.
+
+Test whether instability is predicted by:
+
+Affymetrix probe variance
+
+missingness
+
+expression intensity
+
+probe annotation quality
+
+If unstable genes are simply technically unreliable, the biological interpretation collapses.
+
+Add one treatment-era/subtype control
+
+Repeat stability analysis stratified by:
+
+ER+/HER2-
+
+HER2+
+
+triple-negative
+
+if sample sizes allow.
+
+Why?
+
+A gene can be unstable because:
+
+“high proliferation predicts recurrence differently in endocrine-treated ER+ disease versus untreated historical cohorts.”
+
+That is not measurement failure.
+
+That is context biology.
+
+What would refute the discovery?
+
+The strongest refutation would be:
+
+Stability-filtered panel does not outperform full panel.
+
+Performance is within random permutation distribution.
+
+Instability is explained primarily by platform variables.
+
+Stable genes show no reproducible biological enrichment.
+
+The effect disappears in a completely untouched cohort.
+
+Then you conclude:
+
+“Gene coefficient stability does not identify transportable recurrence biology in these datasets.”
+
+That is a clean falsification.
+
+What an ISEF grand-award judge would look for
+
+The missing piece is not another predictive model.
+
+The missing piece is a causal-looking biological explanation for why the transport pattern exists.
+
+Your project is strongest if the final result is:
+
+“The reason recurrence biomarkers fail is measurable: certain biological programs are context-dependent while others remain conserved.”
+
+Your current evidence already argues against:
+
+deep learning superiority
+
+added information beyond clinical variables
+
+naive absolute-risk transport
+
+The next experiment should not rescue the 70 genes.
+
+It should determine whether transportability itself is a biological phenotype that can be discovered.
+```
+
+### Independent assessment and novelty foldback
+The judge proposed a technical-probe confound control before calling coefficient stability biological. This is a valid failure mode; the original platform comparison alone cannot distinguish probe multiplicity/coverage from biology. A new, pre-outcome script `run_probe_confound.py` (commit 6b11d00) counts GPL96/GPL570 probes and cohort mapping coverage and predicts stable-fold labels across genes with leave-one-gene-out validation. If these technical covariates explain stability, mechanistic biology claims are withheld. The proposed subtype control needs endpoint and treatment harmonization; do not assert causality from it or silently add it to the current five-cohort gate. The full original primary gate stays locked and may fail. This concrete novelty change is the reason this judge round counts toward the user minimum.
