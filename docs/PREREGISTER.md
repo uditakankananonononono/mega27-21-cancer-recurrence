@@ -43,3 +43,12 @@ TCGA-BRCA replication (p=0.36): bounded negative, pivot required (rule 4).
 - ISEF archetype: biomarker identify-then-VERIFY end-to-end (the
   Kulviwat-style pattern the user named 4:14:37); replication-first claim
   discipline is the explicit judge-facing strength.
+
+## Judge round 1 transport-stability correction (2026-09-26 17:25 IST, pre-outcome)
+Any reduced-panel assessment on the same cohorts used to select its stable
+genes would be outcome leakage. Use five leave-one-cohort-out folds: on each,
+stability is fit on METABRIC and the other four cohorts; the held-out cohort
+contributes only its independent C-index. Keep all five required for the
+primary verdict. An all-five-cohort stability map is descriptive, not a
+validation result. The decision threshold and permutation count recorded in
+JUDGE_ROUNDS.md remain unchanged.

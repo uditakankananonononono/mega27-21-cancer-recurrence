@@ -504,3 +504,13 @@ Your negative results are actually the strongest part of the project. The grand-
 4. Pivot ladder: if the locked test fails, candidate A (subtype/treatment-
    era recalibration) becomes primary, then B. ChatGPT redirection round
    required before switching (user rule 6).
+
+### Pre-outcome methodological correction - 2026-09-26 17:25 IST
+The judge's proposed stability map is exploratory if stability labels use all five
+external outcome cohorts and the same five measure the stable-only panel. To
+make the comparison falsifiable, each external cohort is held out in turn:
+stability classification uses METABRIC plus the other four external cohorts;
+the reduced panel is then scored on the untouched fifth. The five held-out
+C-indices are averaged. The original all-cohort map may be shown as
+exploratory visualization only. Missing cohort data postpone the locked
+five-cohort verdict rather than silently narrowing the test set.
