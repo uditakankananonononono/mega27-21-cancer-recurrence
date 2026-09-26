@@ -26,7 +26,7 @@ ROOT=Path(__file__).resolve().parent
 GEO=ROOT/'data_cache/external/geo'
 COHORTS=['GSE7390','GSE11121','GSE2990','GSE20685','GSE25066']
 ENDPOINT={
- 'GSE7390':('t.rfs','e.rfs',1.), 'GSE11121':('t.dmfs','e.dmfs',1.),
+ 'GSE7390':('t.rfs','e.rfs',1./30.4375), 'GSE11121':('t.dmfs','e.dmfs',1.),
  'GSE2990':('time.rfs','event.rfs',12.),
  'GSE20685':('follow_up_duration (years)','event_metastasis',12.),
  'GSE25066':('drfs_even_time_years','drfs_1_event_0_censored',12.)}
