@@ -13,30 +13,30 @@
         {
           "n": 50,
           "mean_predicted_5yr_event": 0.14461867820445776,
-          "km_observed_5yr_event": 0.0,
-          "at_risk_5yr": 50
+          "km_observed_5yr_event": 0.12208333333333365,
+          "at_risk_5yr": 43
         },
         {
           "n": 49,
           "mean_predicted_5yr_event": 0.21135501618344538,
-          "km_observed_5yr_event": 0.0,
-          "at_risk_5yr": 49
+          "km_observed_5yr_event": 0.2914531226024243,
+          "at_risk_5yr": 32
         },
         {
           "n": 49,
           "mean_predicted_5yr_event": 0.27775188065859546,
-          "km_observed_5yr_event": 0.0,
-          "at_risk_5yr": 49
+          "km_observed_5yr_event": 0.3884353741496598,
+          "at_risk_5yr": 29
         },
         {
           "n": 50,
           "mean_predicted_5yr_event": 0.4197203076192412,
-          "km_observed_5yr_event": 0.0,
-          "at_risk_5yr": 50
+          "km_observed_5yr_event": 0.3424242424242424,
+          "at_risk_5yr": 31
         }
       ],
       "mean_predicted": 0.2635514506891159,
-      "observed_KM_5yr_event": 0.0
+      "observed_KM_5yr_event": 0.28600857327356277
     },
     "GSE11121": {
       "endpoint_RFS_comparable": false,
