@@ -1,0 +1,446 @@
+{
+  "n_genes": 70,
+  "technical_predictors": [
+    "log1p GPL96 probe count",
+    "log1p GPL570 probe count",
+    "mapped cohort count"
+  ],
+  "warning": "cohort z-scoring destroys raw intensity/variance; this audit cannot separate every batch effect or biology",
+  "genes": {
+    "NAT1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "AKT1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BIRC5": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "ATM": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 6,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BAG1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CCND1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BCL2": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BCL2L1": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BLVRA": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 5,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BRCA1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "BRCA2": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CCNB1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 1
+    },
+    "CCNE1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CDC6": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CDC20": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 1
+    },
+    "CDH1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CDH3": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "CENPF": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "EGFR": {
+      "GPL96_probe_count": 6,
+      "GPL570_probe_count": 9,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "ERBB2": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "ESR1": {
+      "GPL96_probe_count": 9,
+      "GPL570_probe_count": 9,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "FGFR4": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "FOXC1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MTOR": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "GATA3": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "GRB7": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "GSTM1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "HIF1A": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "FOXA1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "KRT5": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "KRT14": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "KRT17": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 0,
+      "mapped_cohorts": 0,
+      "stable_folds": 0
+    },
+    "MAPT": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 6,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MCL1": {
+      "GPL96_probe_count": 5,
+      "GPL570_probe_count": 6,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MDM2": {
+      "GPL96_probe_count": 5,
+      "GPL570_probe_count": 10,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MKI67": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MMP11": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MYBL2": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MYC": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PGR": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PIK3CA": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PTEN": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 8,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "RB1": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "RRM2": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 1
+    },
+    "SFRP1": {
+      "GPL96_probe_count": 3,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "STAT3": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "TP53": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "TYMS": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "VEGFA": {
+      "GPL96_probe_count": 4,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MIA": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "EXO1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PTTG1": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MELK": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 1
+    },
+    "NDC80": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "KIF2C": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "UBE2C": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 1
+    },
+    "CHEK2": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "ORC6": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "SLC39A6": {
+      "GPL96_probe_count": 2,
+      "GPL570_probe_count": 4,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PHGDH": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "GPR160": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    },
+    "UBE2T": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    },
+    "CXXC5": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 3,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    },
+    "ANLN": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    },
+    "CEP55": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "ACTR3B": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "MLPH": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "PALB2": {
+      "GPL96_probe_count": 1,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 5,
+      "stable_folds": 0
+    },
+    "NUF2": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 1,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    },
+    "TMEM45B": {
+      "GPL96_probe_count": 0,
+      "GPL570_probe_count": 2,
+      "mapped_cohorts": 1,
+      "stable_folds": 0
+    }
+  },
+  "correlations": {
+    "log1p GPL96 probe count": {
+      "rho": -0.1266419292690616,
+      "p": 0.2961627502941586
+    },
+    "log1p GPL570 probe count": {
+      "rho": -0.180682361281074,
+      "p": 0.1344381639804326
+    },
+    "mapped cohort count": {
+      "rho": 0.09238720562749277,
+      "p": 0.4468494193768462
+    }
+  },
+  "technical_LOO_AUROC": null
+}

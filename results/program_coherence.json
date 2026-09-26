@@ -1,0 +1,7 @@
+{
+  "gate_pass": false,
+  "reason": "zero stable genes in at least one fold; no coherence claim",
+  "source_url": "https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/h.all.v2025.1.Hs.symbols.gmt",
+  "source_sha256": "f22066af72e215ccb7b89d88e492c07e1eef17534c2ca7b0f9902cfecbbdd8e9",
+  "locked_design": "MSigDB Hallmark v2025.1.Hs; 70-panel universe, >=3 panel genes per set and overlap >=3; hypergeometric upper tail, BH q<.05 per fold; max Hallmark repeat across folds >=4/5 and empirical p<.01, 1000 shared within-beta-quartile identity permutations, seed=3. Secondary only."
+}

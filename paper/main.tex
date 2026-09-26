@@ -254,6 +254,19 @@ across five independent cohorts; numbers from \texttt{results/transport*.json}.}
 \label{fig:transport}
 \end{figure}
 
+\subsection{Locked stability test: negative boundary}
+A five-cohort leave-one-cohort-out test asked whether coefficient-sign-stable
+genes explain cross-platform transport without selecting on the test cohort.
+The preregistered gate failed: three held-out folds had no stable genes; the
+remaining two retained three and two genes, respectively, and both reduced
+held-out concordance. The prescribed paired bootstrap and label-permutation
+comparisons are undefined under that zero-gene rule, not silently replaced
+with a smaller analysis. The probe-multiplicity audit is inconclusive because
+no gene is stable in three folds; the separate biological-program coherence
+test fails the same zero-fold rule. Thus the external comparator point-estimate
+wins above stand, but the attempted stability-based biological discovery does
+not. Full fold values and technical audit outputs are in the repository.
+
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
 regime: across eight controlled comparisons (deep Cox, GBT survival,
