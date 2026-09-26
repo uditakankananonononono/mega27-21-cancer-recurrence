@@ -1,0 +1,36 @@
+{
+  "predeclared_proliferation_genes": [
+    "MKI67",
+    "BIRC5",
+    "CCNB1",
+    "CDC20",
+    "CENPF",
+    "MYBL2",
+    "UBE2C"
+  ],
+  "clinical_covariates": [
+    "GRADE",
+    "ER_STATUS=Positive",
+    "HER2_STATUS=Positive",
+    "LYMPH_NODES_EXAMINED_POSITIVE"
+  ],
+  "n": 1975,
+  "events": 800,
+  "n_train": 1580,
+  "n_test": 395,
+  "split_seed": 42,
+  "base": {
+    "heldout_cindex": 0.6543697747727169,
+    "train_log_likelihood": -4331.280817579351
+  },
+  "full": {
+    "heldout_cindex": 0.6463977340216547,
+    "train_log_likelihood": -4288.983925496221
+  },
+  "unpenalized_LR": {
+    "stat": 113.42561505078083,
+    "df": 63,
+    "p": 0.00010192449363690877,
+    "caveat": "training-set nested-model test; not external validation"
+  }
+}
