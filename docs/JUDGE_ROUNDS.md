@@ -805,3 +805,410 @@ It should determine whether transportability itself is a biological phenotype th
 
 ### Independent assessment and novelty foldback
 The judge proposed a technical-probe confound control before calling coefficient stability biological. This is a valid failure mode; the original platform comparison alone cannot distinguish probe multiplicity/coverage from biology. A new, pre-outcome script `run_probe_confound.py` (commit 6b11d00) counts GPL96/GPL570 probes and cohort mapping coverage and predicts stable-fold labels across genes with leave-one-gene-out validation. If these technical covariates explain stability, mechanistic biology claims are withheld. The proposed subtype control needs endpoint and treatment harmonization; do not assert causality from it or silently add it to the current five-cohort gate. The full original primary gate stays locked and may fail. This concrete novelty change is the reason this judge round counts toward the user minimum.
+
+
+## Round 3/10 - 2026-09-26 20:18 IST
+
+Surface: https://chatgpt.com/c/6ab7db2b-6ba0-83ee-9bb4-2134919a7cda. The actual current paper sections and preregistration were pasted as text. ChatGPT output is external untrusted critique, not evidence or authority.
+
+### Verbatim submitted prompt and visible response
+```
+Adversarial ISEF judge round 3 of 10. Below is literal text pasted from the current breast-cancer recurrence paper (not a PDF upload), followed by the locked discovery protocol. This is retrospective research, not patient-care advice. Identify ONE concrete novelty-increasing analysis or external falsifier that can be preregistered before the pending five-cohort transport-stability result exists, WITHOUT weakening or changing its locked decision rule. Focus on a true discovery (biological interpretation differentiated from platform/endpoint artefact), a control that would falsify it, and feasibility on public data and a 2-core ~1.9GB RAM machine. You may criticize the manuscript; do not treat previous claims as proven when caveats say otherwise.
+
+PAPER TEXT:
+\begin{abstract}
+\noindent We present a fully reproducible benchmark of five survival models for
+breast-cancer recurrence prediction on the METABRIC cohort (1{,}975 primary
+tumors, 800 recurrence events; 70-gene expression panel and 17 clinical
+covariates retrieved live from cBioPortal): penalized Cox proportional hazards
+on clinical covariates, Cox on clinical$+$expression, a DeepSurv network, a
+one-dimensional convolutional Cox network over the gene axis, and a graph
+convolutional Cox network over a patient-similarity graph. All models are
+implemented from first principles (including a vectorized Breslow partial
+likelihood verified against \texttt{lifelines} to $<10^{-3}$) and evaluated on
+locked stratified splits over five seeds with paired bootstrap confidence
+intervals. Penalized Cox on clinical$+$expression achieves the strongest
+held-out concordance, $0.6801 \pm 0.0052$; deep models trail
+($0.641$--$0.660$), an honest negative we analyze. The fitted baseline
+stratifies held-out patients into risk terciles separated at
+log-rank $p = 7.9\times10^{-16}$. We then apply a pre-registered discovery
+protocol to clinical-risk discordance: among low-NPI patients, early recurrers
+($\le 60$ months) show significant up-regulation of eleven mitotic genes
+(Benjamini--Hochberg $q$ down to $8.8\times10^{-5}$), but the signature fails
+both multivariable prediction (nested-CV AUC $= 0.50$) and external
+replication on TCGA-BRCA ($p = 0.36$), and is reported as a bounded negative.
+All code, tests, data snapshots, and figures are released with the paper.
+\end{abstract}
+
+\subsection{Cross-cohort transportability: benchmark beat}
+A penalized Cox model (70-gene panel only), trained once on METABRIC, was
+transported raw to five independent Affymetrix cohorts and compared with each
+cohort's own published signature calls or clinical comparators. It
+outperforms the Genomic Grade Index in two cohorts
+($0.6009$ vs $0.5366$ in GSE7390; $0.640$ vs $0.6025$ in GSE25066),
+Veridex-76 in GSE7390 ($0.6009$ vs $0.5757$), and tumor grade in the
+node-negative GSE11121 cohort ($0.6979$ vs $0.6294$), with zero retraining
+across platforms. Two further cohorts are honest non-beats: in GSE2990 the
+per-sample continuous GGI is marginally ahead ($0.6651$ vs $0.6559$), and in
+GSE20685 nodal stage leads ($0.6996$ vs $0.6264$), though our score still
+exceeds $0.6$ with its bootstrap interval excluding $0.5$. Per-cohort
+bootstrap intervals overlap; we claim point-estimate beats, not statistical
+separation. Comparator category encodings were direction-corrected during
+verification; the DLDA-30 metadata column was excluded after failing an
+internal-consistency check against observed outcomes. A full sign-convention
+audit (lifelines reports concordance against higher-equals-longer-survival)
+re-derived every reported concordance from the committed result files; one
+stale script with the opposite convention was found and corrected, and no
+committed number changed.
+\begin{figure}
+\centering
+\includegraphics[width=0.95\linewidth]{figures/fig5_transport.png}
+\caption{Transported model versus each cohort's own published comparator
+across five independent cohorts; numbers from \texttt{results/transport*.json}.}
+\label{fig:transport}
+\end{figure}
+
+
+
+\section{Discussion}
+A penalized linear Cox model on a 70-gene panel is the ceiling in this data
+regime: across eight controlled comparisons (deep Cox, GBT survival,
+multimodal methylation/mutation/CNA integration, engineered features), no
+alternative exceeded it, and several were significantly worse. The transport
+experiments sharpen that verdict: the same frozen coefficients beat
+published commercial-grade signatures in two cohorts and tumor grade in a
+third, while losing honestly to a continuous GGI and to nodal stage in two
+others. External replication, not internal cross-validation, is the honest
+arbiter of a prognostic claim; five of our nine discovery rounds survive
+only as negatives, and they are reported here alongside the positive
+transport results by design. Limitations: the panel is expression-only,
+cohorts differ in treatment era and endpoint definition, and the
+GSE20685 result suggests clinical covariates still carry signal the panel
+misses.
+
+
+LOCKED PROTOCOL TEXT:
+# MEGA27-21 Revival Preregistration (locked 2026-09-26, before any new outcome)
+
+Current audited state (paper/main.tex @ delegated HEAD): five-model METABRIC
+benchmark complete, penalized Cox clinical+expression C-index 0.680 best;
+deep models trail (honest negative). Cross-cohort transport beat: frozen
+70-gene Cox beats GGI in GSE7390 (0.6009 vs 0.5366) and GSE25066
+(0.640 vs 0.6025), Veridex-76 (0.6009 vs 0.5757), tumor grade in GSE11121
+(0.6979 vs 0.6294); honest non-beats in GSE2990 and GSE20685. R3 mitotic
+signature enriched (BH q to 8.8e-5) but failed nested-CV (AUC 0.50) and
+TCGA-BRCA replication (p=0.36): bounded negative, pivot required (rule 4).
+
+## Provenance of this document (honest attribution)
+- USER STANDING RULES (verbatim, WhatsApp channel history): 4:11:18 (complete
+  all projects except deleted ones; ask CHATGPT for ideas/redirection; minimum
+  10 judging rounds on weaknesses/additions; never count a negative as a
+  result), 4:11:49 (each project beats benchmarks - improve until it does -
+  and produces an actual new discovery), 4:12:25 (ask ChatGPT how to redirect
+  when a negative is not moving forward), 4:14:37 (take inspiration from
+  previous ISEF winners, e.g. Natasha Kulviwat).
+- RESEARCHER-LOCKED METHODOLOGICAL CHOICES (this agent, 2026-09-26, locked
+  before inspecting new outcomes): every numeric threshold, alpha level,
+  seed count, pivot ladder, gate name and scope framing below. These are the
+  lane's own preregistration decisions, NOT user-specified values; they exist
+  so results cannot be fished past moving goalposts. Pre-existing gates
+  declared by earlier builders in repo history (e.g. the RMSD < 2.0 A redock
+  gate already in this repo's README) are inherited, not invented here.
+
+## Locked gates (declared before outcomes)
+- G1 discovery pivot: the next discovery candidate must replicate on an
+  untouched external cohort at pre-declared alpha before any claim. Ranked
+  candidates (to be ordered by a rule-6 ChatGPT redirection round before
+  testing): (a) treatment-era-matched subtype-specific risk re-calibration;
+  (b) interaction of panel score with nodal status in GSE20685 (where
+  clinical covariates won); (c) a transport-stability map: which genes drive
+  cross-platform transport beats vs losses, with a locked permutation
+  control.
+- G2 benchmark: existing transport beats stand as the benchmark-beat
+  evidence; any new model claim must beat the frozen Cox on the same locked
+  cohorts with paired bootstrap CIs.
+- Judge: >= 10 ChatGPT rounds (weaknesses + additions), verbatim
+  docs/JUDGE_ROUNDS.md; paper expanded toward 50+ text-body pages (methods,
+  per-cohort audits, negative-round analyses) without padding.
+- ISEF archetype: biomarker identify-then-VERIFY end-to-end (the
+  Kulviwat-style pattern the user named 4:14:37); replication-first claim
+  discipline is the explicit judge-facing strength.
+
+## Judge round 1 transport-stability correction (2026-09-26 17:25 IST, pre-outcome)
+Any reduced-panel assessment on the same cohorts used to select its stable
+genes would be outcome leakage. Use five leave-one-cohort-out folds: on each,
+stability is fit on METABRIC and the other four cohorts; the held-out cohort
+contributes only its independent C-index. Keep all five required for the
+primary verdict. An all-five-cohort stability map is descriptive, not a
+validation result. The decision threshold and permutation count recorded in
+JUDGE_ROUNDS.md remain unchanged.
+
+
+Pending test: five-fold external-cohort LOO; METABRIC coefficients frozen; 200 bootstraps for stable coefficients; 2000 paired bootstrap and 1000 random-size panel permutations; gate is positive mean ΔC, paired one-sided p<.01 and random-panel p<.01; result not available yet. Previous rounds preregistered technical-probe-count confound audit. New suggestion must be distinct and cannot modify those outcomes or promote endpoint-mismatched recurrence measures to interchangeable clinical risk.
+
+Adversarial ISEF judge round 3/10 — breast-cancer recurrence paper
+Overall assessment before adding anything
+
+The manuscript has already moved away from the weakest “AI predicts recurrence” framing. The strongest scientific asset is actually the replication discipline: frozen coefficients, external cohorts, honest non-beats, and negative reporting.
+
+The remaining novelty gap is not “need a better model.” The paper already shows a relatively simple Cox model is competitive. A judge will likely ask:
+
+“What biological principle did you discover about recurrence biology, rather than simply discovering that this 70-gene score transports reasonably?”
+
+The previous mitotic signature attempt was a useful negative: differential expression alone did not yield a transferable predictor. The next addition should therefore not be another signature hunt. It should test a mechanistic hypothesis about why the panel transports or fails.
+
+Proposed new preregistered analysis: Transport-stability reveals conserved biological programs, not individual prognostic genes
+Core discovery hypothesis
+
+The genes that preserve recurrence-risk ranking across independent microarray platforms represent conserved biological programs (cell-cycle, proliferation, immune/stromal, endocrine response), whereas genes contributing only to single-cohort performance reflect platform-specific or cohort-specific noise.
+
+This is a biological interpretation question:
+
+Are transported predictions driven by a reproducible biological axis?
+
+Or are the apparent cross-platform wins an artifact of coefficient magnitude, normalization, or cohort composition?
+
+This directly addresses the manuscript’s main unresolved limitation.
+
+Analysis design (can be preregistered now)
+Step 1 — Use the already pending LOO transport-stability framework
+
+Do not change the locked transport verdict.
+
+The existing analysis:
+
+train stability on METABRIC + four cohorts
+
+evaluate held-out fifth cohort
+
+frozen METABRIC coefficients
+
+no outcome access from held-out cohort
+
+remains untouched.
+
+The new analysis is a secondary biological interpretation layer.
+
+Step 2 — Map stable genes to biological programs
+
+After the LOO folds are complete:
+
+For each fold:
+
+Rank genes by coefficient contribution:
+
+Contribution
+i
+	​
+
+=∣β
+i
+	​
+
+×standardized expression
+i
+	​
+
+∣
+
+Define the top contribution set only from training cohorts.
+
+Perform pathway enrichment against:
+
+Hallmark gene sets (MSigDB Hallmark)
+
+Reactome pathways
+
+GO Biological Process
+
+Pre-register:
+
+enrichment method
+
+multiple testing correction
+
+minimum pathway size
+
+No pathway selection after seeing results.
+
+Primary biological claim to test
+
+A possible positive result:
+
+“Cross-cohort transport is mediated primarily by conserved biological programs rather than isolated genes.”
+
+Evidence:
+
+the top stable contribution genes repeatedly enrich the same pathways across LOO folds
+
+enrichment survives held-out cohort evaluation
+
+Example outcome:
+
+Fold 1:
+
+E2F targets
+
+G2/M checkpoint
+
+estrogen response
+
+Fold 2:
+
+same programs
+
+Fold 3:
+
+same programs
+
+That is biologically meaningful because it suggests recurrence prediction is capturing conserved tumor-state biology.
+
+Falsification control (required)
+
+A judge will reject this without a null.
+
+Negative control: coefficient-preserving gene permutation
+
+Construct null panels:
+
+Keep:
+
+number of genes
+
+coefficient magnitude distribution
+
+expression variance distribution
+
+Randomly replace gene identities.
+
+Example:
+
+Real:
+
+MKI67
+CCNB1
+ESR1
+FOXC1
+
+Null:
+
+random genes matched for variance/expression
+
+Repeat 1000 times.
+
+Question:
+
+Do real stable genes produce stronger pathway coherence than equally predictive-looking random gene sets?
+
+Falsifying outcome
+
+The hypothesis fails if:
+
+pathway enrichment is not stronger than matched random panels
+
+enrichment disappears when gene identities are randomized
+
+only generic proliferation pathways appear because of panel construction bias
+
+Then conclusion becomes:
+
+“Transportability reflects distributed statistical signal rather than identifiable biological programs.”
+
+That is still a publishable negative.
+
+Why this is more novel than another predictor
+
+A new model would probably score poorly with judges because:
+
+deep models already lost
+
+benchmark ceiling appears reached
+
+another Cox variant risks incrementalism
+
+This instead asks:
+
+“What biological property allows a small expression panel to survive platform changes?”
+
+That is closer to biomarker discovery.
+
+Feasibility on 2-core / 1.9GB RAM
+
+Very feasible.
+
+Expected resources:
+
+METABRIC: already processed
+
+Five external cohorts: already processed
+
+Gene sets: small text files
+
+No:
+
+neural networks
+
+survival retraining explosion
+
+large matrices
+
+Approximate:
+
+enrichment: seconds-minutes
+
+1000 permutations: likely <1 hour in optimized Python/R
+
+memory: <1GB if streaming permutations
+
+Important limitation to state in paper
+
+Do not claim:
+
+“We discovered causal recurrence mechanisms.”
+
+That would be too strong.
+
+Correct framing:
+
+“We identified biological programs statistically associated with cross-platform transport stability.”
+
+The study is observational.
+
+Judge score impact
+
+If positive:
+
+Scientific novelty increase: moderate-to-high
+
+Because it converts:
+
+“our predictor transports”
+
+into:
+
+“we learned why transport occurs.”
+
+If negative:
+
+Still valuable:
+
+“Transport advantage cannot be explained by stable biological programs detectable from this panel.”
+
+That protects against the criticism that the model is merely exploiting technical artifacts.
+
+Preregistered addition summary
+
+Name: Transport-stability biological program decomposition
+Question: Are transport-stable prognostic signals biologically conserved or platform-specific?
+Input: Existing frozen coefficients + LOO stability results
+Primary test: pathway coherence of stable contribution genes
+Negative control: matched random gene identity permutation preserving coefficient/expression properties
+Failure criterion: no enrichment above null
+Compute: feasible on current hardware
+Does not modify: G1/G2, pending transport verdict, endpoint definitions, or previous negatives
+
+This is the type of addition that could strengthen an ISEF-style paper because it seeks a biological explanation rather than simply another performance improvement.
+```
+
+### Novelty foldback and independent judgment
+Preregistered a separate program-coherence falsifier in `run_program_coherence.py` and `docs/PREREGISTER.md` before the pending transport-stability outcome. It tests repeated Hallmark biological-program coherence across the same five leave-one-cohort-out stable panels against a 70-gene-panel-conditioned, beta-magnitude-stratified gene-identity null. This is a *new biological interpretation test*, not a rewrite of the benchmark or transport gate. Independent correction to the judge suggestion: enrichment must use the 70 assayed genes as universe, not the whole genome; max-statistic permutation handles post-hoc pathway selection. Probe confound audit remains essential. Counted for the novelty rule because the test and locked falsifying control landed, not because ChatGPT suggested them.

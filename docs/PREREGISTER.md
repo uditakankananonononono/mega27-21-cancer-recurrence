@@ -52,3 +52,21 @@ contributes only its independent C-index. Keep all five required for the
 primary verdict. An all-five-cohort stability map is descriptive, not a
 validation result. The decision threshold and permutation count recorded in
 JUDGE_ROUNDS.md remain unchanged.
+
+## Judge round 3 secondary biological program falsifier (locked before stability result)
+The previous judge proposed program-level coherence, not another trained score.
+The new `run_program_coherence.py` uses five already-locked stable-gene sets,
+**only after** the primary result; it cannot change the primary transport gate.
+Within the original 70-gene panel (not the human genome), use MSigDB Hallmark
+v2025.1.Hs (official Broad symbols GMT; SHA logged at run time), filter sets
+to >=3 panel members, and test >=3 overlap via hypergeometric upper tail,
+BH q<.05 per fold. A secondary coherence claim requires one Hallmark program
+significant in >=4/5 folds AND the maximum repeated-fold statistic to exceed
+1000 common gene-label permutations stratified by absolute METABRIC beta
+quartile (seed 3), empirical p<.01. A common permutation preserves fold
+intersection and beta-scale structure; using the *maximum* protects against
+choosing a pathway after inspection. This is conditional on a panel already
+enriched for breast-cancer programs, so a negative remains a negative and a
+positive is only program association, not causal mechanism. Check the probe
+multiplicity audit separately; biology vs technical confounding remains open.
+Source: https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/
