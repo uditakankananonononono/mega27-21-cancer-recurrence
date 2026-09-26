@@ -1,0 +1,191 @@
+{
+  "metabric_baseline_survival_60m": 0.7545871988554664,
+  "cohorts": {
+    "GSE7390": {
+      "endpoint_RFS_comparable": true,
+      "n": 198,
+      "slope": 0.46428920956539077,
+      "slope_ci95": [
+        0.07684370822367081,
+        0.8517347109071107
+      ],
+      "calibration_groups": [
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.14461867820445776,
+          "km_observed_5yr_event": 0.0,
+          "at_risk_5yr": 50
+        },
+        {
+          "n": 49,
+          "mean_predicted_5yr_event": 0.21135501618344538,
+          "km_observed_5yr_event": 0.0,
+          "at_risk_5yr": 49
+        },
+        {
+          "n": 49,
+          "mean_predicted_5yr_event": 0.27775188065859546,
+          "km_observed_5yr_event": 0.0,
+          "at_risk_5yr": 49
+        },
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.4197203076192412,
+          "km_observed_5yr_event": 0.0,
+          "at_risk_5yr": 50
+        }
+      ],
+      "mean_predicted": 0.2635514506891159,
+      "observed_KM_5yr_event": 0.0
+    },
+    "GSE11121": {
+      "endpoint_RFS_comparable": false,
+      "n": 200,
+      "slope": 0.972757669267099,
+      "slope_ci95": [
+        0.4822603108129045,
+        1.4632550277212935
+      ],
+      "calibration_groups": [
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.15467175246642698,
+          "km_observed_5yr_event": 0.04125054277029905,
+          "at_risk_5yr": 41
+        },
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.21050958996459623,
+          "km_observed_5yr_event": 0.12301136363636378,
+          "at_risk_5yr": 42
+        },
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.26544143457140346,
+          "km_observed_5yr_event": 0.11036968968685879,
+          "at_risk_5yr": 38
+        },
+        {
+          "n": 50,
+          "mean_predicted_5yr_event": 0.4152728030692208,
+          "km_observed_5yr_event": 0.3067226890756304,
+          "at_risk_5yr": 33
+        }
+      ],
+      "mean_predicted": 0.2614738950179119,
+      "observed_KM_5yr_event": 0.14582068604051168
+    },
+    "GSE2990": {
+      "endpoint_RFS_comparable": true,
+      "n": 187,
+      "slope": 1.0300231105934616,
+      "slope_ci95": [
+        0.4076078264807981,
+        1.6524383947061252
+      ],
+      "calibration_groups": [
+        {
+          "n": 47,
+          "mean_predicted_5yr_event": 0.16334785709051458,
+          "km_observed_5yr_event": 0.07662957074721799,
+          "at_risk_5yr": 33
+        },
+        {
+          "n": 46,
+          "mean_predicted_5yr_event": 0.22019908349644987,
+          "km_observed_5yr_event": 0.23637665592552803,
+          "at_risk_5yr": 32
+        },
+        {
+          "n": 47,
+          "mean_predicted_5yr_event": 0.2679281641513352,
+          "km_observed_5yr_event": 0.22928009679370864,
+          "at_risk_5yr": 27
+        },
+        {
+          "n": 47,
+          "mean_predicted_5yr_event": 0.3733996425247457,
+          "km_observed_5yr_event": 0.4295981087470445,
+          "at_risk_5yr": 24
+        }
+      ],
+      "mean_predicted": 0.2564113050153298,
+      "observed_KM_5yr_event": 0.24828354932782715
+    },
+    "GSE20685": {
+      "endpoint_RFS_comparable": false,
+      "n": 327,
+      "slope": 0.6648959047340516,
+      "slope_ci95": [
+        0.25725824391820484,
+        1.0725335655498984
+      ],
+      "calibration_groups": [
+        {
+          "n": 82,
+          "mean_predicted_5yr_event": 0.1420736361898306,
+          "km_observed_5yr_event": 0.0867579908675804,
+          "at_risk_5yr": 73
+        },
+        {
+          "n": 81,
+          "mean_predicted_5yr_event": 0.2147934485201583,
+          "km_observed_5yr_event": 0.062215808882475465,
+          "at_risk_5yr": 74
+        },
+        {
+          "n": 82,
+          "mean_predicted_5yr_event": 0.28175076682832717,
+          "km_observed_5yr_event": 0.15241900922131202,
+          "at_risk_5yr": 64
+        },
+        {
+          "n": 82,
+          "mean_predicted_5yr_event": 0.41316594817705216,
+          "km_observed_5yr_event": 0.2623847476168155,
+          "at_risk_5yr": 60
+        }
+      ],
+      "mean_predicted": 0.26309320528483193,
+      "observed_KM_5yr_event": 0.14044626408853333
+    },
+    "GSE25066": {
+      "endpoint_RFS_comparable": false,
+      "n": 507,
+      "slope": 0.6868955652839992,
+      "slope_ci95": [
+        0.351838321013048,
+        1.0219528095549504
+      ],
+      "calibration_groups": [
+        {
+          "n": 127,
+          "mean_predicted_5yr_event": 0.13682918228393073,
+          "km_observed_5yr_event": 0.1929857170950543,
+          "at_risk_5yr": 19
+        },
+        {
+          "n": 126,
+          "mean_predicted_5yr_event": 0.2187970080370431,
+          "km_observed_5yr_event": 0.20801176185191494,
+          "at_risk_5yr": 11
+        },
+        {
+          "n": 127,
+          "mean_predicted_5yr_event": 0.2920079791716731,
+          "km_observed_5yr_event": 0.3268615540584987,
+          "at_risk_5yr": 11
+        },
+        {
+          "n": 127,
+          "mean_predicted_5yr_event": 0.4067988182866361,
+          "km_observed_5yr_event": 0.3654090710404192,
+          "at_risk_5yr": 20
+        }
+      ],
+      "mean_predicted": 0.26369663203142385,
+      "observed_KM_5yr_event": 0.2742209912600162
+    }
+  },
+  "warning": "Cohort-wise z-scoring and endpoint differences can invalidate transferred absolute risks; descriptive research audit only."
+}
