@@ -1,0 +1,34 @@
+{
+ "files": {
+  "GSE2990": {
+   "csv": "data_cache/external/geo/clinical_GSE2990.csv",
+   "sha256": "fdac26722ff0fee79dbda0a1b719013b090a5370a789c7041a4c533065bb2a30",
+   "source": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE2nnn/GSE2990/suppl/GSE2990_suppl_info.txt",
+   "n_rows": 189
+  },
+  "GSE7390": {
+   "csv": "data_cache/external/geo/clinical_GSE7390.csv",
+   "sha256": "3072c1cc44ba1589f71e0f10f074d33b514383444cef7d21ec3e883643155e5b",
+   "source": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE7nnn/GSE7390/matrix/ ['GSE7390_series_matrix.txt.gz'] (series-matrix Sample_characteristics_ch1, verbatim)",
+   "n_rows": 198
+  },
+  "GSE11121": {
+   "csv": "data_cache/external/geo/clinical_GSE11121.csv",
+   "sha256": "347f8366e55c6d9be62c466cba16b53993c39a42642818ed7d9c6443d8e2d1a6",
+   "source": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11121/matrix/ ['GSE11121_series_matrix.txt.gz'] (series-matrix Sample_characteristics_ch1, verbatim)",
+   "n_rows": 200
+  },
+  "GSE20685": {
+   "csv": "data_cache/external/geo/clinical_GSE20685.csv",
+   "sha256": "6b7cd1ee62db7eddf353fa198d9c9a64addb01b694463a025a1f2e16fb67db66",
+   "source": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20685/matrix/ ['GSE20685_series_matrix.txt.gz'] (series-matrix Sample_characteristics_ch1, verbatim)",
+   "n_rows": 327
+  },
+  "GSE25066": {
+   "csv": "data_cache/external/geo/clinical_GSE25066.csv",
+   "sha256": "30f221eb6d25d3788ac46f769d2121a4e6cdcbf34dedb40ccd5e31cb43eca5bf",
+   "source": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25066/matrix/ ['GSE25066_series_matrix.txt.gz'] (series-matrix Sample_characteristics_ch1, verbatim)",
+   "n_rows": 508
+  }
+ }
+}

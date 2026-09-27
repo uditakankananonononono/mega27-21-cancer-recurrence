@@ -1,4 +1,11 @@
 __pycache__/
 *.egg-info/
-data_cache/
+data_cache/*
+!data_cache/external/
+data_cache/external/*
+!data_cache/external/geo/
+data_cache/external/geo/*
+!data_cache/external/geo/clinical_*.csv
+!data_cache/external/geo/clinical_pull_manifest.json
+!data_cache/external/geo/*_suppl_info.txt
 results/*.tmp
