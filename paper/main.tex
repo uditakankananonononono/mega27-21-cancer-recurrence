@@ -313,6 +313,30 @@ test fails the same zero-fold rule. Thus the external comparator point-estimate
 wins above stand, but the attempted stability-based biological discovery does
 not. Full fold values and technical audit outputs are in the repository.
 
+\subsection{Locked prospective holdout on an unused cohort: transport not supported}
+A fully locked prospective holdout was executed exactly as preregistered
+(frozen coefficients, eligibility excluding every training and benchmark
+cohort, locked decision rule). GSE21653 (GPL570, 266 tumors) was the first
+eligible cohort fetched; its native endpoint is disease-free survival rather
+than one of the preregistered recurrence endpoints, an interpretation declared
+in the fetch log before evaluation. Of 266 samples, 252 carried DFS time and
+event fields (83 events); 69 of 70 panel genes mapped from the GPL570
+annotation; six clinical covariates absent from the cohort (tumor size,
+positive-node count, NPI, and three treatment flags) were imputed to training
+means, as declared in the evaluation script, with 272 immunohistochemistry
+values imputed. The frozen model scored C-index 0.6201 with a
+seed-0 bootstrap (B=1000) 95\% interval [0.5604, 0.6753] that excludes 0.5,
+and calibration slope 0.7232 [0.2675, 1.1788]. The locked rule additionally
+requires beating a clinical-only comparator fit on the same patients
+(age, SBR grade, binary nodal status; n=247, in-sample C-index 0.6275); the
+panel's point estimate falls short, 0.6201 versus 0.6275, so the verdict is
+transport not supported. The discrimination interval and the comparator
+clause pull in opposite directions, so the honest reading is a narrow
+negative, not a refutation of signal: the score orders patients better than
+chance on a cohort it never saw, but no better than three routine clinical
+variables. A Brier score was not computed because the frozen model carries no
+baseline hazard; absolute-risk calibration remains open.
+
 \input{audit_tables}
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data

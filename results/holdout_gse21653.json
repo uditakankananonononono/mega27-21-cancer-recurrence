@@ -1,0 +1,40 @@
+{
+ "cohort": "GSE21653",
+ "platform": "GPL570",
+ "endpoint": "DFS (dfs evt / dfs time months), declared natively in series matrix",
+ "n_samples_matrix": 266,
+ "n_endpoint": 252,
+ "n_events": 83,
+ "genes_mapped": 69,
+ "imputed_to_training_mean": [
+  "CHEMOTHERAPY=YES",
+  "HORMONE_THERAPY=YES",
+  "LYMPH_NODES_EXAMINED_POSITIVE",
+  "NPI",
+  "RADIO_THERAPY=YES",
+  "TUMOR_SIZE"
+ ],
+ "n_ihc_values_imputed": 272,
+ "c_index_frozen": 0.6201381059751973,
+ "bootstrap_B1000_seed0_ci95": [
+  0.5604401749710437,
+  0.6752512078583808
+ ],
+ "calibration_slope": 0.7231528134620606,
+ "calibration_slope_ci": [
+  0.26748777903984705,
+  1.1788178478842741
+ ],
+ "comparator": {
+  "covariates": [
+   "age",
+   "sbr grade",
+   "pn (binary)"
+  ],
+  "n": 247,
+  "c_index_in_sample": 0.6275323316139643
+ },
+ "brier": "NOT COMPUTED - frozen model carries no baseline hazard, so absolute risk is unavailable (declared in prereg secondary as conditional)",
+ "decision_rule": "supported if CI excludes 0.5 AND point estimate > clinical-only comparator",
+ "transport_supported": false
+}
