@@ -48,28 +48,33 @@ def decision_curves(t,e,p,w,y):
         rows.append({'pt':pt,'net_benefit':nb,'treat_all':nb_all,'treat_none':0.0})
     return rows
 
-d=assemble();g=list(d.gene_names)
-f=pd.DataFrame({f'x{j}':d.X_expr[:,j].astype(float) for j in range(len(g))})
-f['t']=d.time.astype(float);f['e']=d.event.astype(int)
-m=CoxPHFitter(penalizer=.05).fit(f,'t','e');beta=m.params_.values
-S0=float(m.baseline_survival_.loc[m.baseline_survival_.index<=H].iloc[-1,0])
-mean_eta=float(d.X_expr.mean(0)@beta)
+def main():
+    # Keep importing IPCW helpers hermetic; external GEO data is needed only when running this audit.
+    d=assemble();g=list(d.gene_names)
+    f=pd.DataFrame({f'x{j}':d.X_expr[:,j].astype(float) for j in range(len(g))})
+    f['t']=d.time.astype(float);f['e']=d.event.astype(int)
+    m=CoxPHFitter(penalizer=.05).fit(f,'t','e');beta=m.params_.values
+    S0=float(m.baseline_survival_.loc[m.baseline_survival_.index<=H].iloc[-1,0])
+    mean_eta=float(d.X_expr.mean(0)@beta)
 
-def cohort_pack(name,t,e,X):
-    eta=X@beta
-    p=1-S0**np.exp(np.clip(eta-mean_eta,-15,15))
-    brier,brier_null,p0,n_known,n_cens,w,y=ipcw_brier(t,e,p)
-    return {'n':int(len(t)),'brier_ipcw_60m':brier,'brier_null_60m':brier_null,
-            'km_5yr_event':p0,'n_known_status_60m':n_known,'n_censored_before_60m':n_cens,
-            'brier_skill_vs_null':1-brier/brier_null,
-            'decision_curve':decision_curves(t,e,p,w,y)}
+    def cohort_pack(name,t,e,X):
+        eta=X@beta
+        p=1-S0**np.exp(np.clip(eta-mean_eta,-15,15))
+        brier,brier_null,p0,n_known,n_cens,w,y=ipcw_brier(t,e,p)
+        return {'n':int(len(t)),'brier_ipcw_60m':brier,'brier_null_60m':brier_null,
+                'km_5yr_event':p0,'n_known_status_60m':n_known,'n_censored_before_60m':n_cens,
+                'brier_skill_vs_null':1-brier/brier_null,
+                'decision_curve':decision_curves(t,e,p,w,y)}
 
-out={'design':__doc__,'horizon_months':H,'thresholds':THRESHOLDS,'cohorts':{}}
-out['cohorts']['METABRIC_apparent']=dict(cohort_pack('METABRIC',d.time,d.event,d.X_expr),role='apparent (training cohort), not validation')
-for name in ('GSE7390','GSE2990'):
-    c=load_cohort(name,g)
-    out['cohorts'][name]=dict(cohort_pack(name,c['t'],c['e'],c['X']),role='external, RFS-comparable')
-    print(name,'brier',round(out['cohorts'][name]['brier_ipcw_60m'],4),'null',round(out['cohorts'][name]['brier_null_60m'],4),flush=True)
-out['limits']='Baseline survival transported without cohort refit; IPCW assumes independent censoring given time; descriptive audit, not clinical validation.'
-with open('results/brier_dca.json','w') as fh:json.dump(out,fh,indent=2)
-print('wrote results/brier_dca.json')
+    out={'design':__doc__,'horizon_months':H,'thresholds':THRESHOLDS,'cohorts':{}}
+    out['cohorts']['METABRIC_apparent']=dict(cohort_pack('METABRIC',d.time,d.event,d.X_expr),role='apparent (training cohort), not validation')
+    for name in ('GSE7390','GSE2990'):
+        c=load_cohort(name,g)
+        out['cohorts'][name]=dict(cohort_pack(name,c['t'],c['e'],c['X']),role='external, RFS-comparable')
+        print(name,'brier',round(out['cohorts'][name]['brier_ipcw_60m'],4),'null',round(out['cohorts'][name]['brier_null_60m'],4),flush=True)
+    out['limits']='Baseline survival transported without cohort refit; IPCW assumes independent censoring given time; descriptive audit, not clinical validation.'
+    with open('results/brier_dca.json','w') as fh:json.dump(out,fh,indent=2)
+    print('wrote results/brier_dca.json')
+
+if __name__=="__main__":
+    main()
