@@ -74,3 +74,13 @@ Source: https://data.broadinstitute.org/gsea-msigdb/msigdb/release/2025.1.Hs/
 Official MSigDB v2025.1.Hs Hallmark GMT source snapshot independently fetched and
 SHA256-pinned pre-outcome: `f22066af72e215ccb7b89d88e492c07e1eef17534c2ca7b0f9902cfecbbdd8e9`;
 subsequent source drift stops the analysis rather than moving this background.
+
+
+## Judge requirement amendment, 2026-09-27 10:00 IST
+The user changed the numeric requirement from ten ChatGPT checks to ONE
+round she provides (original WhatsApp wamid.HBgMOTE4MTM0MDk4NTcxFQIAEhgWM0VCMDJCMTZGRTVEMkQwMTFBQzc4MQA=). The older ten-round
+text above records the earlier protocol, not the current finish line. All
+previous judge transcripts remain intact, but prior agent-initiated rounds
+are not assumed to satisfy the new user-provided courier round without a
+verified project-specific handoff. Any supplementary Gemini or other LLM
+consult is separate and does not count as the user-provided ChatGPT verdict.
