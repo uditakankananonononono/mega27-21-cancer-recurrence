@@ -171,3 +171,45 @@ lines2+=['\\hline\\end{tabular}',
  'signs reflect confounding by indication; they are reported, not interpreted as effects.']
 with open(O,'a') as fh: fh.write('\n'.join(lines2)+'\n')
 print('appended coefficient audit,', len(lines2), 'lines')
+
+# ---- five-year Brier + decision-curve audit (results/brier_dca.json)
+bd=load('brier_dca.json')
+n0=len(lines)
+add(r'\subsection{Five-year Brier score and decision-curve audit}',
+    'Discrimination and calibration slopes do not say whether acting on the score helps. '+
+    'Using the frozen panel and the transported 60-month baseline '+
+    r'(\texttt{run\_brier\_dca.py}, \texttt{results/brier\_dca.json}; design locked in the same commit as first run), '+
+    'Table~\\ref{tab:brier-audit} reports the IPCW Brier score at 60 months against a null model '+
+    'that assigns every patient the cohort Kaplan--Meier five-year event probability. '+
+    'Inverse-probability-of-censoring weights follow the standard time-point form; patients censored '+
+    'before 60 months contribute through the censoring model only. The METABRIC row is apparent '+
+    'performance on the training cohort and is not validation.',
+    r'\begin{table}[htbp]\centering\small',
+    r'\begin{tabular}{llrrrr}\hline',
+    r'Cohort & Role & $n$ & Brier (IPCW) & Null Brier & Skill \\ \hline')
+for name,c in bd['cohorts'].items():
+    role='apparent' if name.startswith('METABRIC') else 'external'
+    add(f"{esc(name)} & {role} & {c['n']} & {c['brier_ipcw_60m']:.4f} & {c['brier_null_60m']:.4f} & {c['brier_skill_vs_null']:.3f} "+r'\\')
+add(r'\hline\end{tabular}',
+    r'\caption{IPCW Brier scores at 60 months. Skill is $1 - B/B_{\mathrm{null}}$; values near zero mean the score barely beats assigning everyone the cohort average.}\label{tab:brier-audit}',
+    r'\end{table}',
+    'On the two RFS-comparable external cohorts the skill over the null is small: 0.026 in GSE7390 '+
+    'and 0.072 in GSE2990. The score adds a little absolute-risk information beyond the cohort average, '+
+    'not enough to support individual treatment decisions. Decision-curve analysis over threshold '+
+    'probabilities 0.05--0.60 (same IPCW weights; Table~\\ref{tab:dca-audit}) shows net benefit above '+
+    'treat-all mainly in the 0.15--0.25 threshold band; at low thresholds the model and treat-all are '+
+    'nearly identical, and at 0.30 and above treat-all goes negative while the model stays positive but small.',
+    r'\begin{table}[htbp]\centering\small',
+    r'\begin{tabular}{lrrrr}\hline',
+    r'Cohort & NB @ 0.15 & NB @ 0.20 & NB @ 0.25 & NB @ 0.30 \\ \hline')
+for name,c in bd['cohorts'].items():
+    nb={r['pt']:r['net_benefit'] for r in c['decision_curve']}
+    add(f"{esc(name)} & {nb[0.15]:.3f} & {nb[0.20]:.3f} & {nb[0.25]:.3f} & {nb[0.30]:.3f} "+r'\\')
+add(r'\hline\end{tabular}',
+    r'\caption{Decision-curve net benefit at four thresholds (treat-none is zero by construction). Descriptive audit only; thresholds for care are a clinical, not statistical, decision.}\label{tab:dca-audit}',
+    r'\end{table}',
+    'These curves are descriptive: they use a transported baseline without cohort refit, assume '+
+    'independent censoring given time, and cannot recommend a clinical threshold. They bound, rather '+
+    'than promote, the score\'s decision value.')
+with open(O,'a') as fh: fh.write('\n'.join(lines[n0:])+'\n')
+print('appended brier/dca audit,', len(lines)-n0, 'lines')

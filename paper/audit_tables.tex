@@ -106,3 +106,25 @@ VEGFA & +0.0789 & CHEK2 & -0.1448 \\
 \caption{Largest standardized coefficients of the committed risk model. Signs and magnitudes are exactly as stored; no feature was re-estimated for this table.}\label{tab:coef-audit}
 \end{table}
 The pattern is consistent with the rest of the paper rather than a new finding: clinical burden variables (positive lymph-node count, NPI, tumor size) dominate the risk-increasing side, joined by mitotic-panel genes (UBE2C, CCNB1, MELK), while hormone-receptor-pathway expression (ESR1, PGR, GATA3, MAPT) and recorded hormone and radiation treatment sit on the risk-decreasing side. The treatment indicators encode assignment, not benefit, and their signs reflect confounding by indication; they are reported, not interpreted as effects.
+\subsection{Five-year Brier score and decision-curve audit}
+Discrimination and calibration slopes do not say whether acting on the score helps. Using the frozen panel and the transported 60-month baseline (\texttt{run\_brier\_dca.py}, \texttt{results/brier\_dca.json}; design locked in the same commit as first run), Table~\ref{tab:brier-audit} reports the IPCW Brier score at 60 months against a null model that assigns every patient the cohort Kaplan--Meier five-year event probability. Inverse-probability-of-censoring weights follow the standard time-point form; patients censored before 60 months contribute through the censoring model only. The METABRIC row is apparent performance on the training cohort and is not validation.
+\begin{table}[htbp]\centering\small
+\begin{tabular}{llrrrr}\hline
+Cohort & Role & $n$ & Brier (IPCW) & Null Brier & Skill \\ \hline
+METABRIC\_apparent & apparent & 1975 & 0.1718 & 0.1910 & 0.100 \\
+GSE7390 & external & 198 & 0.1988 & 0.2042 & 0.026 \\
+GSE2990 & external & 187 & 0.1731 & 0.1867 & 0.072 \\
+\hline\end{tabular}
+\caption{IPCW Brier scores at 60 months. Skill is $1 - B/B_{\mathrm{null}}$; values near zero mean the score barely beats assigning everyone the cohort average.}\label{tab:brier-audit}
+\end{table}
+On the two RFS-comparable external cohorts the skill over the null is small: 0.026 in GSE7390 and 0.072 in GSE2990. The score adds a little absolute-risk information beyond the cohort average, not enough to support individual treatment decisions. Decision-curve analysis over threshold probabilities 0.05--0.60 (same IPCW weights; Table~\ref{tab:dca-audit}) shows net benefit above treat-all mainly in the 0.15--0.25 threshold band; at low thresholds the model and treat-all are nearly identical, and at 0.30 and above treat-all goes negative while the model stays positive but small.
+\begin{table}[htbp]\centering\small
+\begin{tabular}{lrrrr}\hline
+Cohort & NB @ 0.15 & NB @ 0.20 & NB @ 0.25 & NB @ 0.30 \\ \hline
+METABRIC\_apparent & 0.134 & 0.109 & 0.084 & 0.069 \\
+GSE7390 & 0.172 & 0.125 & 0.059 & 0.018 \\
+GSE2990 & 0.119 & 0.091 & 0.062 & 0.040 \\
+\hline\end{tabular}
+\caption{Decision-curve net benefit at four thresholds (treat-none is zero by construction). Descriptive audit only; thresholds for care are a clinical, not statistical, decision.}\label{tab:dca-audit}
+\end{table}
+These curves are descriptive: they use a transported baseline without cohort refit, assume independent censoring given time, and cannot recommend a clinical threshold. They bound, rather than promote, the score's decision value.

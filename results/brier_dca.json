@@ -1,0 +1,273 @@
+{
+  "design": "Five-year Brier score and decision-curve audit (IPCW) for the frozen panel.\n\nDesign locked in this commit before outcomes: Brier at 60 months with\ninverse-probability-of-censoring weights (Graf et al. form), null reference =\ncohort KM 5-year event estimate for every patient; decision curves over\nthresholds 0.05-0.60 with the same IPCW weights; treat-all and treat-none\nreference lines. Cohorts: the two RFS-comparable external cohorts\n(GSE7390, GSE2990). METABRIC is apparent (model trained there), reported\nseparately, never as validation.\n",
+  "horizon_months": 60.0,
+  "thresholds": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6
+  ],
+  "cohorts": {
+    "METABRIC_apparent": {
+      "n": 1975,
+      "brier_ipcw_60m": 0.17184596279084074,
+      "brier_null_60m": 0.19097027263535188,
+      "km_5yr_event": 0.2570297586235897,
+      "n_known_status_60m": 1832,
+      "n_censored_before_60m": 143,
+      "brier_skill_vs_null": 0.10014286297338038,
+      "decision_curve": [
+        {
+          "pt": 0.05,
+          "net_benefit": 0.21793648280301212,
+          "treat_all": 0.21793648280301212,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.1,
+          "net_benefit": 0.1754125896519404,
+          "treat_all": 0.1744885096254017,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.15,
+          "net_benefit": 0.13431679957984877,
+          "treat_all": 0.1259290101916018,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.2,
+          "net_benefit": 0.10900227209451872,
+          "treat_all": 0.07129957332857692,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.25,
+          "net_benefit": 0.08376994897552889,
+          "treat_all": 0.009386211550482082,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.3,
+          "net_benefit": 0.06935453252892529,
+          "treat_all": -0.06137191619591209,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.35,
+          "net_benefit": 0.03547351540397336,
+          "treat_all": -0.14301590974944373,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.4,
+          "net_benefit": 0.027303172706740243,
+          "treat_all": -0.23826723556189744,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.45,
+          "net_benefit": 0.014515817979775372,
+          "treat_all": -0.3508369842493425,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.5,
+          "net_benefit": 0.009342227458153909,
+          "treat_all": -0.4859206826742768,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.55,
+          "net_benefit": 0.0032934283838326134,
+          "treat_all": -0.6510229807491966,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.6,
+          "net_benefit": 0.001972734282098168,
+          "treat_all": -0.8574008533428458,
+          "treat_none": 0.0
+        }
+      ],
+      "role": "apparent (training cohort), not validation"
+    },
+    "GSE7390": {
+      "n": 198,
+      "brier_ipcw_60m": 0.19883182513216593,
+      "brier_null_60m": 0.20420766928758355,
+      "km_5yr_event": 0.28600857327356277,
+      "n_known_status_60m": 191,
+      "n_censored_before_60m": 7,
+      "brier_skill_vs_null": 0.026325378347308193,
+      "decision_curve": [
+        {
+          "pt": 0.05,
+          "net_benefit": 0.24843007713006565,
+          "treat_all": 0.24843007713006565,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.1,
+          "net_benefit": 0.20902678158536211,
+          "treat_all": 0.2066761925261804,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.15,
+          "net_benefit": 0.1724921585475536,
+          "treat_all": 0.16001008620419108,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.2,
+          "net_benefit": 0.12457186235750137,
+          "treat_all": 0.10751071659195308,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.25,
+          "net_benefit": 0.05906173748430986,
+          "treat_all": 0.04801143103141667,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.3,
+          "net_benefit": 0.018162122379671616,
+          "treat_all": -0.01998775246633927,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.35,
+          "net_benefit": -0.005069501551542177,
+          "treat_all": -0.09844834880990372,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.4,
+          "net_benefit": -0.003877029025766872,
+          "treat_all": -0.18998571121072905,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.45,
+          "net_benefit": 0.004370501457299312,
+          "treat_all": -0.2981662304117043,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.5,
+          "net_benefit": 0.004366339815046902,
+          "treat_all": -0.4279828534528747,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.55,
+          "net_benefit": -0.009291349637238813,
+          "treat_all": -0.5866476149476387,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.6,
+          "net_benefit": -0.010815971098971325,
+          "treat_all": -0.784978566816093,
+          "treat_none": 0.0
+        }
+      ],
+      "role": "external, RFS-comparable"
+    },
+    "GSE2990": {
+      "n": 187,
+      "brier_ipcw_60m": 0.17312459951548695,
+      "brier_null_60m": 0.1866554259257523,
+      "km_5yr_event": 0.24828354932782715,
+      "n_known_status_60m": 158,
+      "n_censored_before_60m": 29,
+      "brier_skill_vs_null": 0.07249093533261464,
+      "decision_curve": [
+        {
+          "pt": 0.05,
+          "net_benefit": 0.20875422937010774,
+          "treat_all": 0.20875422937010774,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.1,
+          "net_benefit": 0.16479613100178045,
+          "treat_all": 0.16479613100178045,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.15,
+          "net_benefit": 0.11867056934100828,
+          "treat_all": 0.11566649164894408,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.2,
+          "net_benefit": 0.09127880473459002,
+          "treat_all": 0.060395647377003175,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.25,
+          "net_benefit": 0.06170241176268343,
+          "treat_all": -0.0022446427978631556,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.3,
+          "net_benefit": 0.040421802488986,
+          "treat_all": -0.07383354585485333,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.35,
+          "net_benefit": 0.02758931651337903,
+          "treat_all": -0.15643612630522655,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.4,
+          "net_benefit": 0.015811613850807593,
+          "treat_all": -0.25280580349732873,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.45,
+          "net_benefit": 0.0059290358540106305,
+          "treat_all": -0.3666972401789038,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.5,
+          "net_benefit": 0.00549688131349704,
+          "treat_all": -0.5033669641967942,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.55,
+          "net_benefit": 0.00549688131349704,
+          "treat_all": -0.670407737996438,
+          "treat_none": 0.0
+        },
+        {
+          "pt": 0.6,
+          "net_benefit": 0.0,
+          "treat_all": -0.8792087052459923,
+          "treat_none": 0.0
+        }
+      ],
+      "role": "external, RFS-comparable"
+    }
+  },
+  "limits": "Baseline survival transported without cohort refit; IPCW assumes independent censoring given time; descriptive audit, not clinical validation."
+}
