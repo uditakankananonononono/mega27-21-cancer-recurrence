@@ -13,35 +13,32 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{definition}{Definition}
 \newtheorem{remark}{Remark}
-\title{\textbf{RecurScan: Benchmarked Deep and Graph Learning for Breast Cancer
-Recurrence Prediction on METABRIC, with an Externally Tested Discovery
-Protocol for Clinical-Risk Discordance}}
+\title{\textbf{RecurScan: Clinical and Expression Cox Benchmarks for Breast Cancer Recurrence on METABRIC, with External Transport Limits}}
 \author{Udita Phookan}
 \date{September 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-\noindent We present a fully reproducible benchmark of five survival models for
-breast-cancer recurrence prediction on the METABRIC cohort (1{,}975 primary
-tumors, 800 recurrence events; 70-gene expression panel and 17 clinical
-covariates retrieved live from cBioPortal): penalized Cox proportional hazards
-on clinical covariates, Cox on clinical$+$expression, a DeepSurv network, a
-one-dimensional convolutional Cox network over the gene axis, and a graph
-convolutional Cox network over a patient-similarity graph. All models are
-implemented from first principles (including a vectorized Breslow partial
-likelihood verified against \texttt{lifelines} to $<10^{-3}$) and evaluated on
-locked stratified splits over five seeds with paired bootstrap confidence
-intervals. Penalized Cox on clinical$+$expression achieves the strongest
-held-out concordance, $0.6801 \pm 0.0052$; deep models trail
-($0.641$--$0.660$), an honest negative we analyze. The fitted baseline
-stratifies held-out patients into risk terciles separated at
-log-rank $p = 7.9\times10^{-16}$. We then apply a pre-registered discovery
-protocol to clinical-risk discordance: among low-NPI patients, early recurrers
-($\le 60$ months) show significant up-regulation of eleven mitotic genes
-(Benjamini--Hochberg $q$ down to $8.8\times10^{-5}$), but the signature fails
-both multivariable prediction (nested-CV AUC $= 0.50$) and external
-replication on TCGA-BRCA ($p = 0.36$), and is reported as a bounded negative.
-All code, tests, data snapshots, and figures are released with the paper.
+\noindent \textbf{Primary question:} does a penalized Cox model using clinical
+covariates and a 70-gene expression panel improve held-out recurrence-risk
+discrimination over a clinical-only Cox model on METABRIC? Among 1{,}975
+eligible tumors (800 relapse-free-survival events), the full Cox model has
+mean five-seed test concordance $0.6801\pm0.0052$, ahead of the clinical-only
+model in all five partitions. These are repeated splits of one cohort, not
+independent replications; their individual bootstrap intervals overlap.
+DeepSurv, CoxCNN and CoxGCN trail the full Cox model, so deep learning does
+not establish an advantage at this sample size. Five external cohorts test
+transport only by their separately defined endpoints; two use comparable
+recurrence-free survival, whereas the others record distant recurrence or
+metastasis and cannot be pooled as a single validation. Calibration slopes
+and grouped five-year risks on the two RFS-comparable cohorts reveal a
+shallow slope in GSE7390 and wide uncertainty in GSE2990. A pre-registered
+stable-gene panel fails its gate in three of five folds; it is not a
+successful biological discovery. \textbf{What this is not:} a clinically
+validated risk score, a prospective trial, a causal gene finding, or an
+endpoint-harmonized multicohort superiority claim. Decision curves,
+competing-risk checks and direct same-patient commercial-score comparisons
+remain open.
 \end{abstract}
 \tableofcontents
 \newpage
@@ -71,6 +68,23 @@ For replication we use TCGA-BRCA (study
 \texttt{brca\_tcga\_pan\_can\_atlas\_2018}), with disease-free survival (DFS)
 endpoints and TNM staging, restricting to the molecular-profiled subset
 ($n = 1{,}084$).
+
+\subsection{Endpoint harmonization boundary}
+The primary discrimination endpoint is METABRIC relapse-free survival, with
+its original event and censoring definitions fixed by the source record.
+External cohorts are analyzed separately, never pooled into an omnibus
+concordance: GSE7390 and GSE2990 carry recurrence-free endpoints for
+limited five-year calibration checks; GSE11121 uses distant-metastasis-free
+survival, GSE25066 distant-relapse-free survival after chemotherapy, and
+GSE20685 a metastasis endpoint. Similar abbreviations do not make the
+underlying event processes identical. The cohort table reports endpoint,
+event count and comparator together, so each point estimate can only
+support its own within-cohort question. To call a multicohort effect
+harmonized would require patient-level adjudication of first event, death
+without recurrence, censoring time origin, treatment era and assay mapping
+on the same horizon; those data have not all been established. The external
+results are transport stress tests, not pooled validation of the METABRIC
+RFS estimand.
 
 \section{Methods}
 \subsection{The Cox model and its partial likelihood}
@@ -272,11 +286,7 @@ not. Full fold values and technical audit outputs are in the repository.
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
 regime: across eight controlled comparisons (deep Cox, GBT survival,
 multimodal methylation/mutation/CNA integration, engineered features), no
-alternative exceeded it, and several were significantly worse. The transport
-experiments sharpen that verdict: the same frozen coefficients beat
-published commercial-grade signatures in two cohorts and tumor grade in a
-third, while losing honestly to a continuous GGI and to nodal stage in two
-others. External replication, not internal cross-validation, is the honest
+alternative exceeded it, and several were significantly worse. The transport experiments sharpen that verdict: the same frozen coefficients have higher point estimates than indirect signature comparators in some cohorts and lower estimates than a continuous GGI and nodal stage in others. These are not direct same-patient comparisons with marketed MammaPrint or Oncotype DX scores, nor do endpoint-mismatched cohorts establish a pooled win. External replication, not internal cross-validation, is the honest
 arbiter of a prognostic claim; failed discovery arms remain documented, with their consequences summarized
 here rather than presented as positive findings. Limitations: the panel is expression-only,
 cohorts differ in treatment era and endpoint definition, and the
