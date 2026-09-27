@@ -20,6 +20,14 @@ GSE2990 point estimates (HARM-RFS C 0.6559, HARM-DMFS C 0.6648). The pooled
 bootstrap reuses the main loop's per-cohort arrays instead of re-parsing the
 SOFT files (parsing never consumed the rng stream, so the bootstrap sequence
 is unchanged). Statistics unchanged.
+
+Endpoint parsing note (same revision): the committed raw pulls store GEO
+characteristics as 'key: value' cells with column drift on some rows;
+field_series() recovers each needed field key-verbatim per patient (first
+'<key>: ' cell in the row; clean-column fallback; wrong-key cell = missing).
+This only affects cohorts that produced NO outcome in the diagnostic run
+(all dropped on NaN); GSE2990's clean pull takes the fallback path and its
+already-observed point estimates must reproduce exactly.
 """
 import json, sys, gzip, glob
 import numpy as np, pandas as pd
@@ -141,6 +149,30 @@ def cohort_expr(gse, gpl_name):
 def load_clin(gse):
     return pd.read_csv(f"{GEO}/clinical_{gse}.csv", dtype=str).set_index("geo_accn")
 
+def field_series(clin, key):
+    """Per-patient value for a clinical key, verbatim from the committed raw
+    pull. The pull stored GEO characteristics as 'key: value' cells and some
+    rows drifted across columns, so: the first cell in the row whose prefix
+    is exactly '<key>: ' supplies the value; if no prefixed cell matches,
+    fall back to the named column's raw value (clean pulls like GSE2990);
+    a named-column cell carrying a different key's prefix counts as missing
+    (e.g. GSE20685 rows whose regional_relapse column carries m_stage)."""
+    out = {}
+    has_col = key in clin.columns
+    prefix = key + ": "
+    for accn, row in clin.iterrows():
+        v = None
+        for cell in row:
+            if isinstance(cell, str) and cell.startswith(prefix):
+                v = cell[len(prefix):]
+                break
+        if v is None and has_col:
+            cell = row[key]
+            if isinstance(cell, str) and ": " not in cell:
+                v = cell
+        out[accn] = v
+    return pd.Series(out)
+
 def num(s):
     return pd.to_numeric(s, errors="coerce")
 
@@ -149,33 +181,34 @@ def endpoints(gse, clin):
     """Return dict stratum -> DataFrame(t, e) indexed by geo_accn."""
     out = {}
     if gse == "GSE2990":
-        out["HARM-RFS"] = pd.DataFrame({"t": num(clin["time.rfs"]), "e": num(clin["event.rfs"])}, index=clin.index)
-        out["HARM-DMFS"] = pd.DataFrame({"t": num(clin["time.dmfs"]), "e": num(clin["event.dmfs"])}, index=clin.index)
+        out["HARM-RFS"] = pd.DataFrame({"t": num(field_series(clin, "time.rfs")), "e": num(field_series(clin, "event.rfs"))}, index=clin.index)
+        out["HARM-DMFS"] = pd.DataFrame({"t": num(field_series(clin, "time.dmfs")), "e": num(field_series(clin, "event.dmfs"))}, index=clin.index)
         DERIV[gse] = {"HARM-RFS": "event.rfs/time.rfs verbatim (years; unit-free C-index)",
                       "HARM-DMFS": "event.dmfs/time.dmfs verbatim (years)"}
     elif gse == "GSE7390":
-        out["HARM-RFS"] = pd.DataFrame({"t": num(clin["t.rfs"]), "e": num(clin["e.rfs"])}, index=clin.index)
-        out["HARM-DMFS"] = pd.DataFrame({"t": num(clin["t.dmfs"]), "e": num(clin["e.dmfs"])}, index=clin.index)
-        DERIV[gse] = {"HARM-RFS": "e.rfs/t.rfs verbatim", "HARM-DMFS": "e.dmfs/t.dmfs verbatim"}
+        out["HARM-RFS"] = pd.DataFrame({"t": num(field_series(clin, "t.rfs")), "e": num(field_series(clin, "e.rfs"))}, index=clin.index)
+        out["HARM-DMFS"] = pd.DataFrame({"t": num(field_series(clin, "t.dmfs")), "e": num(field_series(clin, "e.dmfs"))}, index=clin.index)
+        DERIV[gse] = {"HARM-RFS": "e.rfs/t.rfs verbatim (GEO 'key: value' characteristics cells, key-exact, prefix stripped at parse)",
+                      "HARM-DMFS": "e.dmfs/t.dmfs verbatim (same key-verbatim extraction)"}
     elif gse == "GSE11121":
-        out["HARM-DMFS"] = pd.DataFrame({"t": num(clin["t.dmfs"]), "e": num(clin["e.dmfs"])}, index=clin.index)
-        DERIV[gse] = {"HARM-DMFS": "t.dmfs/e.dmfs verbatim (months)",
+        out["HARM-DMFS"] = pd.DataFrame({"t": num(field_series(clin, "t.dmfs")), "e": num(field_series(clin, "e.dmfs"))}, index=clin.index)
+        DERIV[gse] = {"HARM-DMFS": "t.dmfs/e.dmfs verbatim (months; key-verbatim extraction as GSE7390)",
                       "HARM-RFS": "EXCLUDED: no any-recurrence field in committed raw pull"}
     elif gse == "GSE20685":
-        met = num(clin["event_metastasis"])
-        reg = num(clin["regional_relapse"])
-        t = num(clin["follow_up_duration (years)"])
+        met = num(field_series(clin, "event_metastasis"))
+        reg = num(field_series(clin, "regional_relapse"))
+        t = num(field_series(clin, "follow_up_duration (years)"))
         out["HARM-DMFS"] = pd.DataFrame({"t": t, "e": met}, index=clin.index)
-        DERIV[gse] = {"HARM-DMFS": "event_metastasis + follow_up_duration (years) verbatim"}
+        DERIV[gse] = {"HARM-DMFS": "event_metastasis + follow_up_duration (years) verbatim (key-verbatim extraction)"}
         if set(reg.dropna().unique()) <= {0, 1}:
             rfs = ((reg == 1) | (met == 1)).astype(float).where(reg.notna() & met.notna())
             out["HARM-RFS"] = pd.DataFrame({"t": t, "e": rfs}, index=clin.index)
-            DERIV[gse]["HARM-RFS"] = "any recurrence = regional_relapse OR event_metastasis (both 0/1 in committed pull); same follow-up field"
+            DERIV[gse]["HARM-RFS"] = "any recurrence = regional_relapse OR event_metastasis, key-verbatim (83 of 327 pulled patients carry no regional_relapse field - their column holds m_stage, not a recurrence outcome - excluded from this stratum only); same follow-up field"
         else:
             DERIV[gse]["HARM-RFS"] = "EXCLUDED: regional_relapse not a clean 0/1 indicator in committed raw pull"
     elif gse == "GSE25066":
-        out["HARM-DMFS"] = pd.DataFrame({"t": num(clin["drfs_even_time_years"]), "e": num(clin["drfs_1_event_0_censored"])}, index=clin.index)
-        DERIV[gse] = {"HARM-DMFS": "drfs_1_event_0_censored + drfs_even_time_years verbatim (distant relapse)",
+        out["HARM-DMFS"] = pd.DataFrame({"t": num(field_series(clin, "drfs_even_time_years")), "e": num(field_series(clin, "drfs_1_event_0_censored"))}, index=clin.index)
+        DERIV[gse] = {"HARM-DMFS": "drfs_1_event_0_censored + drfs_even_time_years verbatim (distant relapse; key-verbatim, 198 of 508 rows recovered from drifted columns)",
                       "HARM-RFS": "EXCLUDED: no any-recurrence field in committed raw pull (neoadjuvant pCR cohort)"}
     return out
 
