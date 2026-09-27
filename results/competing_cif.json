@@ -1,0 +1,34 @@
+{
+ "protocol": "docs/PREREG_COMPETING_CIF_20260928.md",
+ "horizon_months": 60,
+ "counts": {
+  "recurrence": 800,
+  "death_without_recurrence": 431,
+  "censored": 744
+ },
+ "events_by_60m": {
+  "recurrence": 492,
+  "death_without_recurrence": 80
+ },
+ "cumulative_incidence_60m": {
+  "recurrence": {
+   "estimate": 0.25314739908688927,
+   "variance": 9.741202894563051e-05,
+   "normal_ci95_clipped": [
+    0.2338026827437238,
+    0.27249211543005475
+   ]
+  },
+  "death_without_recurrence": {
+   "estimate": 0.04138085053070856,
+   "variance": 2.052331323142565e-05,
+   "normal_ci95_clipped": [
+    0.03250152847833064,
+    0.050260172583086474
+   ]
+  }
+ },
+ "naive_recurrence_km_60m_treat_competing_death_as_censored": 0.2570297586235897,
+ "difference_naive_minus_aj": 0.0038823595367004082,
+ "limits": "nonparametric apparent cohort CIF, no regression or Fine-Gray; normal CI approximations clipped to [0,1]; competing event coding uses RFS/OS fields"
+}
