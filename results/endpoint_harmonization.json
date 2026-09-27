@@ -1,0 +1,160 @@
+{
+ "prereg": "docs/PREREG_ENDPOINT_HARMONIZATION_20260928.md",
+ "model": "penalized Cox 0.05, METABRIC 70-gene expr-only, fit once (run_transport.py protocol)",
+ "per_cohort": [
+  {
+   "cohort": "GSE2990",
+   "stratum": "HARM-RFS",
+   "n": 187,
+   "events": 67,
+   "c_index": 0.6559,
+   "ci95": [
+    0.5778,
+    0.7313
+   ],
+   "genes_mapped": 63
+  },
+  {
+   "cohort": "GSE2990",
+   "stratum": "HARM-DMFS",
+   "n": 179,
+   "events": 40,
+   "c_index": 0.6648,
+   "ci95": [
+    0.5685,
+    0.7467
+   ],
+   "genes_mapped": 63
+  },
+  {
+   "cohort": "GSE7390",
+   "stratum": "HARM-RFS",
+   "n": 198,
+   "events": 91,
+   "c_index": 0.5997,
+   "ci95": [
+    0.536,
+    0.6513
+   ],
+   "genes_mapped": 63
+  },
+  {
+   "cohort": "GSE7390",
+   "stratum": "HARM-DMFS",
+   "n": 198,
+   "events": 62,
+   "c_index": 0.6352,
+   "ci95": [
+    0.5711,
+    0.6954
+   ],
+   "genes_mapped": 63
+  },
+  {
+   "cohort": "GSE11121",
+   "stratum": "HARM-DMFS",
+   "n": 200,
+   "events": 46,
+   "c_index": 0.6979,
+   "ci95": [
+    0.6088,
+    0.7771
+   ],
+   "genes_mapped": 63
+  },
+  {
+   "cohort": "GSE20685",
+   "stratum": "HARM-DMFS",
+   "n": 327,
+   "events": 83,
+   "c_index": 0.627,
+   "ci95": [
+    0.5638,
+    0.6907
+   ],
+   "genes_mapped": 69
+  },
+  {
+   "cohort": "GSE20685",
+   "stratum": "HARM-RFS",
+   "n": 307,
+   "events": 83,
+   "c_index": 0.6033,
+   "ci95": [
+    0.5397,
+    0.6804
+   ],
+   "genes_mapped": 69
+  },
+  {
+   "cohort": "GSE25066",
+   "stratum": "HARM-DMFS",
+   "n": 508,
+   "events": 111,
+   "c_index": 0.64,
+   "ci95": [
+    0.5912,
+    0.6821
+   ],
+   "genes_mapped": 63
+  }
+ ],
+ "pooled": {
+  "HARM-RFS": {
+   "cohorts": [
+    "GSE2990",
+    "GSE7390",
+    "GSE20685"
+   ],
+   "pooled_c_index": 0.6165,
+   "ci95": [
+    0.5725,
+    0.6577
+   ],
+   "definition": "n-weighted mean of per-cohort C-index; cohort-stratified patient bootstrap (500, seed 0)"
+  },
+  "HARM-DMFS": {
+   "cohorts": [
+    "GSE2990",
+    "GSE7390",
+    "GSE11121",
+    "GSE20685",
+    "GSE25066"
+   ],
+   "pooled_c_index": 0.6477,
+   "ci95": [
+    0.6191,
+    0.6755
+   ],
+   "definition": "n-weighted mean of per-cohort C-index; cohort-stratified patient bootstrap (500, seed 0)"
+  }
+ },
+ "derivation_audit": {
+  "GSE2990": {
+   "HARM-RFS": "event.rfs/time.rfs verbatim (years; unit-free C-index)",
+   "HARM-DMFS": "event.dmfs/time.dmfs verbatim (years)"
+  },
+  "GSE7390": {
+   "HARM-RFS": "e.rfs/t.rfs verbatim (GEO 'key: value' characteristics cells, key-exact, prefix stripped at parse)",
+   "HARM-DMFS": "e.dmfs/t.dmfs verbatim (same key-verbatim extraction)"
+  },
+  "GSE11121": {
+   "HARM-DMFS": "t.dmfs/e.dmfs verbatim (months; key-verbatim extraction as GSE7390)",
+   "HARM-RFS": "EXCLUDED: no any-recurrence field in committed raw pull"
+  },
+  "GSE20685": {
+   "HARM-DMFS": "event_metastasis + follow_up_duration (years) verbatim (key-verbatim extraction)",
+   "HARM-RFS": "any recurrence = regional_relapse OR event_metastasis, key-verbatim (20 of 327 pulled patients carry regional_relapse: NA, no usable value - excluded from this stratum only, leaving n=307); same follow-up field"
+  },
+  "GSE25066": {
+   "HARM-DMFS": "drfs_1_event_0_censored + drfs_even_time_years verbatim (distant relapse; key-verbatim, 198 of 508 rows recovered from drifted columns)",
+   "HARM-RFS": "EXCLUDED: no any-recurrence field in committed raw pull (neoadjuvant pCR cohort)"
+  }
+ },
+ "metabric_discovery": {
+  "stratum": "HARM-RFS",
+  "n": 1975,
+  "events": 800,
+  "note": "training cohort; in-sample fit, not a transport result"
+ }
+}

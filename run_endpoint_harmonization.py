@@ -203,7 +203,7 @@ def endpoints(gse, clin):
         if set(reg.dropna().unique()) <= {0, 1}:
             rfs = ((reg == 1) | (met == 1)).astype(float).where(reg.notna() & met.notna())
             out["HARM-RFS"] = pd.DataFrame({"t": t, "e": rfs}, index=clin.index)
-            DERIV[gse]["HARM-RFS"] = "any recurrence = regional_relapse OR event_metastasis, key-verbatim (83 of 327 pulled patients carry no regional_relapse field - their column holds m_stage, not a recurrence outcome - excluded from this stratum only); same follow-up field"
+            DERIV[gse]["HARM-RFS"] = "any recurrence = regional_relapse OR event_metastasis, key-verbatim (20 of 327 pulled patients carry regional_relapse: NA, no usable value - excluded from this stratum only, leaving n=307); same follow-up field"
         else:
             DERIV[gse]["HARM-RFS"] = "EXCLUDED: regional_relapse not a clean 0/1 indicator in committed raw pull"
     elif gse == "GSE25066":
