@@ -1,0 +1,201 @@
+{
+ "prereg": "docs/PREREG_FAMILY_BLOCKED_CV_20260928.md",
+ "n": 1975,
+ "events": 800,
+ "cv_folds": 5,
+ "cv_seed": 42,
+ "holdout_seed": 42,
+ "perm_seed_base": 20260928,
+ "n_perm": 100,
+ "penalizer": 0.05,
+ "families": {
+  "proliferation_mitotic": [
+   "MKI67",
+   "BIRC5",
+   "CCNB1",
+   "CDC20",
+   "CENPF",
+   "MYBL2",
+   "UBE2C",
+   "CEP55",
+   "KIF2C",
+   "MELK",
+   "NDC80",
+   "NUF2",
+   "ORC6",
+   "PTTG1",
+   "EXO1",
+   "CDC6",
+   "RRM2",
+   "TYMS",
+   "UBE2T",
+   "CCNE1",
+   "ANLN"
+  ],
+  "er_luminal": [
+   "ESR1",
+   "PGR",
+   "FOXA1",
+   "GATA3",
+   "BCL2",
+   "MAPT",
+   "NAT1",
+   "SLC39A6",
+   "MLPH",
+   "CXXC5",
+   "GPR160",
+   "TMEM45B",
+   "BLVRA",
+   "BAG1"
+  ],
+  "her2_amplicon": [
+   "ERBB2",
+   "GRB7"
+  ],
+  "basal_myoepithelial": [
+   "KRT5",
+   "KRT14",
+   "KRT17",
+   "EGFR",
+   "CDH3",
+   "FOXC1",
+   "MIA",
+   "SFRP1",
+   "PHGDH",
+   "MMP11"
+  ],
+  "pi3k_akt_mtor": [
+   "AKT1",
+   "PIK3CA",
+   "MTOR",
+   "PTEN"
+  ],
+  "dna_repair_genome_stability": [
+   "BRCA1",
+   "BRCA2",
+   "ATM",
+   "CHEK2",
+   "PALB2",
+   "TP53",
+   "RB1",
+   "MDM2"
+  ],
+  "cellcycle_apoptosis_signaling": [
+   "CCND1",
+   "BCL2L1",
+   "MCL1",
+   "STAT3",
+   "MYC"
+  ],
+  "hypoxia_adhesion_detox_other": [
+   "HIF1A",
+   "VEGFA",
+   "FGFR4",
+   "CDH1",
+   "ACTR3B",
+   "GSTM1"
+  ]
+ },
+ "baseline": {
+  "cv5_pooled_cindex": 0.6549902943144057,
+  "holdout_cindex": 0.6463977340216547
+ },
+ "arms": {
+  "basal_myoepithelial": {
+   "n_genes_dropped": 10,
+   "cv5_pooled_cindex": 0.6618180887658974,
+   "cv5_drop_vs_baseline": -0.006827794451491731,
+   "holdout_cindex": 0.6497555849970305,
+   "holdout_drop_vs_baseline": -0.0033578509753757757,
+   "null_drop_mean": -0.001389967563616462,
+   "null_drop_p95": 0.005998446708392318,
+   "observed_drop_percentile_vs_null": 33.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": true
+  },
+  "cellcycle_apoptosis_signaling": {
+   "n_genes_dropped": 5,
+   "cv5_pooled_cindex": 0.6597846471041963,
+   "cv5_drop_vs_baseline": -0.004794352789790568,
+   "holdout_cindex": 0.6457581433596784,
+   "holdout_drop_vs_baseline": 0.0006395906619762748,
+   "null_drop_mean": -0.00024053177395041536,
+   "null_drop_p95": 0.004184750331216563,
+   "observed_drop_percentile_vs_null": 61.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "dna_repair_genome_stability": {
+   "n_genes_dropped": 8,
+   "cv5_pooled_cindex": 0.6576196029259627,
+   "cv5_drop_vs_baseline": -0.0026293086115569686,
+   "holdout_cindex": 0.650714970989995,
+   "holdout_drop_vs_baseline": -0.004317236968340299,
+   "null_drop_mean": -0.0008785234592718094,
+   "null_drop_p95": 0.005227511535474404,
+   "observed_drop_percentile_vs_null": 17.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "er_luminal": {
+   "n_genes_dropped": 14,
+   "cv5_pooled_cindex": 0.65362674601811,
+   "cv5_drop_vs_baseline": 0.0013635482962957024,
+   "holdout_cindex": 0.6426058750970808,
+   "holdout_drop_vs_baseline": 0.0037918589245738987,
+   "null_drop_mean": -0.0013296633012015524,
+   "null_drop_p95": 0.01056923568915891,
+   "observed_drop_percentile_vs_null": 83.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "her2_amplicon": {
+   "n_genes_dropped": 2,
+   "cv5_pooled_cindex": 0.6551968371528527,
+   "cv5_drop_vs_baseline": -0.00020654283844701027,
+   "holdout_cindex": 0.6481794508657317,
+   "holdout_drop_vs_baseline": -0.0017817168440770192,
+   "null_drop_mean": 0.00025469413860840337,
+   "null_drop_p95": 0.0034115309059344506,
+   "observed_drop_percentile_vs_null": 11.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "hypoxia_adhesion_detox_other": {
+   "n_genes_dropped": 6,
+   "cv5_pooled_cindex": 0.6542226129679658,
+   "cv5_drop_vs_baseline": 0.0007676813464398968,
+   "holdout_cindex": 0.6448901274612819,
+   "holdout_drop_vs_baseline": 0.0015076065603727429,
+   "null_drop_mean": -0.0006462149938325435,
+   "null_drop_p95": 0.0059870254465713086,
+   "observed_drop_percentile_vs_null": 73.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "pi3k_akt_mtor": {
+   "n_genes_dropped": 4,
+   "cv5_pooled_cindex": 0.6540910104514331,
+   "cv5_drop_vs_baseline": 0.0008992838629725552,
+   "holdout_cindex": 0.6466261592580749,
+   "holdout_drop_vs_baseline": -0.0002284252364201933,
+   "null_drop_mean": 0.00021974507743612536,
+   "null_drop_p95": 0.005262917447119551,
+   "observed_drop_percentile_vs_null": 40.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  },
+  "proliferation_mitotic": {
+   "n_genes_dropped": 21,
+   "cv5_pooled_cindex": 0.645442714521241,
+   "cv5_drop_vs_baseline": 0.009547579793164673,
+   "holdout_cindex": 0.6485906162912879,
+   "holdout_drop_vs_baseline": -0.0021928822696332118,
+   "null_drop_mean": -0.0025138197268034512,
+   "null_drop_p95": 0.007535748549499704,
+   "observed_drop_percentile_vs_null": 50.0,
+   "load_bearing_locked_rule": false,
+   "dispensable_or_harmful_locked_rule": false
+  }
+ }
+}
