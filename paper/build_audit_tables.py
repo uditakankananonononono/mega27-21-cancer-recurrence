@@ -137,3 +137,37 @@ add(r'\hline\end{tabular}',r'\caption{Locked stability gate. A zero-gene fold ha
 assert not probe['technical_LOO_AUROC'] and not trans['gate_pass']
 O.write_text('\n'.join(lines)+'\n')
 print(f'wrote {O}, {len(lines)} lines')
+
+
+# --- verdict item: gene-level readout of the fitted model (bounded) ---
+risk=json.loads((Path(__file__).resolve().parent.parent/'results'/'risk_model.json').read_text())
+feats=risk['features']; coef=risk['coef']; n_feat=len(feats)
+rows=sorted(((coef['x%d'%i],feats[i]) for i in range(n_feat)), key=lambda t:-t[0])
+def esc(s): return s.replace('_', '\\_')
+lines2=['\\subsection{Fitted-model coefficient audit (bounded gene-level readout)}',
+ 'The deployed risk model is the penalized Cox fit on 1,580 METABRIC patients with 17 clinical '
+ 'covariates and the 70-gene expression panel (87 features; held-out $n=395$, $C=0.6891$, '
+ '\\texttt{results/risk\\_model.json}). Table~\\ref{tab:coef-audit} lists the twelve largest '
+ 'risk-increasing and twelve largest risk-decreasing standardized coefficients. Three caveats '
+ 'bound every reading: the fit is penalized, so correlated features split and shrink weight; '
+ 'expression inputs are z-scored, so a coefficient compares one-SD expression shifts, not '
+ 'presence or absence of a gene; and coefficients are associational. A counterintuitive sign '
+ 'on any single gene is not evidence about mechanism and is not used as one anywhere in this paper.',
+ '\\begin{table}[htbp]\\centering\\footnotesize',
+ '\\begin{tabular}{lr|lr}\\hline',
+ '\\multicolumn{2}{c|}{Risk-increasing} & \\multicolumn{2}{c}{Risk-decreasing} \\\\ ',
+ 'Feature & $\\hat\\beta$ & Feature & $\\hat\\beta$ \\\\ \\hline']
+for i in range(12):
+    pv,pn=rows[i]; nv,nn=rows[-(12-i)]
+    lines2.append('%s & %+.4f & %s & %+.4f \\\\' % (esc(pn), pv, esc(nn), nv))
+lines2+=['\\hline\\end{tabular}',
+ '\\caption{Largest standardized coefficients of the committed risk model. Signs and magnitudes are exactly as stored; no feature was re-estimated for this table.}\\label{tab:coef-audit}',
+ '\\end{table}',
+ 'The pattern is consistent with the rest of the paper rather than a new finding: clinical '
+ 'burden variables (positive lymph-node count, NPI, tumor size) dominate the risk-increasing '
+ 'side, joined by mitotic-panel genes (UBE2C, CCNB1, MELK), while hormone-receptor-pathway '
+ 'expression (ESR1, PGR, GATA3, MAPT) and recorded hormone and radiation treatment sit on the '
+ 'risk-decreasing side. The treatment indicators encode assignment, not benefit, and their '
+ 'signs reflect confounding by indication; they are reported, not interpreted as effects.']
+with open(O,'a') as fh: fh.write('\n'.join(lines2)+'\n')
+print('appended coefficient audit,', len(lines2), 'lines')

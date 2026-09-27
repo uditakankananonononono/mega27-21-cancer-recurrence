@@ -22,5 +22,6 @@
 \contentsline {subsection}{\numberline {4.8}Grouped calibration diagnostics for comparable endpoints}{10}{}%
 \contentsline {subsection}{\numberline {4.9}Leave-one-cohort-out stability falsification}{10}{}%
 \contentsline {subsection}{\numberline {4.10}Biology-versus-measurement boundary}{11}{}%
+\contentsline {subsection}{\numberline {4.11}Fitted-model coefficient audit (bounded gene-level readout)}{11}{}%
 \contentsline {section}{\numberline {5}Discussion}{11}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{11}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{12}{}%
