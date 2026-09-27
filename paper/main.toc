@@ -1,28 +1,31 @@
 \contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}When does deeper modeling help? A locked sample-size audit}{3}{}%
 \contentsline {section}{\numberline {2}Data}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Cohort}{3}{}%
-\contentsline {subsection}{\numberline {2.2}External replication cohort}{3}{}%
-\contentsline {subsection}{\numberline {2.3}Endpoint harmonization boundary}{3}{}%
+\contentsline {subsection}{\numberline {2.2}External replication cohort}{4}{}%
+\contentsline {subsection}{\numberline {2.3}Endpoint harmonization boundary}{4}{}%
 \contentsline {section}{\numberline {3}Methods}{4}{}%
 \contentsline {subsection}{\numberline {3.1}The Cox model and its partial likelihood}{4}{}%
-\contentsline {paragraph}{Vectorized evaluation.}{4}{}%
-\contentsline {subsection}{\numberline {3.2}Baseline hazard and the logrank test}{4}{}%
+\contentsline {paragraph}{Vectorized evaluation.}{5}{}%
+\contentsline {subsection}{\numberline {3.2}Baseline hazard and the logrank test}{5}{}%
 \contentsline {subsection}{\numberline {3.3}Concordance index}{5}{}%
 \contentsline {subsection}{\numberline {3.4}Deep Cox models}{5}{}%
-\contentsline {subsection}{\numberline {3.5}Graph Cox model}{5}{}%
-\contentsline {subsection}{\numberline {3.6}Evaluation protocol}{5}{}%
-\contentsline {subsection}{\numberline {3.7}Discovery protocol and locked gates}{5}{}%
-\contentsline {section}{\numberline {4}Experiments and Results}{5}{}%
-\contentsline {subsection}{\numberline {4.1}Benchmark}{5}{}%
+\contentsline {subsection}{\numberline {3.5}Graph Cox model}{6}{}%
+\contentsline {subsection}{\numberline {3.6}Evaluation protocol}{6}{}%
+\contentsline {subsection}{\numberline {3.7}Discovery protocol and locked gates}{6}{}%
+\contentsline {section}{\numberline {4}Experiments and Results}{6}{}%
+\contentsline {subsection}{\numberline {4.1}Benchmark}{6}{}%
 \contentsline {subsection}{\numberline {4.2}Bounded negatives and limits}{6}{}%
-\contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{6}{}%
+\contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{7}{}%
 \contentsline {subsection}{\numberline {4.4}Locked stability test: negative boundary}{7}{}%
-\contentsline {subsection}{\numberline {4.5}Reproducibility audit of the internal benchmark}{7}{}%
-\contentsline {subsection}{\numberline {4.6}External cohort accounting and comparator limits}{9}{}%
-\contentsline {subsection}{\numberline {4.7}Absolute-risk transfer audit}{9}{}%
-\contentsline {subsection}{\numberline {4.8}Grouped calibration diagnostics for comparable endpoints}{10}{}%
-\contentsline {subsection}{\numberline {4.9}Leave-one-cohort-out stability falsification}{10}{}%
-\contentsline {subsection}{\numberline {4.10}Biology-versus-measurement boundary}{11}{}%
-\contentsline {subsection}{\numberline {4.11}Fitted-model coefficient audit (bounded gene-level readout)}{11}{}%
-\contentsline {section}{\numberline {5}Discussion}{12}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{12}{}%
+\contentsline {subsection}{\numberline {4.5}Reproducibility audit of the internal benchmark}{8}{}%
+\contentsline {subsection}{\numberline {4.6}External cohort accounting and comparator limits}{10}{}%
+\contentsline {subsection}{\numberline {4.7}Absolute-risk transfer audit}{10}{}%
+\contentsline {subsection}{\numberline {4.8}Grouped calibration diagnostics for comparable endpoints}{11}{}%
+\contentsline {subsection}{\numberline {4.9}Leave-one-cohort-out stability falsification}{11}{}%
+\contentsline {subsection}{\numberline {4.10}Biology-versus-measurement boundary}{12}{}%
+\contentsline {subsection}{\numberline {4.11}Fitted-model coefficient audit (bounded gene-level readout)}{12}{}%
+\contentsline {subsection}{\numberline {4.12}Five-year Brier score and decision-curve audit}{12}{}%
+\contentsline {subsection}{\numberline {4.13}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{13}{}%
+\contentsline {section}{\numberline {5}Discussion}{14}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{14}{}%

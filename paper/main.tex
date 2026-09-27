@@ -54,6 +54,38 @@ clinical-risk discordance, with locked gates, paired bootstrap statistics and
 external replication; and (iii) it reports outcomes exactly as they landed,
 including three discovery angles that failed their gates.
 
+\subsection{When does deeper modeling help? A locked sample-size audit}
+To test the possibility that deep learning only needs more training patients,
+we fixed each of five METABRIC stratified 25\% test partitions, then nested
+stratified training subsets at $n=200,400,800,1200$, and all $1481$
+training patients. The same 17 clinical and 70 expression features,
+training-only scaling, original DeepSurv architecture (300 epochs) and
+full Cox penalizer ($0.1$) were used at every size. The protocol and five
+sizes were committed before outcomes
+(\texttt{docs/PREREG\_N\_THRESHOLD\_20260928.md}); there was no search
+for a favourable size. Every comparison below scores the same test patients
+within a seed.
+\begin{center}
+\begin{tabular}{lrrr}
+Training patients & Mean DeepSurv $-$ Cox C-index & Seed range & DeepSurv wins/5\\
+\hline
+200 & $-0.0237$ & $[-0.0427,-0.0084]$ & 0\\
+400 & $-0.0232$ & $[-0.0383,-0.0081]$ & 0\\
+800 & $-0.0312$ & $[-0.0470,-0.0161]$ & 0\\
+1200 & $-0.0291$ & $[-0.0460,-0.0168]$ & 0\\
+1481 & $-0.0304$ & $[-0.0371,-0.0254]$ & 0\\
+\end{tabular}
+\end{center}
+DeepSurv did not beat the penalized Cox comparator at any observed size or
+seed in this within-cohort test. That does not locate a universal
+sample-size threshold: the five test partitions share patients, there is
+no larger-than-METABRIC training set here, and architecture and tuning were
+held fixed rather than optimized for each sample size. The 1481-person
+DeepSurv seed scores need not duplicate the original benchmark byte-for-byte:
+training samples are reordered by the nesting procedure, affecting stochastic
+dropout despite the same architecture and hyperparameters. The paired
+results and training event counts are in \texttt{results/n\_threshold.json}.
+
 \section{Data}
 \subsection{Cohort}
 All data were retrieved live from the cBioPortal public API (study
