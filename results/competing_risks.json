@@ -1,0 +1,39 @@
+{
+  "design": "Competing-risks descriptive check (cause-specific Cox, NOT Fine-Gray).\n\nDesign locked in this commit before outcomes: code three states from committed\nMETABRIC clinical records - recurrence (event 1), death without recurrence\n(event 2), censored (0) - then fit cause-specific penalized Cox models for\neach event type on the same clinical+expression features as the primary\nbenchmark. This answers only: does death-before-recurrence materially\ncompete, and do cause-specific fits shift the panel's behavior? Fine-Gray\nsubdistribution hazards remain NOT DONE (needs weighted partial likelihood\nwith time-varying censoring weights; no validated implementation here).\n",
+  "counts": {
+    "kept": 1975,
+    "dropped_missing_OS_or_RFS": 0,
+    "recurrence": 800,
+    "death_without_recurrence": 431,
+    "censored": 744
+  },
+  "cause_specific": {
+    "recurrence": {
+      "concordance_apparent": 0.709387828960596,
+      "top_abs_coef": {
+        "CLAUDIN_SUBTYPE=claudin-low": -0.2793527025197452,
+        "CLAUDIN_SUBTYPE=LumB": 0.2173154267665462,
+        "RADIO_THERAPY=YES": -0.17768582962981783,
+        "NPI": 0.17387962620130493,
+        "CHEMOTHERAPY=YES": 0.12668389424475587,
+        "ER_STATUS=Positive": 0.11474020934939501,
+        "CLAUDIN_SUBTYPE=Basal": -0.11109891160639612,
+        "HORMONE_THERAPY=YES": -0.10881289415664855
+      }
+    },
+    "death_without_recurrence": {
+      "concordance_apparent": 0.7919844600105954,
+      "top_abs_coef": {
+        "CHEMOTHERAPY=YES": -0.23080127185417199,
+        "RADIO_THERAPY=YES": -0.2133834050368102,
+        "HORMONE_THERAPY=YES": 0.15886596869558575,
+        "ER_STATUS=Positive": -0.15835640070975354,
+        "SLC39A6": 0.13338398238348426,
+        "PTTG1": 0.13176784247892293,
+        "ESR1": 0.12308843660994072,
+        "NUF2": -0.11417634899671297
+      }
+    }
+  },
+  "limits": "Cause-specific Cox censors the other event type; it is not the Fine-Gray subdistribution model. Apparent (in-sample) concordance; coding rules and counts are the deliverable."
+}

@@ -213,3 +213,27 @@ add(r'\hline\end{tabular}',
     'than promote, the score\'s decision value.')
 with open(O,'a') as fh: fh.write('\n'.join(lines[n0:])+'\n')
 print('appended brier/dca audit,', len(lines)-n0, 'lines')
+
+
+# ---- competing-risks descriptive check (results/competing_risks.json)
+cr=load('competing_risks.json')
+n1=len(lines)
+c=cr['counts'];cs=cr['cause_specific']
+add(r'\subsection{Competing-risks descriptive check (cause-specific, not Fine--Gray)}',
+    'Recurrence is not the only way patients leave the risk set. Coding three states from the '+
+    r'committed clinical records (\texttt{run\_competing\_risks.py}, \texttt{results/competing\_risks.json}; '+
+    'design locked in the same commit as first run): '+
+    f"{c['recurrence']} recurrences, {c['death_without_recurrence']} deaths without recurrence, "+
+    f"{c['censored']} censored. Death before recurrence is therefore a material competing event "+
+    '(about one death for every two recurrences). Cause-specific penalized Cox fits on the same '+
+    f"clinical$+$expression features give apparent concordance {cs['recurrence']['concordance_apparent']:.3f} "+
+    f"for recurrence and {cs['death_without_recurrence']['concordance_apparent']:.3f} for death without "+
+    'recurrence (in-sample, so optimistic; the validated recurrence figure remains the 0.680 cross-validated benchmark). '+
+    'Cause-specific models censor the other event type and answer a different question than the '+
+    'Fine--Gray subdistribution model, which remains not done here: no validated implementation of '+
+    'its time-varying censoring weights exists in this codebase, and a substituted model under the '+
+    'Fine--Gray name would be mislabeled. The descriptive implication stands: absolute recurrence-risk '+
+    'estimates that ignore the 431 competing deaths will overstate five-year recurrence probability, '+
+    'which bounds every calibration number in this paper.')
+with open(O,'a') as fh: fh.write('\n'.join(lines[n1:])+'\n')
+print('appended competing-risks audit,', len(lines)-n1, 'lines')
