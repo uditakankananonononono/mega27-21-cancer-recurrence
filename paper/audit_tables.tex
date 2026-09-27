@@ -147,3 +147,40 @@ proliferation\_mitotic & 21 & 0.6454 & +0.0095 & 0.6486 & -0.0022 & +0.0075 \\
 \caption{Leave-one-family-out concordance. $\Delta$ is baseline minus arm, so positive values mean the family helps. Under the locked rule (CV5 drop $>0.005$ AND holdout drop above the size-matched null 95th percentile) no family is load-bearing.}\label{tab:family-blocked}
 \end{table}
 Two honest readings follow. First, no single family is load-bearing under the locked rule: the largest cross-validation drop is proliferation\_mitotic ($+0.0095$), but its fixed-holdout drop is $-0.0022$ (percentile 50 against its size-matched null), a split verdict that echoes the earlier proliferation negative rather than contradicting it. Second, removing basal\_myoepithelial raises pooled-CV concordance to 0.6618 and is flagged dispensable-or-harmful under the same locked rule; the effect is small, the holdout does not confirm it, and it is reported as a bound on what the panel needs, not a pruning claim. The panel's discrimination is distributed across families rather than carried by any one of them.
+\subsection{Patient-level endpoint harmonization before pooling}
+The endpoint boundary documented above forbids pooling unlike endpoints; this audit executes the patient-level harmonization itself. It was preregistered before any harmonized endpoint was derived (\texttt{docs/PREREG\_ENDPOINT\_HARMONIZATION\_}\allowbreak\texttt{20260928.md}; raw per-patient clinical pulls and their SHA-256 manifest committed before any outcome was computed). Two strata are locked: HARM-RFS (event = any recurrence, locoregional or distant) and HARM-DMFS (event = distant metastasis or distant relapse only). A cohort enters a stratum only when its raw fields express that stratum's event; there is no imputation and no proxy mapping across endpoint types. Pooling happens only within a stratum (patient-level bootstrap stratified by cohort, 500 replicates, seed 0); the two strata are never pooled together or compared as if they were one endpoint. The model is the committed transport model - penalized Cox (penalizer 0.05) on the METABRIC 70-gene panel, fit once, with no re-tuning after any harmonized outcome was seen. The preregistration locks no performance gate: this is a methodological audit, and every number below is descriptive.
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{llrrrc}\hline
+Stratum & Cohort & Patients & Events & Mapped genes & $C$ (95\% CI) \\ \hline
+HARM-RFS & GSE2990 & 187 & 67 & 63 & 0.6559 (0.5778, 0.7313) \\
+HARM-DMFS & GSE2990 & 179 & 40 & 63 & 0.6648 (0.5685, 0.7467) \\
+HARM-RFS & GSE7390 & 198 & 91 & 63 & 0.5997 (0.5360, 0.6513) \\
+HARM-DMFS & GSE7390 & 198 & 62 & 63 & 0.6352 (0.5711, 0.6954) \\
+HARM-DMFS & GSE11121 & 200 & 46 & 63 & 0.6979 (0.6088, 0.7771) \\
+HARM-DMFS & GSE20685 & 327 & 83 & 69 & 0.6270 (0.5638, 0.6907) \\
+HARM-RFS & GSE20685 & 307 & 83 & 69 & 0.6033 (0.5397, 0.6804) \\
+HARM-DMFS & GSE25066 & 508 & 111 & 63 & 0.6400 (0.5912, 0.6821) \\
+\hline
+HARM-RFS & \textit{pooled} (3 cohorts) & & & & 0.6165 (0.5725, 0.6577) \\
+\hline
+HARM-DMFS & \textit{pooled} (5 cohorts) & & & & 0.6477 (0.6191, 0.6755) \\
+\hline\end{tabular}
+\caption{Harmonized transport concordance by stratum. Within a stratum every cohort carries the same patient-level event definition; pooled rows are cohort-stratified bootstrap intervals, not cross-endpoint averages. GSE11121 and GSE25066 have no any-recurrence field in their committed raw pulls and enter HARM-DMFS only; GSE25066 contributes distant-relapse (DRFS) fields, which the locked definition treats as the distant-event endpoint.}\label{tab:harm-cindex}
+\end{table}
+Where a harmonized definition coincides with a committed transport definition the frozen pipeline reproduces the committed value exactly (GSE2990: HARM-RFS 0.6559, HARM-DMFS 0.6648), a determinism check rather than a new result. The pooled HARM-DMFS concordance 0.6477 (0.6191, 0.6755) sits above the pooled HARM-RFS concordance 0.6165 (0.5725, 0.6577), but the two strata draw on different cohort sets and their intervals overlap; the preregistration forbids reading this as an endpoint comparison. Mapped-gene counts differ by platform (63 of 70 on GPL96 cohorts, 69 of 70 on GPL570), so cross-cohort contrasts also carry a platform-coverage difference. Per-cohort intervals overlap heavily; no cohort ordering is claimed.
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{llp{2.6in}}\hline
+Cohort & Stratum & Derivation from committed raw pull \\ \hline
+GSE2990 & HARM-RFS & event.rfs/time.rfs verbatim (years; unit-free C-index) \\
+GSE2990 & HARM-DMFS & event.dmfs/time.dmfs verbatim (years) \\
+GSE7390 & HARM-RFS & e.rfs/t.rfs verbatim (GEO 'key: value' characteristics cells, key-exact, prefix stripped at parse) \\
+GSE7390 & HARM-DMFS & e.dmfs/t.dmfs verbatim (same key-verbatim extraction) \\
+GSE11121 & HARM-DMFS & t.dmfs/e.dmfs verbatim (months; key-verbatim extraction as GSE7390) \\
+GSE11121 & HARM-RFS & EXCLUDED: no any-recurrence field in committed raw pull \\
+GSE20685 & HARM-DMFS & event\_metastasis + follow\_up\_duration (years) verbatim (key-verbatim extraction) \\
+GSE20685 & HARM-RFS & any recurrence = regional\_relapse OR event\_metastasis, key-verbatim (20 of 327 pulled patients carry regional\_relapse: NA, no usable value - excluded from this stratum only, leaving n=307); same follow-up field \\
+GSE25066 & HARM-DMFS & drfs\_1\_event\_0\_censored + drfs\_even\_time\_years verbatim (distant relapse; key-verbatim, 198 of 508 rows recovered from drifted columns) \\
+GSE25066 & HARM-RFS & EXCLUDED: no any-recurrence field in committed raw pull (neoadjuvant pCR cohort) \\
+\hline\end{tabular}
+\caption{Derivation audit: every stratum assignment traces to verbatim fields in the committed raw pulls. Exclusions are recorded with reasons; 20 of 327 GSE20685 patients carry \texttt{regional\_relapse:\ NA} and leave the HARM-RFS stratum only. TCGA stays out of both strata: its committed analysis is a case-control early-recurrence comparison, not a patient-level survival transport.}\label{tab:harm-deriv}
+\end{table}

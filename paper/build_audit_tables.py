@@ -273,3 +273,67 @@ add(r'\hline\end{tabular}',
     'The panel\'s discrimination is distributed across families rather than carried by any one of them.')
 with open(O,'a') as fh: fh.write('\n'.join(lines[n2:])+'\n')
 print('appended family-blocked audit,', len(lines)-n2, 'lines')
+
+# ---- patient-level endpoint harmonization audit (results/endpoint_harmonization.json)
+# Self-contained block: runnable on its own, idempotent (skips if the subsection exists).
+import json as _json
+from pathlib import Path as _Path
+_O = _Path(__file__).resolve().parent/'audit_tables.tex'
+_R = _Path(__file__).resolve().parent.parent/'results'
+if 'Patient-level endpoint harmonization' not in _O.read_text():
+    eh = _json.loads((_R/'endpoint_harmonization.json').read_text())
+    def _esc(s): return str(s).replace('_', r'\_')
+    L = []
+    L.append(r'\subsection{Patient-level endpoint harmonization before pooling}')
+    L.append('The endpoint boundary documented above forbids pooling unlike endpoints; this audit executes the '+
+        'patient-level harmonization itself. It was preregistered before any harmonized endpoint was derived '+
+        r'(\texttt{docs/PREREG\_ENDPOINT\_HARMONIZATION\_}\allowbreak\texttt{20260928.md}; raw per-patient clinical '+
+        'pulls and their SHA-256 manifest committed before any outcome was computed). Two strata are locked: '+
+        'HARM-RFS (event = any recurrence, locoregional or distant) and HARM-DMFS (event = distant metastasis or '+
+        'distant relapse only). A cohort enters a stratum only when its raw fields express that stratum\'s event; '+
+        'there is no imputation and no proxy mapping across endpoint types. Pooling happens only within a stratum '+
+        '(patient-level bootstrap stratified by cohort, 500 replicates, seed 0); the two strata are never pooled '+
+        'together or compared as if they were one endpoint. The model is the committed transport model - penalized '+
+        'Cox (penalizer 0.05) on the METABRIC 70-gene panel, fit once, with no re-tuning after any harmonized '+
+        'outcome was seen. The preregistration locks no performance gate: this is a methodological audit, and '+
+        'every number below is descriptive.')
+    L.append(r'\begin{table}[htbp]\centering\footnotesize')
+    L.append(r'\begin{tabular}{llrrrc}\hline')
+    L.append(r'Stratum & Cohort & Patients & Events & Mapped genes & $C$ (95\% CI) \\ \hline')
+    for row in eh['per_cohort']:
+        L.append(f"{_esc(row['stratum'])} & {_esc(row['cohort'])} & {row['n']} & {row['events']} & {row['genes_mapped']} & "+
+            f"{row['c_index']:.4f} ({row['ci95'][0]:.4f}, {row['ci95'][1]:.4f}) "+r'\\')
+    for strat in ['HARM-RFS', 'HARM-DMFS']:
+        p = eh['pooled'][strat]
+        L.append(r'\hline')
+        L.append(f"{_esc(strat)} & \\textit{{pooled}} ({len(p['cohorts'])} cohorts) & & & & "+
+            f"{p['pooled_c_index']:.4f} ({p['ci95'][0]:.4f}, {p['ci95'][1]:.4f}) "+r'\\')
+    L.append(r'\hline\end{tabular}')
+    L.append(r'\caption{Harmonized transport concordance by stratum. Within a stratum every cohort carries the same patient-level event definition; pooled rows are cohort-stratified bootstrap intervals, not cross-endpoint averages. GSE11121 and GSE25066 have no any-recurrence field in their committed raw pulls and enter HARM-DMFS only; GSE25066 contributes distant-relapse (DRFS) fields, which the locked definition treats as the distant-event endpoint.}\label{tab:harm-cindex}')
+    L.append(r'\end{table}')
+    L.append('Where a harmonized definition coincides with a committed transport definition the frozen pipeline '+
+        'reproduces the committed value exactly (GSE2990: HARM-RFS '+
+        f"{eh['per_cohort'][0]['c_index']:.4f}"+', HARM-DMFS '+f"{eh['per_cohort'][1]['c_index']:.4f}"+
+        '), a determinism check rather than a new result. The pooled HARM-DMFS concordance '+
+        f"{eh['pooled']['HARM-DMFS']['pooled_c_index']:.4f} "+
+        f"({eh['pooled']['HARM-DMFS']['ci95'][0]:.4f}, {eh['pooled']['HARM-DMFS']['ci95'][1]:.4f}) "+
+        'sits above the pooled HARM-RFS concordance '+
+        f"{eh['pooled']['HARM-RFS']['pooled_c_index']:.4f} "+
+        f"({eh['pooled']['HARM-RFS']['ci95'][0]:.4f}, {eh['pooled']['HARM-RFS']['ci95'][1]:.4f}), "+
+        'but the two strata draw on different cohort sets and their intervals overlap; the preregistration '+
+        'forbids reading this as an endpoint comparison. Mapped-gene counts differ by platform (63 of 70 on '+
+        'GPL96 cohorts, 69 of 70 on GPL570), so cross-cohort contrasts also carry a platform-coverage difference. '+
+        'Per-cohort intervals overlap heavily; no cohort ordering is claimed.')
+    L.append(r'\begin{table}[htbp]\centering\footnotesize')
+    L.append(r'\begin{tabular}{llp{2.6in}}\hline')
+    L.append(r'Cohort & Stratum & Derivation from committed raw pull \\ \hline')
+    for coh in ['GSE2990', 'GSE7390', 'GSE11121', 'GSE20685', 'GSE25066']:
+        for strat, note in eh['derivation_audit'][coh].items():
+            L.append(f"{_esc(coh)} & {_esc(strat)} & {_esc(note)} "+r'\\')
+    L.append(r'\hline\end{tabular}')
+    L.append(r'\caption{Derivation audit: every stratum assignment traces to verbatim fields in the committed raw pulls. Exclusions are recorded with reasons; 20 of 327 GSE20685 patients carry \texttt{regional\_relapse:\ NA} and leave the HARM-RFS stratum only. TCGA stays out of both strata: its committed analysis is a case-control early-recurrence comparison, not a patient-level survival transport.}\label{tab:harm-deriv}')
+    L.append(r'\end{table}')
+    with open(_O, 'a') as fh: fh.write('\n'.join(L)+'\n')
+    print('appended endpoint-harmonization audit,', len(L), 'lines')
+else:
+    print('endpoint-harmonization subsection already present, skipped')

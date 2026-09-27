@@ -28,5 +28,6 @@
 \contentsline {subsection}{\numberline {4.12}Five-year Brier score and decision-curve audit}{12}{}%
 \contentsline {subsection}{\numberline {4.13}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{13}{}%
 \contentsline {subsection}{\numberline {4.14}Gene-family-blocked cross-validation of the 70-gene panel}{14}{}%
-\contentsline {section}{\numberline {5}Discussion}{14}{}%
+\contentsline {subsection}{\numberline {4.15}Patient-level endpoint harmonization before pooling}{14}{}%
+\contentsline {section}{\numberline {5}Discussion}{15}{}%
 \contentsline {section}{\numberline {6}Reproducibility}{15}{}%

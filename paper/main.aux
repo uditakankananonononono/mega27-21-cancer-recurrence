@@ -60,12 +60,18 @@
 \@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Decision-curve net benefit at four thresholds (treat-none is zero by construction). Descriptive audit only; thresholds for care are a clinical, not statistical, decision.}}{13}{}\protected@file@percent }
 \newlabel{tab:dca-audit}{{10}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.13}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{13}{}\protected@file@percent }
-\bibstyle{plainnat}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.14}Gene-family-blocked cross-validation of the 70-gene panel}{14}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Leave-one-family-out concordance. $\Delta $ is baseline minus arm, so positive values mean the family helps. Under the locked rule (CV5 drop $>0.005$ AND holdout drop above the size-matched null 95th percentile) no family is load-bearing.}}{14}{}\protected@file@percent }
 \newlabel{tab:family-blocked}{{11}{14}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.15}Patient-level endpoint harmonization before pooling}{14}{}\protected@file@percent }
+\bibstyle{plainnat}
 \bibcite{pereira2016}{{1}{}{{}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Harmonized transport concordance by stratum. Within a stratum every cohort carries the same patient-level event definition; pooled rows are cohort-stratified bootstrap intervals, not cross-endpoint averages. GSE11121 and GSE25066 have no any-recurrence field in their committed raw pulls and enter HARM-DMFS only; GSE25066 contributes distant-relapse (DRFS) fields, which the locked definition treats as the distant-event endpoint.}}{15}{}\protected@file@percent }
+\newlabel{tab:harm-cindex}{{12}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Reproducibility}{15}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Derivation audit: every stratum assignment traces to verbatim fields in the committed raw pulls. Exclusions are recorded with reasons; 20 of 327 GSE20685 patients carry \texttt  {regional\_relapse:\ NA} and leave the HARM-RFS stratum only. TCGA stays out of both strata: its committed analysis is a case-control early-recurrence comparison, not a patient-level survival transport.}}{16}{}\protected@file@percent }
+\newlabel{tab:harm-deriv}{{13}{16}}
 \bibcite{curtis2012}{{2}{}{{}}{{}}}
 \bibcite{katzman2018}{{3}{}{{}}{{}}}
 \bibcite{kipf2017}{{4}{}{{}}{{}}}
@@ -74,5 +80,4 @@
 \bibcite{schmidt2008}{{7}{}{{}}{{}}}
 \bibcite{kao2011}{{8}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{toc}{\contentsline {section}{\numberline {6}Reproducibility}{15}{}\protected@file@percent }
-\gdef \@abspage@last{15}
+\gdef \@abspage@last{17}
