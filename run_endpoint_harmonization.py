@@ -9,12 +9,24 @@
   recurscan.eval.bootstrap_cindex_ci, identical to committed transports);
 - pooled: n-weighted mean of per-cohort C-indices within a stratum, CI by
   cohort-stratified patient bootstrap (seed 0, 500 reps).
+
+Execution mechanics (low-memory revision, 2026-09-28): expression extraction
+streams the cached family-SOFT / GPL annotation files line by line instead of
+building full GEOparse in-memory objects (the GEOparse path was OOM-killed
+twice at the second cohort on this 2GB box). Extraction is numerically
+identical: same ID_REF->Gene Symbol map, same probe->gene mean, same per-gene
+z-score, same patient matching; validated by reproducing the GEOparse path's
+GSE2990 point estimates (HARM-RFS C 0.6559, HARM-DMFS C 0.6648). The pooled
+bootstrap reuses the main loop's per-cohort arrays instead of re-parsing the
+SOFT files (parsing never consumed the rng stream, so the bootstrap sequence
+is unchanged). Statistics unchanged.
 """
-import json, sys
+import json, sys, gzip, glob
 import numpy as np, pandas as pd
 sys.path.insert(0, "src")
-import GEOparse
+import GEOparse  # download-only fetch of missing caches (no in-memory parse)
 from lifelines import CoxPHFitter
+from lifelines.utils import concordance_index as cidx
 from recurscan.data.dataset import assemble
 from recurscan.eval import bootstrap_cindex_ci
 
@@ -28,15 +40,95 @@ fit = CoxPHFitter(penalizer=0.05).fit(pd.DataFrame(df), "t", "e")
 coef = fit.summary["coef"].values
 print("METABRIC expr-only Cox fit: n", Xe.shape[0], "genes", len(genes_in), flush=True)
 
+def _open(path):
+    return gzip.open(path, "rt", errors="replace") if path.endswith(".gz") else open(path, errors="replace")
+
+def _ensure(geo_name, patterns):
+    for pat in patterns:
+        hits = glob.glob(f"{GEO}/{pat}")
+        if hits:
+            return hits[0]
+    GEOparse.get_GEO_file(geo_name, destdir=GEO)  # download only, no parse
+    for pat in patterns:
+        hits = glob.glob(f"{GEO}/{pat}")
+        if hits:
+            return hits[0]
+    raise FileNotFoundError(geo_name)
+
+def load_p2g(gpl_name):
+    """Stream GPL annotation SOFT -> dict probe ID -> Gene Symbol (verbatim)."""
+    path = _ensure(gpl_name, [f"{gpl_name}.txt", f"{gpl_name}.annot.gz", f"{gpl_name}.soft.gz"])
+    p2g = {}
+    with _open(path) as fh:
+        intable = False
+        i_id = i_gs = None
+        for line in fh:
+            line = line.rstrip("\n")
+            if line.startswith("!platform_table_begin"):
+                intable = True
+                header = fh.readline().rstrip("\n").split("\t")
+                i_id, i_gs = header.index("ID"), header.index("Gene Symbol")
+                continue
+            if line.startswith("!platform_table_end"):
+                break
+            if intable:
+                parts = line.split("\t")
+                if len(parts) > max(i_id, i_gs):
+                    p2g[parts[i_id]] = parts[i_gs]
+    return p2g
+
+def stream_gse(gse):
+    """Stream family SOFT -> (sample GSM names, per-sample VALUE arrays, ID_REF axis)."""
+    path = _ensure(gse, [f"{gse}_family.soft.gz"])
+    names, cols, idref = [], [], None
+    in_sample = False
+    with _open(path) as fh:
+        for line in fh:
+            if line.startswith("^SAMPLE"):
+                in_sample = True
+                accn = None
+                continue
+            if line.startswith("^PLATFORM") or line.startswith("^SERIES") or line.startswith("^DATABASE"):
+                in_sample = False
+                continue
+            if not in_sample:
+                continue
+            if line.startswith("!Sample_geo_accession"):
+                accn = line.split("=", 1)[1].strip()
+                continue
+            if line.startswith("!sample_table_begin"):
+                header = fh.readline().rstrip("\n").split("\t")
+                i_id, i_val = header.index("ID_REF"), header.index("VALUE")
+                ids, vals = [], np.zeros(0)
+                vlist = []
+                for line in fh:
+                    if line.startswith("!sample_table_end"):
+                        break
+                    parts = line.rstrip("\n").split("\t")
+                    ids.append(parts[i_id])
+                    try:
+                        vlist.append(float(parts[i_val]))
+                    except (ValueError, IndexError):
+                        vlist.append(float("nan"))
+                v = np.asarray(vlist, dtype=float)
+                if idref is None:
+                    idref = ids
+                else:
+                    assert ids == idref, f"{gse}: ID_REF axis differs across samples"
+                names.append(accn)
+                cols.append(v)
+                in_sample = False
+    return names, cols, idref
+
+P2G = {}
 def cohort_expr(gse, gpl_name):
-    g = GEOparse.get_GEO(geo=gse, destdir=GEO, annotate_gpl=False, silent=True)
-    gpl = GEOparse.get_GEO(geo=gpl_name, destdir=GEO, silent=True)
-    p2g = dict(zip(gpl.table["ID"], gpl.table["Gene Symbol"]))
-    gsms = list(g.gsms.values())
-    gids = np.array([p2g.get(i, "") for i in gsms[0].table["ID_REF"].values])
-    X = np.column_stack([s.table["VALUE"].values for s in gsms])
-    names = [s.name for s in gsms]
-    Xg = np.zeros((len(gsms), len(genes_in)))
+    if gpl_name not in P2G:
+        P2G[gpl_name] = load_p2g(gpl_name)
+    p2g = P2G[gpl_name]
+    names, cols, idref = stream_gse(gse)
+    gids = np.array([p2g.get(i, "") for i in idref])
+    X = np.column_stack(cols)
+    Xg = np.zeros((len(names), len(genes_in)))
     mapped = 0
     for j, gene in enumerate(genes_in):
         m = gids == gene
@@ -90,6 +182,7 @@ def endpoints(gse, clin):
 GPL = {"GSE2990": "GPL96", "GSE7390": "GPL96", "GSE11121": "GPL96",
        "GSE20685": "GPL570", "GSE25066": "GPL96"}
 
+STRAT_CACHE = {}  # (gse, stratum) -> (tv, ev, eta) for the pooled bootstrap
 per = []
 for gse in ["GSE2990", "GSE7390", "GSE11121", "GSE20685", "GSE25066"]:
     names, Xg, mapped = cohort_expr(gse, GPL[gse])
@@ -107,8 +200,8 @@ for gse in ["GSE2990", "GSE7390", "GSE11121", "GSE20685", "GSE25066"]:
         tv = d.loc[common, "t"].values.astype(float)
         ev = d.loc[common, "e"].values.astype(int)
         lo, hi = bootstrap_cindex_ci(tv, ev, eta, n_boot=500, seed=0)
-        from lifelines.utils import concordance_index as cidx
         c = cidx(tv, -eta, ev)
+        STRAT_CACHE[(gse, stratum)] = (tv, ev, eta)
         per.append({"cohort": gse, "stratum": stratum, "n": int(len(common)),
                     "events": int(ev.sum()), "c_index": round(float(c), 4),
                     "ci95": [round(float(lo), 4), round(float(hi), 4)],
@@ -117,6 +210,7 @@ for gse in ["GSE2990", "GSE7390", "GSE11121", "GSE20685", "GSE25066"]:
               "C", round(float(c), 4), flush=True)
 
 # pooled within stratum: n-weighted mean of per-cohort C; cohort-stratified bootstrap
+# (reuses the main loop's arrays; the bootstrap rng stream is unchanged)
 rng = np.random.default_rng(0)
 pooled = {}
 for stratum in ["HARM-RFS", "HARM-DMFS"]:
@@ -126,26 +220,12 @@ for stratum in ["HARM-RFS", "HARM-DMFS"]:
     ws = np.array([r["n"] for r in rows], float)
     cs = np.array([r["c_index"] for r in rows])
     point = float((ws * cs).sum() / ws.sum())
-    # bootstrap: resample patients within each cohort, recompute per-cohort C
     boots = []
-    caches = {}
-    for r in rows:
-        gse = r["cohort"]
-        if gse not in caches:
-            names, Xg, _ = cohort_expr(gse, GPL[gse])
-            clin = load_clin(gse)
-            ep = endpoints(gse, clin)[stratum].dropna()
-            common = [s for s in names if s in ep.index]
-            idx = [names.index(s) for s in common]
-            Xs = Xg[idx]; Xs = (Xs - Xs.mean(0)) / (Xs.std(0) + 1e-9)
-            caches[gse] = (ep.loc[common, "t"].values.astype(float),
-                           ep.loc[common, "e"].values.astype(int), Xs @ coef)
     for _ in range(500):
         bcs, bws = [], []
         for r in rows:
-            tv, ev, eta = caches[r["cohort"]]
+            tv, ev, eta = STRAT_CACHE[(r["cohort"], stratum)]
             bi = rng.integers(0, len(tv), len(tv))
-            from lifelines.utils import concordance_index as cidx
             bc = cidx(tv[bi], -eta[bi], ev[bi])
             if not np.isnan(bc):
                 bcs.append(bc); bws.append(r["n"])
