@@ -208,3 +208,22 @@ hazard crossing nor its 95th-percentile random-set cutoff is adopted as a
 post-hoc claim. Candidate next step: independently verify gene coverage, ER
 stratification and late-event counts; then date-lock a feasible primary test
 before running. No biological discovery yet.
+
+## Prior-art check after consult (not a novel claim)
+A live source read found that the broad early-versus-late ER+ time-window
+signature idea was directly evaluated in a 2018 TransATAC/POLAR study, whose
+primary hypothesis (separately optimized 0-5 and 5-10 year signatures better
+than 10-year signature) failed:
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6122470/ . Stromal additions to
+proliferation signatures and late-recurrence stromal activation were also
+published:
+https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0037646
+and https://link.springer.com/article/10.1186/s13058-014-0407-9 .
+Hence generic proliferation/stroma early-vs-late is *prior art*, not a new
+discovery to claim. Current data check: METABRIC 1,504 encoded ER+ cases,
+314 events before 60 months and 165 at 60-120 months. GSE7390 RFS has
+198 endpoint rows total (56 early and 21 late events), ER labels in SOFT;
+GSE11121 has DMFS and is not an RFS validation cohort. Gemini's examples
+TGFB1/COL1A1/AURKA are missing from the fixed 70-gene panel.
+No new test has been run or result claimed. Next direction must be distinct
+from these precedents and independently validated.
