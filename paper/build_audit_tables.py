@@ -237,3 +237,39 @@ add(r'\subsection{Competing-risks descriptive check (cause-specific, not Fine--G
     'which bounds every calibration number in this paper.')
 with open(O,'a') as fh: fh.write('\n'.join(lines[n1:])+'\n')
 print('appended competing-risks audit,', len(lines)-n1, 'lines')
+
+
+# ---- gene-family-blocked CV (results/family_blocked_cv.json, queue item 10)
+fb=load('family_blocked_cv.json')
+n2=len(lines)
+b=fb['baseline']
+add(r'\subsection{Gene-family-blocked cross-validation of the 70-gene panel}',
+    'Which functional families carry the panel\'s discrimination? The audit was preregistered before '+
+    'any family arm was fit; the locked design is '+
+    r'\texttt{docs/PREREG\_FAMILY\_BLOCKED\_CV\_}\allowbreak\texttt{20260928.md}: '+
+    'eight a-priori families covering all 70 genes exactly once, penalized Cox (penalizer 0.05) '+
+    'with the four declared clinical covariates in every arm, five-fold patient cross-validation '+
+    '(seed 42, pooled out-of-fold concordance) plus the fixed seed-42 holdout, and 100 size-matched '+
+    'random gene-set nulls per family (per-draw seeds 20260928+i; '+
+    r'\texttt{run\_family\_blocked\_cv.py}, \texttt{results/family\_blocked\_cv.json}). '+
+    f"Baseline pooled-CV concordance {b['cv5_pooled_cindex']:.4f}, holdout {b['holdout_cindex']:.4f}.",
+    r'\begin{table}[htbp]\centering\footnotesize',
+    r'\begin{tabular}{lrccccc}\hline',
+    r'Family (genes dropped) & $n$ & CV5 $C$ & $\Delta$CV5 & Holdout $C$ & $\Delta$holdout & null $\Delta$ p95 \\ \hline')
+for arm,v in sorted(fb['arms'].items()):
+    add(f"{esc(arm)} & {v['n_genes_dropped']} & {v['cv5_pooled_cindex']:.4f} & {v['cv5_drop_vs_baseline']:+.4f} & "+
+        f"{v['holdout_cindex']:.4f} & {v['holdout_drop_vs_baseline']:+.4f} & {v['null_drop_p95']:+.4f} "+r'\\')
+add(r'\hline\end{tabular}',
+    r'\caption{Leave-one-family-out concordance. $\Delta$ is baseline minus arm, so positive values mean the family helps. Under the locked rule (CV5 drop $>0.005$ AND holdout drop above the size-matched null 95th percentile) no family is load-bearing.}\label{tab:family-blocked}',
+    r'\end{table}',
+    'Two honest readings follow. First, no single family is load-bearing under the locked rule: '+
+    'the largest cross-validation drop is proliferation\\_mitotic ($+0.0095$), but its fixed-holdout '+
+    'drop is $-0.0022$ (percentile 50 against its size-matched null), a split verdict that echoes the '+
+    'earlier proliferation negative rather than contradicting it. Second, removing basal\\_myoepithelial '+
+    'raises pooled-CV concordance to '+
+    f"{fb['arms']['basal_myoepithelial']['cv5_pooled_cindex']:.4f} "+
+    'and is flagged dispensable-or-harmful under the same locked rule; the effect is small, the holdout '+
+    'does not confirm it, and it is reported as a bound on what the panel needs, not a pruning claim. '+
+    'The panel\'s discrimination is distributed across families rather than carried by any one of them.')
+with open(O,'a') as fh: fh.write('\n'.join(lines[n2:])+'\n')
+print('appended family-blocked audit,', len(lines)-n2, 'lines')

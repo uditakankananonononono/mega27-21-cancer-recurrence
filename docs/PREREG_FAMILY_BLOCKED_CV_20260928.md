@@ -21,9 +21,15 @@ pathway annotation for the remaining genes; all 70 genes covered exactly once)
 - basal_myoepithelial (10): KRT5 KRT14 KRT17 EGFR CDH3 FOXC1 MIA SFRP1 PHGDH MMP11
 - pi3k_akt_mtor (4): AKT1 PIK3CA MTOR PTEN
 - dna_repair_genome_stability (8): BRCA1 BRCA2 ATM CHEK2 PALB2 TP53 RB1 MDM2
-- cellcycle_apoptosis_signaling (7): CCND1 BCL2L1 MCL1 STAT3 MYC GSTM1-in-other
-  -> GSTM1 is assigned to hypoxia_adhesion_detox_other below (detox), NOT here.
+- cellcycle_apoptosis_signaling (5): CCND1 BCL2L1 MCL1 STAT3 MYC
 - hypoxia_adhesion_detox_other (6): HIF1A VEGFA FGFR4 CDH1 ACTR3B GSTM1
+  (GSTM1 is here as detox/metabolism, not in cellcycle_apoptosis_signaling.)
+
+Erratum (post-outcome, cosmetic only): the original text showed "(7)" for
+cellcycle_apoptosis_signaling with an inline note routing GSTM1 to the "other"
+family; the executed family membership in run_family_blocked_cv.py was always
+the 5 genes listed above and the runtime assertion verified all 70 panel genes
+covered exactly once. Family membership and the locked rule are unchanged.
 
 ## Design
 - Data: rebuilt public cBioPortal METABRIC cache (1,975 patients, 800 RFS
