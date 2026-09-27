@@ -31,8 +31,11 @@ def run(ds,seed,n):
     assert len(tr)==1481 and len(te)==494
     sub=nested_train(tr,ds.event,seed)[:n]
     assert not set(sub)&set(te)
-    X=np.concatenate([ds.X_clin,ds.X_expr],axis=1)
-    Xtr,Xte=standardize(X[sub],X[te])
+    # Match original DeepSurv input order: expression features, then clinical.
+    Xe_tr,Xe_te=standardize(ds.X_expr[sub],ds.X_expr[te])
+    Xc_tr,Xc_te=standardize(ds.X_clin[sub],ds.X_clin[te])
+    Xtr=np.hstack([Xe_tr,Xc_tr]);Xte=np.hstack([Xe_te,Xc_te])
+    # Cox is order-invariant, but use the same features and 0.1 penalizer.
     df=pd.DataFrame(Xtr,columns=[f'x{j}' for j in range(Xtr.shape[1])]);df['t']=ds.time[sub];df['e']=ds.event[sub]
     cox=CoxPHFitter(penalizer=.1).fit(df,'t','e')
     coxscore=cox.predict_log_partial_hazard(pd.DataFrame(Xte,columns=df.columns[:-2])).values.ravel()
