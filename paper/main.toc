@@ -16,5 +16,11 @@
 \contentsline {subsection}{\numberline {4.2}Bounded negatives and limits}{5}{}%
 \contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{6}{}%
 \contentsline {subsection}{\numberline {4.4}Locked stability test: negative boundary}{6}{}%
-\contentsline {section}{\numberline {5}Discussion}{7}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{7}{}%
+\contentsline {subsection}{\numberline {4.5}Reproducibility audit of the internal benchmark}{7}{}%
+\contentsline {subsection}{\numberline {4.6}External cohort accounting and comparator limits}{9}{}%
+\contentsline {subsection}{\numberline {4.7}Absolute-risk transfer audit}{9}{}%
+\contentsline {subsection}{\numberline {4.8}Grouped calibration diagnostics for comparable endpoints}{10}{}%
+\contentsline {subsection}{\numberline {4.9}Leave-one-cohort-out stability falsification}{10}{}%
+\contentsline {subsection}{\numberline {4.10}Biology-versus-measurement boundary}{11}{}%
+\contentsline {section}{\numberline {5}Discussion}{11}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{11}{}%

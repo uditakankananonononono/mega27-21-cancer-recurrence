@@ -18,6 +18,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Evaluation protocol}{5}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Discovery protocol and locked gates}{5}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Experiments and Results}{5}{}\protected@file@percent }
+\newlabel{sec:results}{{4}{5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Benchmark}{5}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Held-out C-index on METABRIC RFS (25\% test, stratified).}}{5}{}\protected@file@percent }
 \newlabel{tab:benchmark}{{1}{5}}
@@ -26,20 +27,38 @@
 \newlabel{fig:benchmark}{{1}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{6}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Locked stability test: negative boundary}{6}{}\protected@file@percent }
-\bibstyle{plainnat}
-\bibcite{pereira2016}{{1}{}{{}}{{}}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Kaplan--Meier curves of held-out patients by predicted risk tercile.}}{7}{}\protected@file@percent }
 \newlabel{fig:km}{{2}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{7}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Reproducibility}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Reproducibility audit of the internal benchmark}{7}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces All five held-out seed results for the original METABRIC experiment. These are repeated partitions of one cohort.}}{7}{}\protected@file@percent }
+\newlabel{tab:seed-audit}{{2}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Transported model versus each cohort's own published comparator across five independent cohorts; numbers from \texttt  {results/transport*.json}.}}{8}{}\protected@file@percent }
+\newlabel{fig:transport}{{3}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Individual holdout bootstrap intervals for the full Cox benchmark, retained without pooling them into a spurious external-replication interval.}}{8}{}\protected@file@percent }
+\newlabel{tab:seed-ci}{{3}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}External cohort accounting and comparator limits}{9}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Cohort-specific endpoint and comparator audit from the committed transport records. Sample numbers for the calibration audit can differ by a filtering step; the analyses are not interchangeable.}}{9}{}\protected@file@percent }
+\newlabel{tab:transport-audit}{{4}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Absolute-risk transfer audit}{9}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Descriptive five-year calibration audit from \texttt  {results/transport\_calibration.json}; non-RFS endpoints cannot validate RFS absolute probability.}}{9}{}\protected@file@percent }
+\newlabel{tab:calibration-audit}{{5}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Grouped calibration diagnostics for comparable endpoints}{10}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces All recorded calibration quartiles for the two recurrence-free external cohorts. Five-year risk-set counts can be small; compare groups cautiously.}}{10}{}\protected@file@percent }
+\newlabel{tab:calibration-quartiles}{{6}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Leave-one-cohort-out stability falsification}{10}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Locked stability gate. A zero-gene fold has no reduced score; this is gate failure, not a zero-valued concordance.}}{10}{}\protected@file@percent }
+\newlabel{tab:stability-audit}{{7}{10}}
+\bibstyle{plainnat}
+\bibcite{pereira2016}{{1}{}{{}}{{}}}
 \bibcite{curtis2012}{{2}{}{{}}{{}}}
 \bibcite{katzman2018}{{3}{}{{}}{{}}}
 \bibcite{kipf2017}{{4}{}{{}}{{}}}
 \bibcite{cox1972}{{5}{}{{}}{{}}}
 \bibcite{sotiriou2006}{{6}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Biology-versus-measurement boundary}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Reproducibility}{11}{}\protected@file@percent }
 \bibcite{schmidt2008}{{7}{}{{}}{{}}}
 \bibcite{kao2011}{{8}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Transported model versus each cohort's own published comparator across five independent cohorts; numbers from \texttt  {results/transport*.json}.}}{8}{}\protected@file@percent }
-\newlabel{fig:transport}{{3}{8}}
-\gdef \@abspage@last{8}
+\gdef \@abspage@last{12}

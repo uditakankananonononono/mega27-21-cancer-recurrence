@@ -181,7 +181,7 @@ Each discovery candidate declares a gate before inspection: a win requires
 $\Delta C \ge +0.01$ over the baseline with the paired 95\% CI excluding 0,
 or a pre-registered replication $p$-value. Failed gates are reported as
 negatives with the same statistics.
-\section{Experiments and Results}
+\section{Experiments and Results}\label{sec:results}
 \subsection{Benchmark}
 Table~\ref{tab:benchmark} reports held-out C-indices (5 seeds).
 \begin{table}[h]
@@ -190,8 +190,8 @@ Table~\ref{tab:benchmark} reports held-out C-indices (5 seeds).
 \hline\hline
 Model & C-index (mean $\pm$ sd) & 95\% bootstrap CI (seed 0) \\
 \hline
-Cox, clinical only & $0.6677 \pm 0.0019$ & (0.634, 0.698) \\
-Cox, clinical$+$expression & $\mathbf{0.6801 \pm 0.0052}$ & (0.653, 0.710) \\
+Cox, clinical only & $0.6677 \pm 0.0019$ & (0.631, 0.705) \\
+Cox, clinical$+$expression & $\mathbf{0.6801 \pm 0.0052}$ & (0.640, 0.714) \\
 DeepSurv (MLP) & $0.6482 \pm 0.0050$ & --- \\
 CoxCNN (1D-CNN) & $0.6598 \pm 0.0032$ & --- \\
 CoxGCN (patient graph) & $0.6413 \pm 0.0150$ & --- \\
@@ -267,6 +267,7 @@ test fails the same zero-fold rule. Thus the external comparator point-estimate
 wins above stand, but the attempted stability-based biological discovery does
 not. Full fold values and technical audit outputs are in the repository.
 
+\input{audit_tables}
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
 regime: across eight controlled comparisons (deep Cox, GBT survival,
