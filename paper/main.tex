@@ -367,6 +367,17 @@ require its own preregistration. One fixed split per cohort and wide
 intervals at 23--55 held-out events are declared limits. Details:
 \texttt{results/recalibration\_pivot.json}.
 
+\paragraph{Exhaustion record.} The stability question behind this item is
+now closed by documented exhaustion: three independent locked-method
+failures, each preregistered before its outcome - the original CI-based
+selection (zero stable genes in three of five folds, commit \texttt{7ad289f}),
+the strict all-four sign rerun (paired bootstrap interval spans zero under
+the unchanged two-sided gate, commit \texttt{39e093f}), and the
+cohort-anchored recalibration above (0/5 cohorts in band, commit
+\texttt{820d1f7}). Two adjacent options were rejected as re-tuning of the
+failed claims rather than new questions: two-parameter intercept-plus-slope
+recalibration, and a rank-based consensus panel.
+
 \subsection{Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}
 A fully locked prospective holdout was attempted exactly as preregistered
 (frozen coefficients, eligibility excluding every training and benchmark
