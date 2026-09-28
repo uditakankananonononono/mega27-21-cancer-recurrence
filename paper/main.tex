@@ -337,6 +337,36 @@ retained as distinct, honestly negative records rather than treating this
 rerun as independent validation. Details are in
 \texttt{results/transport\_stability\_rerun\_strict.json}.
 
+\subsection{Cohort-anchored slope recalibration: an out-of-sample deployability test}
+The stability failures above concern gene selection; a separate
+deployability question is whether each cohort's own data can repair the
+frozen score's calibration. Under a new dated preregistration
+(\texttt{docs/PREREG\_RECALIBRATION\_PIVOT\_20260928.md}, committed
+before any split was scored), an integrity gate first reproduced all five
+committed full-cohort calibration slopes to four decimals. Each cohort then
+contributed one stratified 50/50 split (seed 20260928): a single
+recalibration slope $\alpha$ was fit on the training half only, and the
+primary readout was the held-out slope of the recalibrated score
+$\alpha\,\eta$, with a 1,000-draw held-out-only patient bootstrap (zero
+skipped replicates in every cohort). The audit delivered a complete
+five-cohort table. Under the locked adequacy band $[0.8, 1.25]$, 0 of 5
+cohorts pass. Training-half $\alpha$ values cluster at 0.57--0.88, yet the
+held-out recalibrated slopes scatter: GSE7390 $\alpha=0.877$, held-out
+frozen $0.224$, recalibrated $0.256$ $[-0.310,+0.798]$; GSE11121 $0.803$,
+$1.204$, $1.499$ $[+0.792,+3.020]$; GSE2990 $0.824$, $1.208$, $1.467$
+$[+0.376,+2.664]$; GSE20685 $0.808$, $0.505$, $0.625$ $[-0.069,+1.348]$;
+GSE25066 $0.570$, $0.805$, $1.413$ $[+0.717,+2.128]$. Because a Cox slope
+of a rescaled covariate equals the original slope divided by the rescaling
+factor, the recalibrated held-out slope is exactly the frozen held-out
+slope divided by $\alpha$: the instability lives in the score's transport,
+not in the recalibration arithmetic. This is a measured negative for
+one-parameter recalibration, reported as rigor; it does not re-tune the
+recorded stability failures, and wider (intercept-plus-slope or
+endpoint-restricted) recalibration is a different question that would
+require its own preregistration. One fixed split per cohort and wide
+intervals at 23--55 held-out events are declared limits. Details:
+\texttt{results/recalibration\_pivot.json}.
+
 \subsection{Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}
 A fully locked prospective holdout was attempted exactly as preregistered
 (frozen coefficients, eligibility excluding every training and benchmark

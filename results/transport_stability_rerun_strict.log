@@ -1,0 +1,174 @@
+GSE7390 198 events 91 mapped 63
+GSE11121 200 events 46 mapped 63
+GSE2990 187 events 67 mapped 63
+GSE20685 327 events 83 mapped 69
+GSE25066 507 events 110 mapped 63
+original full comparators integrity gate passed
+GSE7390 selected 23 delta -0.013174502997791104
+GSE11121 selected 20 delta -0.018120393120393152
+GSE2990 selected 19 delta -0.01679841897233203
+GSE20685 selected 18 delta 0.0012693577050012506
+GSE25066 selected 19 delta 0.019478045528145582
+{
+ "protocol": "docs/PREREG_STABILITY_RERUN_STRICT_20260928.md",
+ "source_gene_map": "results/transport_stability.json",
+ "rule": "all FOUR training cohorts must each agree with METABRIC coefficient sign; no missing or zero coefficient",
+ "folds": [
+  {
+   "name": "GSE7390",
+   "n_selected": 23,
+   "selected_genes": [
+    "NAT1",
+    "BCL2",
+    "CCNB1",
+    "CDC6",
+    "CDC20",
+    "CENPF",
+    "ESR1",
+    "GATA3",
+    "GRB7",
+    "GSTM1",
+    "MAPT",
+    "MKI67",
+    "MMP11",
+    "PGR",
+    "RRM2",
+    "STAT3",
+    "TP53",
+    "TYMS",
+    "VEGFA",
+    "PTTG1",
+    "MELK",
+    "UBE2C",
+    "ORC6"
+   ],
+   "full_cindex": 0.5993215525402336,
+   "reduced_cindex": 0.5861470495424425,
+   "delta": -0.013174502997791104
+  },
+  {
+   "name": "GSE11121",
+   "n_selected": 20,
+   "selected_genes": [
+    "NAT1",
+    "BCL2",
+    "CCNB1",
+    "CDC6",
+    "CDC20",
+    "CENPF",
+    "EGFR",
+    "ESR1",
+    "GRB7",
+    "HIF1A",
+    "MKI67",
+    "MMP11",
+    "PGR",
+    "RRM2",
+    "STAT3",
+    "VEGFA",
+    "PTTG1",
+    "MELK",
+    "UBE2C",
+    "ORC6"
+   ],
+   "full_cindex": 0.6962530712530712,
+   "reduced_cindex": 0.6781326781326781,
+   "delta": -0.018120393120393152
+  },
+  {
+   "name": "GSE2990",
+   "n_selected": 19,
+   "selected_genes": [
+    "NAT1",
+    "BAG1",
+    "BCL2",
+    "CCNB1",
+    "CDC6",
+    "CDC20",
+    "CENPF",
+    "ESR1",
+    "GRB7",
+    "MKI67",
+    "MMP11",
+    "PGR",
+    "RRM2",
+    "STAT3",
+    "VEGFA",
+    "PTTG1",
+    "MELK",
+    "UBE2C",
+    "ORC6"
+   ],
+   "full_cindex": 0.6573616600790514,
+   "reduced_cindex": 0.6405632411067194,
+   "delta": -0.01679841897233203
+  },
+  {
+   "name": "GSE20685",
+   "n_selected": 18,
+   "selected_genes": [
+    "NAT1",
+    "BCL2",
+    "CCNB1",
+    "CDC6",
+    "CDC20",
+    "CENPF",
+    "ESR1",
+    "GRB7",
+    "MKI67",
+    "MMP11",
+    "PGR",
+    "RRM2",
+    "STAT3",
+    "VEGFA",
+    "PTTG1",
+    "MELK",
+    "UBE2C",
+    "ORC6"
+   ],
+   "full_cindex": 0.6263518659558264,
+   "reduced_cindex": 0.6276212236608276,
+   "delta": 0.0012693577050012506
+  },
+  {
+   "name": "GSE25066",
+   "n_selected": 19,
+   "selected_genes": [
+    "NAT1",
+    "ATM",
+    "BCL2",
+    "CCNB1",
+    "CDC6",
+    "CDC20",
+    "CENPF",
+    "ESR1",
+    "GRB7",
+    "MKI67",
+    "MMP11",
+    "PGR",
+    "RRM2",
+    "STAT3",
+    "VEGFA",
+    "PTTG1",
+    "MELK",
+    "UBE2C",
+    "ORC6"
+   ],
+   "full_cindex": 0.6441089627583579,
+   "reduced_cindex": 0.6635870082865035,
+   "delta": 0.019478045528145582
+  }
+ ],
+ "n_bootstrap_requested": 2000,
+ "bootstrap_seed": 1,
+ "limits": "Same five cohorts and endpoints, retrospective masked METABRIC coefficients. No clinical, causal or independent validation claim.",
+ "mean_delta": -0.005469182371473891,
+ "paired_boot_ci95": [
+  -0.025810884688364455,
+  0.0138165520135831
+ ],
+ "n_bootstrap_valid": 2000,
+ "n_bootstrap_skipped": 0,
+ "two_sided_statistical_gate": false,
+ "interpretation": "difference sign uncertain"
+}

@@ -1,0 +1,25 @@
+GSE7390 198 events 91 mapped 63
+GSE11121 200 events 46 mapped 63
+GSE2990 187 events 67 mapped 63
+GSE20685 327 events 83 mapped 69
+GSE25066 507 events 110 mapped 63
+integrity gate passed: committed full-cohort slopes reproduced
+GSE7390 alpha 0.877 frozen 0.224 recal 0.256 pass False
+GSE11121 alpha 0.803 frozen 1.204 recal 1.499 pass False
+GSE2990 alpha 0.823 frozen 1.208 recal 1.467 pass False
+GSE20685 alpha 0.808 frozen 0.505 recal 0.625 pass False
+GSE25066 alpha 0.57 frozen 0.805 recal 1.413 pass False
+{
+ "protocol": "docs/PREREG_RECALIBRATION_PIVOT_20260928.md",
+ "seed": 20260928,
+ "split": "stratified 50/50 by event, one fixed split per cohort",
+ "band": [
+  0.8,
+  1.25
+ ],
+ "n_bootstrap": 1000,
+ "n_pass": 0,
+ "n_valid": 5,
+ "item_verdict_positive": false,
+ "limits": "One fixed split per cohort; held-out halves ~23-55 events so CIs are wide and are reported, not gated; endpoint heterogeneity inherited from the committed record; pass claims only out-of-sample stability of local one-parameter recalibration, not clinical utility or discrimination transport."
+}

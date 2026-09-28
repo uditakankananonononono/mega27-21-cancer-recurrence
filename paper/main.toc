@@ -18,18 +18,22 @@
 \contentsline {subsection}{\numberline {4.2}Bounded negatives and limits}{6}{}%
 \contentsline {subsection}{\numberline {4.3}Cross-cohort transportability: benchmark beat}{7}{}%
 \contentsline {subsection}{\numberline {4.4}Locked stability test: negative boundary}{7}{}%
-\contentsline {subsection}{\numberline {4.5}Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}{8}{}%
-\contentsline {subsection}{\numberline {4.6}Locked prospective transport test on an untouched native-DRFS cohort (GSE17705): plain negative}{9}{}%
-\contentsline {subsection}{\numberline {4.7}Reproducibility audit of the internal benchmark}{10}{}%
-\contentsline {subsection}{\numberline {4.8}External cohort accounting and comparator limits}{10}{}%
-\contentsline {subsection}{\numberline {4.9}Absolute-risk transfer audit}{11}{}%
-\contentsline {subsection}{\numberline {4.10}Grouped calibration diagnostics for comparable endpoints}{11}{}%
-\contentsline {subsection}{\numberline {4.11}Leave-one-cohort-out stability falsification}{12}{}%
-\contentsline {subsection}{\numberline {4.12}Biology-versus-measurement boundary}{12}{}%
-\contentsline {subsection}{\numberline {4.13}Fitted-model coefficient audit (bounded gene-level readout)}{13}{}%
-\contentsline {subsection}{\numberline {4.14}Five-year Brier score and decision-curve audit}{13}{}%
-\contentsline {subsection}{\numberline {4.15}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{14}{}%
-\contentsline {subsection}{\numberline {4.16}Gene-family-blocked cross-validation of the 70-gene panel}{14}{}%
-\contentsline {subsection}{\numberline {4.17}Patient-level endpoint harmonization before pooling}{15}{}%
-\contentsline {section}{\numberline {5}Discussion}{16}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{17}{}%
+\contentsline {paragraph}{Strict sign-only rerun (new dated preregistration).}{8}{}%
+\contentsline {subsection}{\numberline {4.5}Cohort-anchored slope recalibration: an out-of-sample deployability test}{9}{}%
+\contentsline {subsection}{\numberline {4.6}Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}{10}{}%
+\contentsline {subsection}{\numberline {4.7}Locked prospective transport test on an untouched native-DRFS cohort (GSE17705): plain negative}{10}{}%
+\contentsline {subsection}{\numberline {4.8}Leave-cohort-out retraining: the frozen fit is load-bearing}{11}{}%
+\contentsline {subsection}{\numberline {4.9}Same-patient public-signature proxy audit: uncertain differences}{11}{}%
+\contentsline {subsection}{\numberline {4.10}Reproducibility audit of the internal benchmark}{12}{}%
+\contentsline {subsection}{\numberline {4.11}External cohort accounting and comparator limits}{13}{}%
+\contentsline {subsection}{\numberline {4.12}Absolute-risk transfer audit}{13}{}%
+\contentsline {subsection}{\numberline {4.13}Grouped calibration diagnostics for comparable endpoints}{14}{}%
+\contentsline {subsection}{\numberline {4.14}Leave-one-cohort-out stability falsification}{14}{}%
+\contentsline {subsection}{\numberline {4.15}Biology-versus-measurement boundary}{15}{}%
+\contentsline {subsection}{\numberline {4.16}Fitted-model coefficient audit (bounded gene-level readout)}{15}{}%
+\contentsline {subsection}{\numberline {4.17}Five-year Brier score and decision-curve audit}{15}{}%
+\contentsline {subsection}{\numberline {4.18}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{16}{}%
+\contentsline {subsection}{\numberline {4.19}Gene-family-blocked cross-validation of the 70-gene panel}{17}{}%
+\contentsline {subsection}{\numberline {4.20}Patient-level endpoint harmonization before pooling}{17}{}%
+\contentsline {section}{\numberline {5}Discussion}{18}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{18}{}%

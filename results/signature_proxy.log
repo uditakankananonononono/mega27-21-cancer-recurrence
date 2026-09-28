@@ -1,0 +1,53 @@
+eligibility 1975 events 800 missing 0
+{
+ "protocol": "docs/PREREG_SIGNATURE_PROXY_20260928.md",
+ "dataset_sha256": "f2ec4e1badc6f3a49c5db323e90faf3cb091cd29e880f58b3163bf24d30f6b7c",
+ "n_eligible": 1975,
+ "n_events_eligible": 800,
+ "excluded_missing_signature": 0,
+ "n_train": 1580,
+ "n_holdout": 395,
+ "n_holdout_events": 160,
+ "oncotype_cancer_genes": 16,
+ "oncotype_reference_genes_omitted": 5,
+ "mamma_mapped_probes": 56,
+ "mamma_mapped_unique_ids": 52,
+ "mamma_unmapped_probes": 14,
+ "cindex": {
+  "cox70_expr": 0.6130248069806752,
+  "oncotype_formula_proxy": 0.6218191785828499,
+  "mamma_centroid_proxy": 0.6325209009091325
+ },
+ "cindex_ci95": {
+  "cox70_expr": [
+   0.5719910491479292,
+   0.6554923559831207
+  ],
+  "oncotype_formula_proxy": [
+   0.5776972054644671,
+   0.6634841390061927
+  ],
+  "mamma_centroid_proxy": [
+   0.5882789007325606,
+   0.6752203455383002
+  ]
+ },
+ "proxy_minus_cox_delta": {
+  "oncotype_formula_proxy": 0.008794371602174667,
+  "mamma_centroid_proxy": 0.019496093928457303
+ },
+ "proxy_minus_cox_ci95": {
+  "oncotype_formula_proxy": [
+   -0.03379122111058533,
+   0.049508653462473164
+  ],
+  "mamma_centroid_proxy": [
+   -0.02822190958214297,
+   0.06214675297377186
+  ]
+ },
+ "bootstrap_B": 1000,
+ "bootstrap_seed": 20260928,
+ "bootstrap_skipped_degenerate": 0,
+ "limits": "Same-patient public formula/partial-centroid proxies on METABRIC z-scores. Neither is a marketed MammaPrint or Oncotype DX assay. Single random split, training-derived scaling, RFS not necessarily signature validation endpoint; no clinical or external superiority claim."
+}

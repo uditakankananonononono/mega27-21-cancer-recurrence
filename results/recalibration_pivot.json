@@ -1,0 +1,101 @@
+{
+ "protocol": "docs/PREREG_RECALIBRATION_PIVOT_20260928.md",
+ "seed": 20260928,
+ "split": "stratified 50/50 by event, one fixed split per cohort",
+ "band": [
+  0.8,
+  1.25
+ ],
+ "n_bootstrap": 1000,
+ "rows": [
+  {
+   "cohort": "GSE7390",
+   "skipped": false,
+   "n_train": 99,
+   "n_heldout": 99,
+   "events_train": 45,
+   "events_heldout": 46,
+   "alpha_train": 0.8768908726200059,
+   "heldout_slope_frozen": 0.22423566054299462,
+   "heldout_slope_recalibrated": 0.25571672319158184,
+   "boot95": [
+    -0.31022195201396385,
+    0.7982477297083022
+   ],
+   "boot_skipped": 0,
+   "pass_band_0.8_1.25": false
+  },
+  {
+   "cohort": "GSE11121",
+   "skipped": false,
+   "n_train": 100,
+   "n_heldout": 100,
+   "events_train": 23,
+   "events_heldout": 23,
+   "alpha_train": 0.8033710397320538,
+   "heldout_slope_frozen": 1.2040161895126629,
+   "heldout_slope_recalibrated": 1.4987049942878636,
+   "boot95": [
+    0.7924376746702506,
+    3.0197580214292374
+   ],
+   "boot_skipped": 0,
+   "pass_band_0.8_1.25": false
+  },
+  {
+   "cohort": "GSE2990",
+   "skipped": false,
+   "n_train": 93,
+   "n_heldout": 94,
+   "events_train": 33,
+   "events_heldout": 34,
+   "alpha_train": 0.8234893440630474,
+   "heldout_slope_frozen": 1.20806238802844,
+   "heldout_slope_recalibrated": 1.4670042748433538,
+   "boot95": [
+    0.3762154547676747,
+    2.664290828131082
+   ],
+   "boot_skipped": 0,
+   "pass_band_0.8_1.25": false
+  },
+  {
+   "cohort": "GSE20685",
+   "skipped": false,
+   "n_train": 163,
+   "n_heldout": 164,
+   "events_train": 41,
+   "events_heldout": 42,
+   "alpha_train": 0.8076954494360425,
+   "heldout_slope_frozen": 0.5045441619104611,
+   "heldout_slope_recalibrated": 0.624671294437463,
+   "boot95": [
+    -0.06888365493854476,
+    1.3482698970577578
+   ],
+   "boot_skipped": 0,
+   "pass_band_0.8_1.25": false
+  },
+  {
+   "cohort": "GSE25066",
+   "skipped": false,
+   "n_train": 253,
+   "n_heldout": 254,
+   "events_train": 55,
+   "events_heldout": 55,
+   "alpha_train": 0.5699099844060073,
+   "heldout_slope_frozen": 0.8052100136320223,
+   "heldout_slope_recalibrated": 1.4128722704713763,
+   "boot95": [
+    0.7173770662831738,
+    2.127561690783412
+   ],
+   "boot_skipped": 0,
+   "pass_band_0.8_1.25": false
+  }
+ ],
+ "n_pass": 0,
+ "n_valid": 5,
+ "item_verdict_positive": false,
+ "limits": "One fixed split per cohort; held-out halves ~23-55 events so CIs are wide and are reported, not gated; endpoint heterogeneity inherited from the committed record; pass claims only out-of-sample stability of local one-parameter recalibration, not clinical utility or discrimination transport."
+}
