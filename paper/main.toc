@@ -28,7 +28,7 @@
 \contentsline {subsection}{\numberline {4.10}Same-patient public-signature proxy audit: uncertain differences}{12}{}%
 \contentsline {subsection}{\numberline {4.11}Reproducibility audit of the internal benchmark}{12}{}%
 \contentsline {subsection}{\numberline {4.12}External cohort accounting and comparator limits}{13}{}%
-\contentsline {subsection}{\numberline {4.13}Absolute-risk transfer audit}{14}{}%
+\contentsline {subsection}{\numberline {4.13}Absolute-risk transfer audit}{13}{}%
 \contentsline {subsection}{\numberline {4.14}Grouped calibration diagnostics for comparable endpoints}{14}{}%
 \contentsline {subsection}{\numberline {4.15}Leave-one-cohort-out stability falsification}{15}{}%
 \contentsline {subsection}{\numberline {4.16}Biology-versus-measurement boundary}{15}{}%
