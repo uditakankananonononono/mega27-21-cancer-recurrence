@@ -1,0 +1,45 @@
+{
+ "prereg": "docs/PREREG_OS_ENDPOINT_SCOUTING_20260928.md",
+ "scouted_at": "2026-09-28T07:45+05:30",
+ "candidates": {
+  "GSE7390": {
+   "os_fields": [
+    "t.os",
+    "e.os"
+   ],
+   "n": 198,
+   "os_complete": 198,
+   "deaths": 56,
+   "qualifies": true,
+   "note": "time-unit ambiguity: stored t.os median 4561.5 suggests days; verify verbatim units at designation"
+  },
+  "GSE20685": {
+   "os_fields": [
+    "follow_up_duration (years)",
+    "event_death"
+   ],
+   "n": 327,
+   "os_complete": 327,
+   "deaths": 83,
+   "qualifies": true
+  },
+  "GSE11121": {
+   "os_fields": [],
+   "n": 200,
+   "qualifies": false,
+   "note": "DMFS only"
+  },
+  "GSE2990": {
+   "os_fields": [],
+   "n": 189,
+   "qualifies": false,
+   "note": "RFS/DMFS only"
+  }
+ },
+ "gate": ">=2 cohorts with native OS and >=30 deaths",
+ "qualifying": [
+  "GSE7390",
+  "GSE20685"
+ ],
+ "outcome": "POSITIVE - gate met; OS-endpoint question proceeds under a NEW designated-cohort prereg"
+}
