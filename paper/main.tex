@@ -313,6 +313,30 @@ test fails the same zero-fold rule. Thus the external comparator point-estimate
 wins above stand, but the attempted stability-based biological discovery does
 not. Full fold values and technical audit outputs are in the repository.
 
+\paragraph{Strict sign-only rerun (new dated preregistration).}
+The earlier failure could reflect over-strict per-gene bootstrap intervals,
+but lowering a selection threshold after seeing a failed test would make the
+new result self-serving. The unexecuted September 27 rerun draft also said
+``4 of 5 training cohorts'' despite only four being available after holding
+one out. We recorded this inconsistency and the previously inspected gene
+eligibility counts before a new dated preregistration
+(\texttt{docs/PREREG\_STABILITY\_RERUN\_STRICT\_20260928.md}). The
+replacement kept the strict interpretation: a gene's METABRIC coefficient
+sign must agree in \emph{all four} training cohorts; the looser three-of-four
+reading was not used. The original full-panel scores reproduced exactly.
+Five held-out folds then selected 23, 20, 19, 18 and 19 genes, respectively,
+so every fold cleared the predeclared minimum of three. Relative to the full
+panel, held-out C-index differences were $-0.0132$, $-0.0181$, $-0.0168$,
+$+0.0013$ and $+0.0195$ in cohort order GSE7390, GSE11121, GSE2990,
+GSE20685 and GSE25066. The mean difference is $-0.00547$; a 2,000-draw
+paired patient bootstrap gives 95\% CI $[-0.02581,+0.01382]$ (zero skipped).
+The interval crosses zero. The locked two-sided statistical gate thus fails,
+and this weaker sign-only panel does not establish transport stability. It
+also does not repair the original zero-gene CI-based failure. Both tests are
+retained as distinct, honestly negative records rather than treating this
+rerun as independent validation. Details are in
+\texttt{results/transport\_stability\_rerun\_strict.json}.
+
 \subsection{Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}
 A fully locked prospective holdout was attempted exactly as preregistered
 (frozen coefficients, eligibility excluding every training and benchmark
