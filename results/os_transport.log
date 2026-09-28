@@ -1,0 +1,48 @@
+GSE7390: n=198 events=56 genes_mapped=63/70
+GSE7390 {
+ "endpoint": "native OS (t.os / e.os; days (as stored))",
+ "n": 198,
+ "deaths": 56,
+ "genes_mapped": 63,
+ "c_index_frozen": 0.6246491763270287,
+ "c_index_frozen_comparator_cases": 0.6265760197775031,
+ "bootstrap_B1000_seed0_ci95": [
+  0.5513394175241693,
+  0.6947412266496074
+ ],
+ "comparator": {
+  "covariates": [
+   "age",
+   "size",
+   "grade",
+   "er"
+  ],
+  "n": 196,
+  "c_index_in_sample": 0.6378244746600742
+ },
+ "rule_met": false
+}
+GSE20685: n=327 events=83 genes_mapped=69/70
+GSE20685 {
+ "endpoint": "native OS (follow_up_duration (years) / event_death; years (as stored))",
+ "n": 327,
+ "deaths": 83,
+ "genes_mapped": 69,
+ "c_index_frozen": 0.6065822544695784,
+ "c_index_frozen_comparator_cases": 0.606534700691629,
+ "bootstrap_B1000_seed0_ci95": [
+  0.5450001837118529,
+  0.6611460854953799
+ ],
+ "comparator": {
+  "covariates": [
+   "age at diagnosis",
+   "t_stage",
+   "n_stage"
+  ],
+  "n": 325,
+  "c_index_in_sample": 0.7066777963272121
+ },
+ "rule_met": false
+}
+SUPPORTED: False

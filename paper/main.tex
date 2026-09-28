@@ -499,6 +499,45 @@ under locked preregistrations, and the frozen METABRIC fit - not any
 externally retrained variant - is the finding of this item.
 \par}
 
+
+\subsection{Overall-survival endpoint transport: above-chance signal, below clinical comparators}
+{\sloppy
+Item 5's remaining direction asked whether the frozen panel transports to an
+overall-survival endpoint rather than a recurrence endpoint. A locked
+scouting preregistration (docs/PREREG\_OS\_ENDPOINT\_SCOUTING\_20260928.md,
+committed before any cohort inspection) classified the external panel by
+native fields: GSE7390 (198 systemically untreated node-negative patients,
+native t.os/e.os fields, 56 deaths) and GSE20685 (327 patients, native
+event-death and follow-up fields, 83 deaths) cleared the locked 30-death
+minimum; GSE11121 and GSE2990 carry no overall-survival field. A
+designated-cohort preregistration (docs/PREREG\_OS\_TRANSPORT\_20260928.md),
+fetch log (docs/OS\_TRANSPORT\_FETCH\_LOG\_20260928.md) and locked
+evaluation script were committed before any outcome, mirroring the GSE17705
+rule: SUPPORTED only if the frozen score's bootstrap interval excludes 0.5
+and the score exceeds an in-cohort clinical-only comparator in both
+cohorts. Outcome, reported as measured (results/os\_transport.json): the
+frozen score orders overall survival above chance in both untouched
+cohorts - GSE7390 C-index 0.6246 with seed-0 B=1000 95\% interval
+[0.5513, 0.6947], GSE20685 0.6066 [0.5450, 0.6611] - but does not exceed
+the clinical-only comparators (0.6378 on age, size, grade and ER in
+GSE7390; 0.7067 on age, T-stage and N-stage in GSE20685). The locked
+both-cohorts rule therefore returns NOT SUPPORTED. Gene mapping was 63/70
+on GPL96 and 69/70 on GPL570; a Brier score was not computed (no baseline
+hazard). The above-chance ordering on two cohorts the model never saw is
+the positive half of the result; the comparator clause is the binding half.
+\par}
+
+\subsection{Item 5 closure: fresh-cohort transport exhaustion}
+The transport question has now been tested under locked preregistrations in
+two independent inclusion directions and failed both: the fresh-cohort
+recurrence-direction test (GSE17705 native DRFS, outcome commit 206c16e)
+and the overall-survival direction (GSE7390 and GSE20685, outcome commit
+ccdee7b); the exploratory DFS reading on GSE21653 was separately a narrow
+negative. A third direction would re-tune an already-failed claim and was
+rejected. Item 5 is closed by documented exhaustion: the frozen METABRIC
+fit, with its modest and endpoint-specific external reach, stands as the
+finding of this item.
+
 \subsection{Same-patient public-signature proxy audit: uncertain differences}
 A direct comparison against commercially reported MammaPrint and Oncotype DX
 scores is unavailable: METABRIC provides public expression z-scores rather
@@ -546,7 +585,7 @@ in \texttt{results/signature\_proxy.json}; public genefu source code is at
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
 regime: across eight controlled comparisons (deep Cox, GBT survival,
 multimodal methylation/mutation/CNA integration, engineered features), no
-alternative exceeded it, and several were significantly worse. The transport experiments sharpen that verdict: the same frozen coefficients have higher point estimates than indirect signature comparators in some cohorts and lower estimates than a continuous GGI and nodal stage in others. These are not direct same-patient comparisons with marketed MammaPrint or Oncotype DX scores, nor do endpoint-mismatched cohorts establish a pooled win. On the untouched native-DRFS cohort GSE17705 the frozen panel beats neither chance nor a nodal-only comparator (0.509 [0.437, 0.578] versus 0.618) - the sharpest external boundary in this paper. External replication, not internal cross-validation, is the honest
+alternative exceeded it, and several were significantly worse. The transport experiments sharpen that verdict: the same frozen coefficients have higher point estimates than indirect signature comparators in some cohorts and lower estimates than a continuous GGI and nodal stage in others. These are not direct same-patient comparisons with marketed MammaPrint or Oncotype DX scores, nor do endpoint-mismatched cohorts establish a pooled win. On the untouched native-DRFS cohort GSE17705 the frozen panel beats neither chance nor a nodal-only comparator (0.509 [0.437, 0.578] versus 0.618) - the sharpest external boundary in this paper. On the overall-survival endpoint the frozen score orders patients above chance in two further untouched cohorts (GSE7390 0.625 [0.551, 0.695]; GSE20685 0.607 [0.545, 0.661]) yet falls below in-cohort clinical-only comparators in both - a second independent locked direction in which transport fails, closing the fresh-cohort transport question by documented exhaustion. External replication, not internal cross-validation, is the honest
 arbiter of a prognostic claim; failed discovery arms remain documented, with their consequences summarized
 here rather than presented as positive findings. Limitations: the panel is expression-only,
 cohorts differ in treatment era and endpoint definition, and the
