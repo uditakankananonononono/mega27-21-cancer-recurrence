@@ -1,0 +1,5 @@
+METABRIC expr-only Cox fit: n 1975 genes 70
+integrity gate passed: frozen record reproduced
+HARM-DMFS joint 0.6421 frozen 0.6355 delta 0.0066 [-0.0245, 0.0358] measured negative
+HARM-RFS joint 0.5525 frozen 0.6055 delta -0.053 [-0.0933, -0.0102] measured negative
+wrote results/joint_training.json

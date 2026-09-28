@@ -24,17 +24,18 @@
 \contentsline {subsection}{\numberline {4.6}Locked prospective holdout attempt on an unused cohort: execution invalid for the locked claim, DFS analysis retained as exploratory}{10}{}%
 \contentsline {subsection}{\numberline {4.7}Locked prospective transport test on an untouched native-DRFS cohort (GSE17705): plain negative}{10}{}%
 \contentsline {subsection}{\numberline {4.8}Leave-cohort-out retraining: the frozen fit is load-bearing}{11}{}%
-\contentsline {subsection}{\numberline {4.9}Same-patient public-signature proxy audit: uncertain differences}{11}{}%
-\contentsline {subsection}{\numberline {4.10}Reproducibility audit of the internal benchmark}{12}{}%
-\contentsline {subsection}{\numberline {4.11}External cohort accounting and comparator limits}{13}{}%
-\contentsline {subsection}{\numberline {4.12}Absolute-risk transfer audit}{13}{}%
-\contentsline {subsection}{\numberline {4.13}Grouped calibration diagnostics for comparable endpoints}{14}{}%
-\contentsline {subsection}{\numberline {4.14}Leave-one-cohort-out stability falsification}{14}{}%
-\contentsline {subsection}{\numberline {4.15}Biology-versus-measurement boundary}{15}{}%
-\contentsline {subsection}{\numberline {4.16}Fitted-model coefficient audit (bounded gene-level readout)}{15}{}%
-\contentsline {subsection}{\numberline {4.17}Five-year Brier score and decision-curve audit}{15}{}%
-\contentsline {subsection}{\numberline {4.18}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{16}{}%
-\contentsline {subsection}{\numberline {4.19}Gene-family-blocked cross-validation of the 70-gene panel}{17}{}%
-\contentsline {subsection}{\numberline {4.20}Patient-level endpoint harmonization before pooling}{17}{}%
-\contentsline {section}{\numberline {5}Discussion}{18}{}%
-\contentsline {section}{\numberline {6}Reproducibility}{18}{}%
+\contentsline {subsection}{\numberline {4.9}Cohort-stratified joint training: no gain over the frozen panel}{11}{}%
+\contentsline {subsection}{\numberline {4.10}Same-patient public-signature proxy audit: uncertain differences}{12}{}%
+\contentsline {subsection}{\numberline {4.11}Reproducibility audit of the internal benchmark}{12}{}%
+\contentsline {subsection}{\numberline {4.12}External cohort accounting and comparator limits}{13}{}%
+\contentsline {subsection}{\numberline {4.13}Absolute-risk transfer audit}{14}{}%
+\contentsline {subsection}{\numberline {4.14}Grouped calibration diagnostics for comparable endpoints}{14}{}%
+\contentsline {subsection}{\numberline {4.15}Leave-one-cohort-out stability falsification}{15}{}%
+\contentsline {subsection}{\numberline {4.16}Biology-versus-measurement boundary}{15}{}%
+\contentsline {subsection}{\numberline {4.17}Fitted-model coefficient audit (bounded gene-level readout)}{15}{}%
+\contentsline {subsection}{\numberline {4.18}Five-year Brier score and decision-curve audit}{16}{}%
+\contentsline {subsection}{\numberline {4.19}Competing-risks descriptive check (cause-specific, not Fine--Gray)}{17}{}%
+\contentsline {subsection}{\numberline {4.20}Gene-family-blocked cross-validation of the 70-gene panel}{17}{}%
+\contentsline {subsection}{\numberline {4.21}Patient-level endpoint harmonization before pooling}{18}{}%
+\contentsline {section}{\numberline {5}Discussion}{19}{}%
+\contentsline {section}{\numberline {6}Reproducibility}{20}{}%

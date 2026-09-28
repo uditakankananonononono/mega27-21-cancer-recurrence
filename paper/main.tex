@@ -465,6 +465,35 @@ pooled 0.617 and 0.648. Read together with the GSE17705 negative: the panel's
 transport value lives in the frozen METABRIC fit, is modest, and does not
 survive retraining on external data.
 
+\subsection{Cohort-stratified joint training: no gain over the frozen panel}
+The LOCO test leaves a cohort out entirely; the opposite inclusion question
+is whether training jointly - every training fold containing patients from
+every cohort in the stratum - beats the frozen panel on held-out patients.
+Under a new dated preregistration
+(docs/PREREG\_JOINT\_TRAINING\_20260928.md, committed before any joint
+fit; the loading path is byte-identical to the committed LOCO record and its
+integrity gate again reproduced the frozen per-cohort numbers to four
+decimals), one fixed 5-fold partition stratified by cohort and event
+(seed 20260928) was fit per stratum with the same penalized Cox (0.05,
+expression-only), and every patient received exactly one out-of-fold score.
+The audit delivered a complete two-stratum table with zero skipped bootstrap
+replicates (results/joint\_training.json). The outcome is a measured
+negative for the joint-training question. In the primary HARM-DMFS stratum
+(n=1,412, 342 events) the pooled out-of-fold C-index is 0.6421 jointly
+trained versus 0.6355 frozen, delta $+0.0066$ with paired-bootstrap 95\% CI
+$[-0.0245,+0.0358]$: the interval includes zero, so no gain is established.
+In the secondary HARM-RFS stratum (n=692, 241 events) joint training is
+significantly WORSE: 0.5525 versus 0.6055, delta $-0.0530$
+$[-0.0933,-0.0102]$, with the GSE2990 arm at $-0.0855$ $[-0.1609,-0.0200]$.
+Per-cohort descriptive deltas split around zero in HARM-DMFS (from $-0.061$
+on GSE11121 to $+0.026$ on GSE20685) and are uniformly negative in HARM-RFS.
+Coefficient sign agreement across the five joint folds is partial (40 of 69
+and 36 of 69 genes fit in all folds, descriptive only). Joint training sees
+every cohort during training, so even a positive would not have spoken to
+new-cohort transport; as measured, the frozen METABRIC fit remains the only
+serviceable form of the panel, now under two independent locked-method
+failures (leave-cohort-out and joint training).
+
 \subsection{Same-patient public-signature proxy audit: uncertain differences}
 A direct comparison against commercially reported MammaPrint and Oncotype DX
 scores is unavailable: METABRIC provides public expression z-scores rather
