@@ -1,0 +1,234 @@
+{
+ "prereg": "docs/PREREG_LOCO_RETRAINING_20260928.md",
+ "integrity": "frozen per-cohort record reproduced to 4 decimals before any LOCO fit",
+ "per_cohort": [
+  {
+   "cohort": "GSE2990",
+   "stratum": "HARM-RFS",
+   "n": 187,
+   "events": 67,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE7390",
+    "GSE20685"
+   ],
+   "train_n": 505,
+   "train_events": 174,
+   "c_loco": 0.5812,
+   "c_loco_ci95": [
+    0.508,
+    0.6583
+   ],
+   "c_frozen": 0.6559,
+   "delta": -0.0747,
+   "delta_ci95": [
+    -0.172,
+    0.0256
+   ]
+  },
+  {
+   "cohort": "GSE7390",
+   "stratum": "HARM-RFS",
+   "n": 198,
+   "events": 91,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE20685"
+   ],
+   "train_n": 494,
+   "train_events": 150,
+   "c_loco": 0.5263,
+   "c_loco_ci95": [
+    0.4632,
+    0.5912
+   ],
+   "c_frozen": 0.5997,
+   "delta": -0.0734,
+   "delta_ci95": [
+    -0.1328,
+    -0.0081
+   ]
+  },
+  {
+   "cohort": "GSE20685",
+   "stratum": "HARM-RFS",
+   "n": 307,
+   "events": 83,
+   "genes_mapped_heldout": 69,
+   "genes_fit": 63,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE7390"
+   ],
+   "train_n": 385,
+   "train_events": 158,
+   "c_loco": 0.5353,
+   "c_loco_ci95": [
+    0.4649,
+    0.6019
+   ],
+   "c_frozen": 0.6033,
+   "delta": -0.0679,
+   "delta_ci95": [
+    -0.131,
+    -0.0043
+   ]
+  },
+  {
+   "cohort": "GSE2990",
+   "stratum": "HARM-DMFS",
+   "n": 179,
+   "events": 40,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE7390",
+    "GSE11121",
+    "GSE20685",
+    "GSE25066"
+   ],
+   "train_n": 1233,
+   "train_events": 302,
+   "c_loco": 0.6382,
+   "c_loco_ci95": [
+    0.5542,
+    0.709
+   ],
+   "c_frozen": 0.6648,
+   "delta": -0.0266,
+   "delta_ci95": [
+    -0.0951,
+    0.0413
+   ]
+  },
+  {
+   "cohort": "GSE7390",
+   "stratum": "HARM-DMFS",
+   "n": 198,
+   "events": 62,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE11121",
+    "GSE20685",
+    "GSE25066"
+   ],
+   "train_n": 1214,
+   "train_events": 280,
+   "c_loco": 0.6116,
+   "c_loco_ci95": [
+    0.5376,
+    0.6828
+   ],
+   "c_frozen": 0.6352,
+   "delta": -0.0235,
+   "delta_ci95": [
+    -0.0788,
+    0.0284
+   ]
+  },
+  {
+   "cohort": "GSE11121",
+   "stratum": "HARM-DMFS",
+   "n": 200,
+   "events": 46,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE7390",
+    "GSE20685",
+    "GSE25066"
+   ],
+   "train_n": 1212,
+   "train_events": 296,
+   "c_loco": 0.5871,
+   "c_loco_ci95": [
+    0.4857,
+    0.6766
+   ],
+   "c_frozen": 0.6979,
+   "delta": -0.1109,
+   "delta_ci95": [
+    -0.1946,
+    -0.0289
+   ]
+  },
+  {
+   "cohort": "GSE20685",
+   "stratum": "HARM-DMFS",
+   "n": 327,
+   "events": 83,
+   "genes_mapped_heldout": 69,
+   "genes_fit": 63,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE7390",
+    "GSE11121",
+    "GSE25066"
+   ],
+   "train_n": 1085,
+   "train_events": 259,
+   "c_loco": 0.6317,
+   "c_loco_ci95": [
+    0.5662,
+    0.6971
+   ],
+   "c_frozen": 0.627,
+   "delta": 0.0047,
+   "delta_ci95": [
+    -0.0501,
+    0.0562
+   ]
+  },
+  {
+   "cohort": "GSE25066",
+   "stratum": "HARM-DMFS",
+   "n": 508,
+   "events": 111,
+   "genes_mapped_heldout": 63,
+   "genes_fit": 69,
+   "train_cohorts": [
+    "GSE2990",
+    "GSE7390",
+    "GSE11121",
+    "GSE20685"
+   ],
+   "train_n": 904,
+   "train_events": 231,
+   "c_loco": 0.5621,
+   "c_loco_ci95": [
+    0.5076,
+    0.615
+   ],
+   "c_frozen": 0.64,
+   "delta": -0.0779,
+   "delta_ci95": [
+    -0.1309,
+    -0.0261
+   ]
+  }
+ ],
+ "pooled_loco_point": {
+  "HARM-RFS": {
+   "pooled_loco_c_index": 0.5451,
+   "ci95": [
+    0.5072,
+    0.5842
+   ],
+   "definition": "n-weighted mean of per-cohort LOCO C-index; cohort-stratified patient bootstrap (500, same rng stream); descriptive, no gate"
+  },
+  "HARM-DMFS": {
+   "pooled_loco_c_index": 0.5983,
+   "ci95": [
+    0.5657,
+    0.6307
+   ],
+   "definition": "n-weighted mean of per-cohort LOCO C-index; cohort-stratified patient bootstrap (500, same rng stream); descriptive, no gate"
+  }
+ }
+}

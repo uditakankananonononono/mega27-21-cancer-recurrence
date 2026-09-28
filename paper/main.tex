@@ -375,6 +375,31 @@ feature carried no information (imputed flat) while nodal status alone
 separates patients at 0.62, and the panel adds nothing on top of chance.
 \par}
 
+\subsection{Leave-cohort-out retraining: the frozen fit is load-bearing}
+The masked-coefficient stability test above never refits the model; the
+verdict's remaining question was whether full retraining per held-out cohort
+changes the transport picture. Under a new dated preregistration
+(docs/PREREG\_LOCO\_RETRAINING\_20260928.md; script and integrity gate
+committed before any outcome, the gate reproducing the committed frozen
+record to four decimals), each harmonized cohort was held out in turn, the
+panel was refit (penalized Cox 0.05, expression-only) on the stratum's
+remaining cohorts, and the retrained model was scored on the held-out cohort.
+The locked rule declares a stratum retraining-stable only if every cohort's
+paired-bootstrap delta against the committed frozen number includes zero
+(results/loco\_retraining.json). Neither stratum is stable. In HARM-RFS,
+retraining costs 0.073 of held-out concordance on GSE7390 (95\% CI
+[-0.133, -0.008]) and 0.068 on GSE20685 ([-0.131, -0.004]); the GSE2990 delta
+[-0.172, 0.026] includes zero. In HARM-DMFS the significant losses are 0.111
+on GSE11121 ([-0.195, -0.029]) and 0.078 on GSE25066 ([-0.131, -0.026]); the
+other three cohorts' intervals include zero. Seven of eight point deltas are
+negative and none significantly favors retraining: the panel's external
+discrimination is not recoverable from the external cohorts themselves, and
+the single METABRIC fit carries it. Pooled descriptively, leave-cohort-out
+transport lands at 0.545 (HARM-RFS) and 0.598 (HARM-DMFS) against the frozen
+pooled 0.617 and 0.648. Read together with the GSE17705 negative: the panel's
+transport value lives in the frozen METABRIC fit, is modest, and does not
+survive retraining on external data.
+
 \input{audit_tables}
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
