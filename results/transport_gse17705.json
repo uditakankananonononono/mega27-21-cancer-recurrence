@@ -1,0 +1,57 @@
+{
+ "cohort": "GSE17705",
+ "platform": "GPL96",
+ "endpoint": "DRFS (native fields 'distant relapse (1=dr, 0 censored)' / 'event time (years)')",
+ "n_samples_matrix": 298,
+ "n_endpoint": 298,
+ "n_events": 71,
+ "genes_mapped": 63,
+ "set_from_series_records": [
+  "ER_STATUS=Positive=1.0 (all ER+)",
+  "HORMONE_THERAPY=YES=1.0 (uniform tamoxifen 5y)"
+ ],
+ "imputed_to_training_mean": [
+  "AGE_AT_DIAGNOSIS",
+  "GRADE",
+  "TUMOR_SIZE",
+  "NPI",
+  "PR_STATUS=Positive",
+  "HER2_STATUS=Positive",
+  "CLAUDIN_SUBTYPE dummies (6)",
+  "CHEMOTHERAPY=YES",
+  "RADIO_THERAPY=YES",
+  "LYMPH_NODES_EXAMINED_POSITIVE"
+ ],
+ "c_index_frozen": 0.5093590088876919,
+ "bootstrap_B1000_seed0_ci95": [
+  0.43746476757066904,
+  0.5781201560294413
+ ],
+ "calibration_slope": 0.03919099045227302,
+ "calibration_slope_ci": [
+  -0.4079501088993781,
+  0.4863320898039242
+ ],
+ "comparator": {
+  "covariates": [
+   "binary nodal status"
+  ],
+  "n": 287,
+  "c_index_in_sample": 0.6175960078108049
+ },
+ "per_profiling_lab_descriptive": {
+  "JBI": {
+   "n": 103,
+   "events": 18,
+   "c_index": 0.5395787944807553
+  },
+  "MDA": {
+   "n": 195,
+   "events": 53,
+   "c_index": 0.49509153621650304
+  }
+ },
+ "brier": "NOT COMPUTED - frozen model carries no baseline hazard (declared conditional in prereg)",
+ "decision_rule": "supported if CI excludes 0.5 AND point estimate > clinical-only comparator",
+ "transport_supported": false
+}

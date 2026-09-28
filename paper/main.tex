@@ -338,16 +338,49 @@ clause. The discrimination interval and the comparator clause pull in
 opposite directions, so the honest exploratory reading is a narrow negative,
 not a refutation of signal: the score orders patients better than chance on
 a cohort it never saw, but no better than three routine clinical variables.
-Transport on a native preregistered recurrence endpoint remains untested on
-an unused cohort and requires a new dated preregistration before any outcome. A Brier score was not computed because the frozen model carries no
-baseline hazard; absolute-risk calibration remains open.
+A Brier score was not computed because the frozen model carries no
+baseline hazard; absolute-risk calibration remains open. The required native-endpoint
+test on an unused cohort, under a new dated preregistration, is the next subsection.
+
+\subsection{Locked prospective transport test on an untouched native-DRFS cohort (GSE17705): plain negative}
+{\sloppy
+The required new dated preregistration
+(docs/ PREREG\_\allowbreak TRANSPORT\_\allowbreak GSE\allowbreak 17705\_\allowbreak 2026\allowbreak 0928.md) was committed before any
+fetch or scoring, locking the candidate order, the native-endpoint requirement
+(RFS/DRFS/DMFS; DFS-only cohorts ineligible), the frozen model, and the
+decision rule. GSE17705 (GPL96, 298 ER-positive primary tumors, uniformly
+tamoxifen-treated for five years) declares distant-relapse-free survival in
+its own sample records (distant-relapse event with event time in years; 71
+events, follow-up 0.50-16.27 years) and was designated as the first
+qualifying cohort; 63 of 70 panel genes mapped from the GPL96 annotation,
+above the locked 60-gene minimum. Two series-level recorded fields were set,
+not imputed (ER-positive status and the hormone-therapy flag, both true for
+every patient); the clinical features absent from the cohort - age, grade,
+tumor size, NPI, PR, HER2, subtype, chemotherapy and radiotherapy flags, and
+the positive-node count, which the cohort's binary nodal field cannot
+honestly replace - were set to training means, as declared in the locked
+evaluation script. Outcome, reported as measured: the frozen model scores
+C-index 0.5094 with a seed-0 bootstrap (B=1000) 95\% interval
+[0.4375, 0.5781] that includes 0.5, and the locked clinical-only comparator
+(binary nodal status, the only prognostic clinical field the cohort records;
+n=287) reaches 0.6176 in-sample. Both clauses of the decision rule fail: the
+interval does not exclude chance, and the point estimate falls far below one
+routine clinical variable. The calibration slope is 0.039 [-0.408, 0.486],
+flat. The per-profiling-lab breakdown (descriptive, no gate) is 0.540 (JBI,
+n=103, 18 events) versus 0.495 (MDA, n=195, 53 events). A Brier score was not
+computed (no baseline hazard in the frozen model). Transport of the frozen
+panel to an untouched, treatment-homogeneous ER-positive cohort on its native
+DRFS endpoint is therefore NOT SUPPORTED: on this cohort the panel's nodal
+feature carried no information (imputed flat) while nodal status alone
+separates patients at 0.62, and the panel adds nothing on top of chance.
+\par}
 
 \input{audit_tables}
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
 regime: across eight controlled comparisons (deep Cox, GBT survival,
 multimodal methylation/mutation/CNA integration, engineered features), no
-alternative exceeded it, and several were significantly worse. The transport experiments sharpen that verdict: the same frozen coefficients have higher point estimates than indirect signature comparators in some cohorts and lower estimates than a continuous GGI and nodal stage in others. These are not direct same-patient comparisons with marketed MammaPrint or Oncotype DX scores, nor do endpoint-mismatched cohorts establish a pooled win. External replication, not internal cross-validation, is the honest
+alternative exceeded it, and several were significantly worse. The transport experiments sharpen that verdict: the same frozen coefficients have higher point estimates than indirect signature comparators in some cohorts and lower estimates than a continuous GGI and nodal stage in others. These are not direct same-patient comparisons with marketed MammaPrint or Oncotype DX scores, nor do endpoint-mismatched cohorts establish a pooled win. On the untouched native-DRFS cohort GSE17705 the frozen panel beats neither chance nor a nodal-only comparator (0.509 [0.437, 0.578] versus 0.618) - the sharpest external boundary in this paper. External replication, not internal cross-validation, is the honest
 arbiter of a prognostic claim; failed discovery arms remain documented, with their consequences summarized
 here rather than presented as positive findings. Limitations: the panel is expression-only,
 cohorts differ in treatment era and endpoint definition, and the
