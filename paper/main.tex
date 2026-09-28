@@ -400,6 +400,48 @@ pooled 0.617 and 0.648. Read together with the GSE17705 negative: the panel's
 transport value lives in the frozen METABRIC fit, is modest, and does not
 survive retraining on external data.
 
+\subsection{Same-patient public-signature proxy audit: uncertain differences}
+A direct comparison against commercially reported MammaPrint and Oncotype DX
+scores is unavailable: METABRIC provides public expression z-scores rather
+than assay-specific measurements or validated commercial outputs. We instead
+specified two public-formula \emph{proxies} before scoring a fixed METABRIC RFS split (dated protocol in the project repository).
+The matrix has 20,603 transcript rows and 1,980 samples;
+1,975 RFS-eligible patients had complete required signature genes. We held
+out 395 patients (160 events) after a stratified 1,580-person training split.
+The 70-gene expression-only Cox comparator was fitted on training patients
+(penalizer 0.05), not copied from a different test set. Every score below
+uses the \emph{same} held-out patients and RFS endpoint.
+
+The first proxy implements the published genefu Oncotype-like formula on 16
+cancer genes, with the five reference genes omitted as in that public code;
+its per-gene 0--15 scaling uses only training-patient minima and maxima and
+clips held-out values. It is not the commercial 21-gene recurrence score.
+The second takes negative Spearman correlation with genefu's average
+``good-prognosis'' MammaPrint-like centroid. Fourteen of its 70 published
+probe rows lack an Entrez ID; 56 mapped rows collapse to 52 unique genes,
+so this is an \emph{incomplete} centroid, not a MammaPrint risk call.
+\begin{center}
+\begin{tabular}{lc}
+Held-out score & C-index (95\% bootstrap CI)\\
+\hline
+Cox-70 expression only & $0.6130\ [0.5720,0.6555]$\\
+Oncotype-like formula proxy & $0.6218\ [0.5777,0.6635]$\\
+Incomplete MammaPrint-like proxy & $0.6325\ [0.5883,0.6752]$\\
+\end{tabular}
+\end{center}
+The two differences from Cox are $+0.0088$ and $+0.0195$, respectively.
+Their paired 95\% CIs are $[-0.0338,+0.0495]$ and $[-0.0282,+0.0621]$.
+The paired CIs use 1,000 patient-bootstrap draws (seed 20260928; no
+degenerate draws). Both differences include zero. The Cox value here is
+from a new single split, not the five-seed clinical-plus-expression benchmark
+of the primary question. This test supports neither proxy superiority nor a
+claim about marketed tests. It also does not fix transport: one METABRIC RFS
+split, assay/platform mismatch, reference-gene omission, incomplete centroid
+coverage, and treatment/endpoint differences from the commercial signatures
+remain. Reproducible matrix hash, template coverage, split IDs and scores are
+in \texttt{results/signature\_proxy.json}; public genefu source code is at
+\texttt{github.com/bhklab/genefu} (gene70 and oncotypedx).
+
 \input{audit_tables}
 \section{Discussion}
 A penalized linear Cox model on a 70-gene panel is the ceiling in this data
