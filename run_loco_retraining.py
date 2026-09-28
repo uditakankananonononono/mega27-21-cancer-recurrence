@@ -12,7 +12,7 @@ external cohorts (docs/PREREG_LOCO_RETRAINING_20260928.md). Frozen protocol:
 - delta_C = LOCO - committed frozen C-index; paired patient bootstrap B=1000,
   one rng stream seeded 0, cohorts in the fixed prereg order.
 Numbers only; the verdict mapping lives in the queue and the paper."""
-import json, sys
+import json, sys, gzip, glob
 import numpy as np, pandas as pd
 sys.path.insert(0, "src")
 import GEOparse  # download-only fetch of missing caches (no in-memory parse)
