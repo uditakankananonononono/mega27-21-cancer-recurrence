@@ -1,0 +1,2 @@
+# EXT-058 recovery note (2026-10-09)
+The original EXT-058 commits were never pushed and the local workspace was lost. The PREREG and run_ext058.py here were recovered verbatim from the author's own transcript of the original heredocs (same text). Data were re-fetched from cBioPortal brca_metabric; all 5 file SHA256 match the original manifest recorded in the transcript. The run below is a fresh rerun; original numbers (X1 +0.011, X3 Her2 0.591/Normal 0.565, X5 0.029, X7 +0.0013) are prior-run context only. Gates are not re-fit; any difference is reported as is.
