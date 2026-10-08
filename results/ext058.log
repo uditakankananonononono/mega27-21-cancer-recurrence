@@ -1,0 +1,28 @@
+base 0.6672
+X1 0 0.6672448647601361 0.6806171426900286
+X1 1 0.666420521219078 0.6772667619566369
+X1 2 0.6728370578064053 0.6804453282934444
+X4 {'n': 1543, 'events': 444, 'C': 0.648}
+X5 {'apparent_C': 0.7087, 'mean_optimism': 0.0293, 'corrected_C': 0.6794, 'n_boot_ok': 200}
+X6 {'age': {'C_without': 0.6687, 'delta': 0.0015}, 'size': {'C_without': 0.6632, 'delta': -0.004}, 'grade': {'C_without': 0.6673, 'delta': 0.0001}, 'nodes': {'C_without': 0.6566, 'delta': -0.0106}, 'NPI': {'C_without': 0.6655, 'delta': -0.0017}, 'ER_PR_HER2': {'C_without': 0.6689, 'delta': 0.0017}, 'subtype': {'C_without': 0.6681, 'delta': 0.0009}, 'treatment': {'C_without': 0.6631, 'delta': -0.0041}}
+X7 {'n_mut_features': 6, 'delta_C_per_repeat': [0.0016, 0.0015, 0.0007], 'mean_delta': 0.0013}
+X8 {'n': 1832, 'events5y': 492, 'marginal_coverage': 0.9003, 'mean_set_size': 1.398, 'subgroup_coverage': {'ER+': {'n': 1397, 'cov': 0.895}, 'ER-': {'n': 438, 'cov': 0.918}, np.str_('Basal'): {'n': 197, 'cov': 0.914}, np.str_('Her2'): {'n': 212, 'cov': 0.92}, np.str_('LumA'): {'n': 655, 'cov': 0.882}, np.str_('LumB'): {'n': 447, 'cov': 0.919}, np.str_('NA'): {'n': 6, 'cov': 0.833}, np.str_('Normal'): {'n': 126, 'cov': 0.841}, np.str_('claudin-low'): {'n': 192, 'cov': 0.922}}, 'max_subgroup_deviation': 0.059}
+X9 {'C_median_all': 0.6672, 'C_iterative_all': 0.6676, 'n_complete_case': 1812, 'C_completecase_model': 0.6748, 'C_median_model_on_cc_rows': 0.6666}
+X10 {'worst_violator': 'ER_STATUS=Positive', 'p': 0.005773651300703197, 'C_stratified_oof': 0.6708, 'note': 'partial hazards from a stratified model are not comparable across strata; C is indicative only', 'C_base': 0.6672}
+{
+ "n": 1975,
+ "events": 800,
+ "base_oof_C": 0.6672,
+ "X1": {
+  "cox": [
+   0.6672,
+   0.6664,
+   0.6728
+  ],
+  "rsf": [
+   0.6806,
+   0.6773,
+   0.6804
+  ],
+  "mean_cox": 0.6688,
+  "mean_rsf": 0.6794

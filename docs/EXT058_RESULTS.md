@@ -1,0 +1,5 @@
+
+## Audit (2026-10-09): recovery and rerun
+The original commits were never pushed and the local copy was lost. PREREG and run_ext058.py were recovered verbatim from the author's transcript (docs/EXT058_RECOVERY_NOTE.md), data re-fetched with SHA256 identical to the original manifest, recovered files committed before the rerun, gates not re-fit.
+Rerun results match the original on every gate: base C 0.6672; X1 RSF 0.6794 vs Cox 0.6688 (+0.0106, MET, margin 0.0006 over the 0.01 bar, so thin); X2 same strata Cs (0.647/0.657/0.682) MET; X3 Her2 0.591 and Normal 0.565 NOT met; X4 0.648 MET; X5 optimism 0.0293 NOT met (corrected 0.679); X7 +0.0013 NOT met; X8 coverage 0.900 MET, max subgroup deviation 0.059; X9 MET; X10 worst violator ER status p 0.0058, none pass Bonferroni.
+Caveat: all results use the same seeds as the original, so agreement shows reproducibility, not independent confirmation. The earlier numbers in the original report were not independently archived; this rerun is now the record. Verdicts unchanged: 5 of 8 gated directions met (X1,X2,X4,X8,X9), 3 not met (X3,X5,X7); X6 and X10 descriptive.

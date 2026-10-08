@@ -1,0 +1,230 @@
+{
+ "n": 1975,
+ "events": 800,
+ "base_oof_C": 0.6672,
+ "X1": {
+  "cox": [
+   0.6672,
+   0.6664,
+   0.6728
+  ],
+  "rsf": [
+   0.6806,
+   0.6773,
+   0.6804
+  ],
+  "mean_cox": 0.6688,
+  "mean_rsf": 0.6794,
+  "gate_rsf_ge_cox_plus_0_01": true
+ },
+ "X2": {
+  "<=50": {
+   "n": 423,
+   "events": 195,
+   "C": 0.6473
+  },
+  "51-65": {
+   "n": 733,
+   "events": 288,
+   "C": 0.6573
+  },
+  ">65": {
+   "n": 819,
+   "events": 317,
+   "C": 0.6819
+  }
+ },
+ "X2_gate_min_stratum_ge_overall_minus_0.05": true,
+ "X3": {
+  "Basal": {
+   "n": 208,
+   "events": 92,
+   "C": 0.6216,
+   "gated": true
+  },
+  "Her2": {
+   "n": 224,
+   "events": 116,
+   "C": 0.5908,
+   "gated": true
+  },
+  "LumA": {
+   "n": 698,
+   "events": 230,
+   "C": 0.6471,
+   "gated": true
+  },
+  "LumB": {
+   "n": 475,
+   "events": 227,
+   "C": 0.6501,
+   "gated": true
+  },
+  "Normal": {
+   "n": 147,
+   "events": 64,
+   "C": 0.5652,
+   "gated": true
+  },
+  "claudin-low": {
+   "n": 217,
+   "events": 68,
+   "C": 0.6809,
+   "gated": true
+  }
+ },
+ "X3_gate": false,
+ "X4": {
+  "n": 1543,
+  "events": 444,
+  "C": 0.648
+ },
+ "X4_gate_C_ge_0.60": true,
+ "X5": {
+  "apparent_C": 0.7087,
+  "mean_optimism": 0.0293,
+  "corrected_C": 0.6794,
+  "n_boot_ok": 200
+ },
+ "X5_gate_optimism_le_0.02": false,
+ "X6": {
+  "age": {
+   "C_without": 0.6687,
+   "delta": 0.0015
+  },
+  "size": {
+   "C_without": 0.6632,
+   "delta": -0.004
+  },
+  "grade": {
+   "C_without": 0.6673,
+   "delta": 0.0001
+  },
+  "nodes": {
+   "C_without": 0.6566,
+   "delta": -0.0106
+  },
+  "NPI": {
+   "C_without": 0.6655,
+   "delta": -0.0017
+  },
+  "ER_PR_HER2": {
+   "C_without": 0.6689,
+   "delta": 0.0017
+  },
+  "subtype": {
+   "C_without": 0.6681,
+   "delta": 0.0009
+  },
+  "treatment": {
+   "C_without": 0.6631,
+   "delta": -0.0041
+  }
+ },
+ "X7_genes": [
+  "AKT1",
+  "CDH1",
+  "GATA3",
+  "PIK3CA",
+  "PTEN",
+  "TP53"
+ ],
+ "X7": {
+  "n_mut_features": 6,
+  "delta_C_per_repeat": [
+   0.0016,
+   0.0015,
+   0.0007
+  ],
+  "mean_delta": 0.0013
+ },
+ "X7_gate_mean_delta_ge_0.005": false,
+ "X8": {
+  "n": 1832,
+  "events5y": 492,
+  "marginal_coverage": 0.9003,
+  "mean_set_size": 1.398,
+  "subgroup_coverage": {
+   "ER+": {
+    "n": 1397,
+    "cov": 0.895
+   },
+   "ER-": {
+    "n": 438,
+    "cov": 0.918
+   },
+   "Basal": {
+    "n": 197,
+    "cov": 0.914
+   },
+   "Her2": {
+    "n": 212,
+    "cov": 0.92
+   },
+   "LumA": {
+    "n": 655,
+    "cov": 0.882
+   },
+   "LumB": {
+    "n": 447,
+    "cov": 0.919
+   },
+   "NA": {
+    "n": 6,
+    "cov": 0.833
+   },
+   "Normal": {
+    "n": 126,
+    "cov": 0.841
+   },
+   "claudin-low": {
+    "n": 192,
+    "cov": 0.922
+   }
+  },
+  "max_subgroup_deviation": 0.059
+ },
+ "X8_gate_marginal_in_0.87_0.93": true,
+ "X9_missing_fraction": {
+  "age": 0.0,
+  "size": 0.0127,
+  "grade": 0.0441,
+  "nodes": 0.038,
+  "NPI": 0.0
+ },
+ "X9": {
+  "C_median_all": 0.6672,
+  "C_iterative_all": 0.6676,
+  "n_complete_case": 1812,
+  "C_completecase_model": 0.6748,
+  "C_median_model_on_cc_rows": 0.6666
+ },
+ "X9_gate_imputation_change_le_0.01": true,
+ "X10_ph_p": {
+  "AGE_AT_DIAGNOSIS": 0.6390518569796853,
+  "CHEMOTHERAPY=YES": 0.891503075049842,
+  "CLAUDIN_SUBTYPE=Basal": 0.006462928844568212,
+  "CLAUDIN_SUBTYPE=Her2": 0.5878716196266676,
+  "CLAUDIN_SUBTYPE=LumA": 0.2440805225972142,
+  "CLAUDIN_SUBTYPE=LumB": 0.8415165918959739,
+  "CLAUDIN_SUBTYPE=Normal": 0.6639318290342466,
+  "CLAUDIN_SUBTYPE=claudin-low": 0.7657506917487248,
+  "ER_STATUS=Positive": 0.005773651300703197,
+  "GRADE": 0.573847881671881,
+  "HER2_STATUS=Positive": 0.47778951304050654,
+  "HORMONE_THERAPY=YES": 0.008158616161987188,
+  "LYMPH_NODES_EXAMINED_POSITIVE": 0.5991301798830574,
+  "NPI": 0.21398014206259722,
+  "PR_STATUS=Positive": 0.014625830015269261,
+  "RADIO_THERAPY=YES": 0.145156602211276,
+  "TUMOR_SIZE": 0.5905146750665633
+ },
+ "X10_violators_bonferroni_0.05_over_17": [],
+ "X10": {
+  "worst_violator": "ER_STATUS=Positive",
+  "p": 0.005773651300703197,
+  "C_stratified_oof": 0.6708,
+  "note": "partial hazards from a stratified model are not comparable across strata; C is indicative only",
+  "C_base": 0.6672
+ }
+}
